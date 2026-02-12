@@ -7,6 +7,7 @@ interface HeroPanelProps {
   title: string;
   description: string;
   imageUrl: string;
+  videoUrl?: string;
   serviceId?: string | null;
 }
 
@@ -25,6 +26,7 @@ export default function HeroPanel({
   title,
   description,
   imageUrl,
+  videoUrl,
   serviceId,
 }: HeroPanelProps) {
   const router = useRouter();
@@ -138,9 +140,9 @@ export default function HeroPanel({
         </button>
       </div>
 
-      {/* Right - 이미지: Figma 675×400px r=24 (58% 비율) */}
+      {/* Right - 이미지 또는 비디오: Figma 675×400px r=24 (58% 비율) */}
       <div
-        className="overflow-hidden"
+        className="overflow-hidden bg-black"
         style={{
           flex: "0 0 58%",
           maxWidth: "675px",
@@ -148,15 +150,27 @@ export default function HeroPanel({
           borderRadius: "24px",
         }}
       >
-        <Image
-          src={imageUrl}
-          alt={title}
-          width={675}
-          height={400}
-          className="w-full h-full object-cover"
-          style={{ width: "100%", height: "100%" }}
-          priority
-        />
+        {videoUrl ? (
+          <video
+            src={videoUrl}
+            autoPlay
+            loop
+            muted
+            playsInline
+            className="w-full h-full object-cover"
+            style={{ width: "100%", height: "100%" }}
+          />
+        ) : (
+          <Image
+            src={imageUrl}
+            alt={title}
+            width={675}
+            height={400}
+            className="w-full h-full object-cover"
+            style={{ width: "100%", height: "100%" }}
+            priority
+          />
+        )}
       </div>
     </div>
   );

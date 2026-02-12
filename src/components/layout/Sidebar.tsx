@@ -9,14 +9,12 @@ function SidebarFrameButton({
   imageHeight,
   alt,
   href,
-  videoSrc,
 }: {
-  imageSrc?: string;
+  imageSrc: string;
   imageWidth: number;
   imageHeight: number;
   alt: string;
   href?: string;
-  videoSrc?: string;
 }) {
   const content = (
     <span
@@ -28,45 +26,23 @@ function SidebarFrameButton({
         overflow: "visible",
       }}
     >
-      {videoSrc ? (
-        <video
-          src={videoSrc}
-          autoPlay
-          loop
-          muted
-          playsInline
-          style={{
-            position: "absolute",
-            left: "50%",
-            top: "50%",
-            transform: "translate(-50%, -50%)",
-            width: `${imageWidth}px`,
-            height: `${imageHeight}px`,
-            maxWidth: "none",
-            maxHeight: "none",
-            pointerEvents: "none",
-            objectFit: "contain",
-          }}
-        />
-      ) : imageSrc ? (
-        <Image
-          src={imageSrc}
-          alt={alt}
-          width={imageWidth}
-          height={imageHeight}
-          style={{
-            position: "absolute",
-            left: "50%",
-            top: "50%",
-            transform: "translate(-50%, -50%)",
-            width: `${imageWidth}px`,
-            height: `${imageHeight}px`,
-            maxWidth: "none",
-            maxHeight: "none",
-            pointerEvents: "none",
-          }}
-        />
-      ) : null}
+      <Image
+        src={imageSrc}
+        alt={alt}
+        width={imageWidth}
+        height={imageHeight}
+        style={{
+          position: "absolute",
+          left: "50%",
+          top: "50%",
+          transform: "translate(-50%, -50%)",
+          width: `${imageWidth}px`,
+          height: `${imageHeight}px`,
+          maxWidth: "none",
+          maxHeight: "none",
+          pointerEvents: "none",
+        }}
+      />
     </span>
   );
 
@@ -105,7 +81,7 @@ function LogoBtn() {
   return (
     <SidebarFrameButton
       href="/"
-      videoSrc="https://pub-797907feee5143c4a0f4f34c25916ee8.r2.dev/oprimed_movie/KakaoTalk_20260212_213739053.mp4"
+      imageSrc="/assets/figma/home/sidebar-logo-button.png"
       imageWidth={52}
       imageHeight={52}
       alt="OPTIVIS"

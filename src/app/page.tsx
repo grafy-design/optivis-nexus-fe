@@ -29,6 +29,7 @@ interface RightPanelContent {
   title: string;
   description: string;
   imageUrl: string;
+  videoUrl?: string; // 영상 URL 필드 추가
 }
 
 const packages: Package[] = [
@@ -94,6 +95,7 @@ const serviceContentMap: Record<string, RightPanelContent> = {
     description:
       "Generates optimal clinical trial design strategies through repeated simulations across diverse trial design conditions.",
     imageUrl: "/assets/main/adaptive-trial.png",
+    videoUrl: "https://pub-797907feee5143c4a0f4f34c25916ee8.r2.dev/oprimed_movie/KakaoTalk_20260212_213739053.mp4",
   },
   "5": {
     title: "Target Subgroup\nIdentification",
@@ -210,6 +212,7 @@ export default function HomePage() {
                 title={rightPanelContent.title}
                 description={rightPanelContent.description}
                 imageUrl={rightPanelContent.imageUrl}
+                videoUrl={rightPanelContent.videoUrl}
                 serviceId={selectedServiceId}
               />
               <div style={{ display: "flex", flexDirection: "column", gap: "16px", flex: 1, minHeight: 0 }}>
