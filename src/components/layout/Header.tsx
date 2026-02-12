@@ -33,13 +33,13 @@ function LiquidGlassBtn({
       className={className}
       style={{
         display: "inline-flex",
-        alignItems: "center",
-        justifyContent: "center",
-        gap: "4px",
+        alignItems: "center",    /* 수직 가운데 정렬 */
+        justifyContent: "center", /* 수평 가운데 정렬 */
+        gap: "5px",               /* 아이콘과 글자 사이의 간격 */
         width: `${width}px`,
-        height: "42px",
-        paddingLeft: "46px",
-        paddingRight: "46px",
+        height: "60px",
+        paddingLeft: "20px",      /* 내부 왼쪽 여백 */
+        paddingRight: "20px",     /* 내부 오른쪽 여백 */
         borderRadius: "32px",
         border: "none",
         background: "transparent",
@@ -47,21 +47,29 @@ function LiquidGlassBtn({
         flexShrink: 0,
         transition: "opacity 0.15s ease",
       }}
-      onMouseEnter={e => (e.currentTarget.style.opacity = "0.85")}
-      onMouseLeave={e => (e.currentTarget.style.opacity = "1")}
-      onMouseDown={e => (e.currentTarget.style.opacity = "0.70")}
-      onMouseUp={e => (e.currentTarget.style.opacity = "1")}
+      onMouseEnter={(e) => (e.currentTarget.style.opacity = "0.85")}
+      onMouseLeave={(e) => (e.currentTarget.style.opacity = "1")}
+      onMouseDown={(e) => (e.currentTarget.style.opacity = "0.70")}
+      onMouseUp={(e) => (e.currentTarget.style.opacity = "1")}
     >
       {iconSrc && (
-        <span style={{ display: "flex", alignItems: "center", flexShrink: 0 }}>
+        <span
+          style={{
+            display: "flex",
+            alignItems: "center",
+            flexShrink: 0,
+            position: "relative", /* 아이콘 위치 미세 조정을 위해 상대 위치 설정 */
+            top: "-2px",           /* 아이콘 세로 위치 보정: 위(-값), 아래(+값) */
+          }}
+        >
           <Image
             src={iconSrc}
             alt=""
             width={40}
             height={40}
             style={{
-              width: variant === "template" ? "19.25px" : "15.75px",
-              height: variant === "template" ? "19.25px" : "15.75px",
+              width: variant === "template" ? "24px" : "22px",
+              height: variant === "template" ? "24px" : "22px",
               objectFit: "contain",
             }}
           />
@@ -70,12 +78,14 @@ function LiquidGlassBtn({
       <span
         style={{
           fontFamily: "Inter",
-          fontSize: "14.875px",
-          fontWeight: 400,
-          lineHeight: "15.619px",
-          letterSpacing: "-0.446px",
+          fontSize: "16px",
+          fontWeight: 500,
+          lineHeight: "22px",
+          letterSpacing: "-0.535px",
           color: "#0D063C",
           whiteSpace: "nowrap",
+          position: "relative", /* 위치 미세 조정을 위해 상대 위치 설정 */
+          top: "-2px",           /* 글자 세로 위치 보정: 위(-값), 아래(+값) */
         }}
       >
         {children}
@@ -95,19 +105,19 @@ function HelpBtn() {
         display: "inline-flex",
         alignItems: "center",
         justifyContent: "center",
-        width: "42px",
-        height: "42px",
-        borderRadius: "16px",
+        width: "60px",
+        height: "60px",
+        borderRadius: "18px",
         border: "none",
         background: "transparent",
         cursor: "pointer",
         flexShrink: 0,
         transition: "opacity 0.15s ease",
       }}
-      onMouseEnter={e => (e.currentTarget.style.opacity = "0.85")}
-      onMouseLeave={e => (e.currentTarget.style.opacity = "1")}
-      onMouseDown={e => (e.currentTarget.style.opacity = "0.70")}
-      onMouseUp={e => (e.currentTarget.style.opacity = "1")}
+      onMouseEnter={(e) => (e.currentTarget.style.opacity = "0.85")}
+      onMouseLeave={(e) => (e.currentTarget.style.opacity = "1")}
+      onMouseDown={(e) => (e.currentTarget.style.opacity = "0.70")}
+      onMouseUp={(e) => (e.currentTarget.style.opacity = "1")}
     />
   );
 }
@@ -116,14 +126,9 @@ export const Header = () => {
   return (
     /*
      * Figma: Header 90px, bg #E7E5E7
-     * padding: 좌우 14px, 상하 24px
+     * padding: 좌우 28px (메인 카드와 정렬)
      * 로고: Poppins 600 32px
-     * 버튼 그룹: gap 10.5px
-     */
-    /*
-     * Figma: Header fills=[] (투명 → 메인 프레임 bg #E7E5E7 그대로 보임)
-     * height: 90px, padding 좌우 14px
-     * position: sticky top-0 z-90
+     * 버튼 그룹: gap 14px
      */
     <header
       style={{
@@ -132,13 +137,12 @@ export const Header = () => {
         zIndex: 90,
         width: "100%",
         height: "90px",
-        /* Figma에서 header fills 없음 → 메인 bg 색과 동일하게 */
         backgroundColor: "#E7E5E7",
         display: "flex",
         alignItems: "center",
         justifyContent: "space-between",
-        paddingLeft: "14px",
-        paddingRight: "14px",
+        paddingLeft: "28px",
+        paddingRight: "28px",
         flexShrink: 0,
       }}
     >
@@ -158,34 +162,34 @@ export const Header = () => {
         OPTIVIS Nexus
       </h1>
 
-      {/* 오른쪽: 버튼 3개, gap 10.5px */}
+      {/* 오른쪽: 버튼 3개, gap 14px */}
       <div
         style={{
           display: "flex",
           alignItems: "center",
-          gap: "10.5px",
+          gap: "14px",
           flexShrink: 0,
         }}
       >
-        {/* Data template: 154×42px */}
+        {/* Data template: 194×54px */}
         <LiquidGlassBtn
-          width={154}
+          width={170}
           variant="template"
           iconSrc="/assets/figma/home/header-download-icon.png"
         >
           Data template
         </LiquidGlassBtn>
 
-        {/* Data setting: 140×42px */}
+        {/* Data setting: 174×54px */}
         <LiquidGlassBtn
-          width={140}
+          width={170}
           variant="setting"
           iconSrc="/assets/figma/home/header-setting-icon.png"
         >
           Data setting
         </LiquidGlassBtn>
 
-        {/* ? 버튼: 42×42px */}
+        {/* ? 버튼: 54×54px */}
         <HelpBtn />
       </div>
     </header>

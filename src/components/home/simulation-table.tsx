@@ -42,7 +42,7 @@ export default function SimulationTable({ serviceId }: SimulationTableProps) {
   return (
     <div
       className="flex flex-col w-full"
-      style={{ gap: "12px" }}
+      style={{ gap: "12px", flex: 1, minHeight: 0 }}
     >
       {/* Table Header: Figma 1396×41px bg #000 r=24, padding 24px 좌우 12px 상하 */}
       <div

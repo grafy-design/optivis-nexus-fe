@@ -73,7 +73,7 @@ const packages: Package[] = [
           "Supports early trial design by identifying target subgroups and simulating different scenarios. Helps sponsors reduce sample size, optimize power, and refine study strategies.",
         icon: "/assets/icons/drug-response.svg",
         selectedIcon: "/assets/icons/drug-response-selected.svg",
-        variant: "purple" as const,
+        variant: "glass" as const,
       },
     ],
   },

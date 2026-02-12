@@ -145,6 +145,9 @@ export function RightPanel({
     isNegative?: boolean;
     formatter?: (value: number, label?: string) => string;
   } | null>(null);
+  const reductionCharts = Array.isArray(simulationData?.reductionView?.charts)
+    ? simulationData.reductionView.charts
+    : [];
 
   const handleFullscreenClick = (
     chartType: "smallerSample" | "smallerNToScreen" | "lowerCost"
@@ -250,17 +253,18 @@ export function RightPanel({
   );
 
   return (
-    <div className="w-[1375px] flex-shrink-0">
+    <div className="w-full h-full min-h-0">
       <div
-        className="relative rounded-[36px] overflow-hidden w-[1375px] h-[880px]"
+        className="relative w-full h-full min-h-[880px] flex flex-col overflow-visible"
         style={{
-          backgroundImage: "url(/assets/main/card-bg-large2.png)",
-          backgroundSize: "1375px 880px",
-          backgroundPosition: "0 0",
-          backgroundRepeat: "no-repeat",
+          borderImage:
+            'url("/assets/figma/home/frame-panel-middle.png") 72 fill / 36px / 0 stretch',
+          borderStyle: "solid",
+          borderWidth: "30px",
+          borderColor: "transparent",
         }}
       >
-        <div className="flex flex-col w-full h-full p-[12px]">
+        <div className="flex flex-col w-full h-full p-0">
           {/* Top Section - Tab Bar and Legend */}
           <div className="flex items-center justify-between flex-shrink-0 mb-3 px-[12px]">
             {/* Tab Bar */}
@@ -312,7 +316,7 @@ export function RightPanel({
           {/* Main Content Area */}
           <div className="flex-1 flex gap-4 min-h-0 mt-auto">
             {/* Left Area - Smaller Sample, Smaller N to screen, Lower cost */}
-            <div className="w-[889px] flex-shrink-0 flex flex-col gap-4">
+            <div className="flex-1 min-w-0 flex flex-col gap-4">
               {activeTab === "compare" ? (
                 /* Smaller Sample Card - Compare View */
                 <div
@@ -410,7 +414,7 @@ export function RightPanel({
                   </div>
                 </div>
               ) : /* Sample Size & Power Card - Reduction View */
-              isApplied && simulationData?.reductionView?.charts ? (
+              isApplied && reductionCharts.length > 0 ? (
                 <div
                   className="rounded-[18px] overflow-hidden flex-1 min-h-0"
                   style={{
@@ -482,14 +486,13 @@ export function RightPanel({
                     >
                       <div className="grid grid-cols-2 gap-4 h-full p-4">
                         {/* Sample Size Section */}
-                        {simulationData.reductionView.charts.find(
+                        {reductionCharts.find(
                           (c) => c.label === "Sample Size"
                         ) &&
                           (() => {
-                            const chart =
-                              simulationData.reductionView.charts.find(
-                                (c) => c.label === "Sample Size"
-                              )!;
+                            const chart = reductionCharts.find(
+                              (c) => c.label === "Sample Size"
+                            )!;
                             return (
                               <div className="flex flex-col gap-2">
                                 <div className="flex items-start justify-between">
@@ -562,14 +565,13 @@ export function RightPanel({
                             );
                           })()}
                         {/* Power Section */}
-                        {simulationData.reductionView.charts.find(
+                        {reductionCharts.find(
                           (c) => c.label === "Power"
                         ) &&
                           (() => {
-                            const chart =
-                              simulationData.reductionView.charts.find(
-                                (c) => c.label === "Power"
-                              )!;
+                            const chart = reductionCharts.find(
+                              (c) => c.label === "Power"
+                            )!;
                             return (
                               <div className="flex flex-col gap-2">
                                 <div className="flex items-start justify-between">
@@ -651,7 +653,7 @@ export function RightPanel({
               <div className="flex gap-4 h-[276px]">
                 {/* Smaller N to screen Card */}
                 <div
-                  className="w-[436.5px] flex-shrink-0 rounded-[24px] overflow-hidden"
+                  className="flex-1 min-w-0 rounded-[24px] overflow-hidden"
                   style={{
                     backgroundColor: "rgba(255, 255, 255, 0.6)",
                   }}
@@ -697,12 +699,11 @@ export function RightPanel({
                             </button>
                           )}
                         </>
-                      ) : isApplied && simulationData?.reductionView?.charts ? (
+                      ) : isApplied && reductionCharts.length > 0 ? (
                         (() => {
-                          const chart =
-                            simulationData.reductionView.charts.find(
-                              (c) => c.label === "Enrollment Time"
-                            );
+                          const chart = reductionCharts.find(
+                            (c) => c.label === "Enrollment Time"
+                          );
                           return chart ? (
                             <>
                               <div className="flex flex-col gap-1">
@@ -722,10 +723,9 @@ export function RightPanel({
                               {isApplied && (
                                 <button
                                   onClick={() => {
-                                    const chart =
-                                      simulationData?.reductionView?.charts?.find(
-                                        (c) => c.label === "Enrollment Time"
-                                      );
+                                    const chart = reductionCharts.find(
+                                      (c) => c.label === "Enrollment Time"
+                                    );
                                     if (chart) {
                                       handleBarChartFullscreenClick(
                                         chart.label,
@@ -767,12 +767,11 @@ export function RightPanel({
                             )}
                           />
                         ) : null
-                      ) : isApplied && simulationData?.reductionView?.charts ? (
+                      ) : isApplied && reductionCharts.length > 0 ? (
                         (() => {
-                          const chart =
-                            simulationData.reductionView.charts.find(
-                              (c) => c.label === "Enrollment Time"
-                            );
+                          const chart = reductionCharts.find(
+                            (c) => c.label === "Enrollment Time"
+                          );
                           return chart ? (
                             <div className="grid grid-cols-2 gap-2 h-full p-2">
                               {/* Enrollment Time - OPTIVIS */}
@@ -813,7 +812,7 @@ export function RightPanel({
 
                 {/* Lower cost Card */}
                 <div
-                  className="w-[436.5px] flex-shrink-0 rounded-[24px] overflow-hidden"
+                  className="flex-1 min-w-0 rounded-[24px] overflow-hidden"
                   style={{
                     backgroundColor: "rgba(255, 255, 255, 0.6)",
                   }}
@@ -857,12 +856,11 @@ export function RightPanel({
                             </button>
                           )}
                         </>
-                      ) : isApplied && simulationData?.reductionView?.charts ? (
+                      ) : isApplied && reductionCharts.length > 0 ? (
                         (() => {
-                          const chart =
-                            simulationData.reductionView.charts.find(
-                              (c) => c.label === "Cost"
-                            );
+                          const chart = reductionCharts.find(
+                            (c) => c.label === "Cost"
+                          );
                           return chart ? (
                             <>
                               <div className="flex flex-col gap-1">
@@ -882,10 +880,9 @@ export function RightPanel({
                               {isApplied && (
                                 <button
                                   onClick={() => {
-                                    const chart =
-                                      simulationData?.reductionView?.charts?.find(
-                                        (c) => c.label === "Cost"
-                                      );
+                                    const chart = reductionCharts.find(
+                                      (c) => c.label === "Cost"
+                                    );
                                     if (chart) {
                                       handleBarChartFullscreenClick(
                                         chart.label,
@@ -926,12 +923,11 @@ export function RightPanel({
                             )}
                           />
                         ) : null
-                      ) : isApplied && simulationData?.reductionView?.charts ? (
+                      ) : isApplied && reductionCharts.length > 0 ? (
                         (() => {
-                          const chart =
-                            simulationData.reductionView.charts.find(
-                              (c) => c.label === "Cost"
-                            );
+                          const chart = reductionCharts.find(
+                            (c) => c.label === "Cost"
+                          );
                           return chart ? (
                             <div className="grid grid-cols-2 gap-2 h-full p-2">
                               {/* Cost - OPTIVIS */}
@@ -975,7 +971,7 @@ export function RightPanel({
             </div>
 
             {/* Right Area - OPTIVIS NEXUS vs Traditional Design, Reduction View */}
-            <div className="w-[446px] flex-shrink-0 flex flex-col gap-4">
+            <div className="w-[min(34%,460px)] max-[1536px]:w-full flex-shrink-0 flex flex-col gap-4">
               {/* OPTIVIS NEXUS vs Traditional Design Card */}
               <div className="bg-white rounded-[24px] flex flex-col flex-1">
                 {/* Title */}
@@ -1290,7 +1286,7 @@ export function RightPanel({
                   {activeTab === "compare" ? (
                     isApplied ? (
                       <div className="grid grid-cols-2 gap-2 h-full">
-                        {simulationData?.reductionView?.charts?.map(
+                        {reductionCharts.map(
                           (chart, index) => (
                             <div key={index} className="flex flex-col gap-2 ">
                               <div className="flex items-start justify-between">

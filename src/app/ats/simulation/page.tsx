@@ -740,45 +740,49 @@ export default function SimulationPage() {
             </p>
           </div>
 
-          <div className="flex gap-4 w-full flex-1 min-h-0">
-            <LeftPanel
-              sampleSizeControl={sampleSizeControl}
-              setSampleSizeControl={setSampleSizeControl}
-              disease={disease}
-              setDisease={setDisease}
-              primaryEndpoints={primaryEndpoints}
-              setPrimaryEndpoints={setPrimaryEndpoints}
-              secondaryEndpoints={secondaryEndpoints}
-              setSecondaryEndpoints={setSecondaryEndpoints}
-              nominalPower={nominalPower}
-              setNominalPower={setNominalPower}
-              alpha={alpha}
-              multiplicity={multiplicity}
-              treatmentDuration={treatmentDuration}
-              setTreatmentDuration={setTreatmentDuration}
-              hypothesisType={hypothesisType}
-              setHypothesisType={setHypothesisType}
-              treatmentArms={treatmentArms}
-              setTreatmentArms={setTreatmentArms}
-              randomizationRatio={randomizationRatio}
-              setRandomizationRatio={setRandomizationRatio}
-              subpopulation={subpopulation}
-              setSubpopulation={setSubpopulation}
-              activeData={activeData}
-              setActiveData={setActiveData}
-              onApply={handleApplySettings}
-              isLoading={isLoading}
-              onSaveEndpoints={handleSaveEndpoints}
-            />
-            <RightPanel
-              activeTab={activeTab}
-              setActiveTab={setActiveTab}
-              isApplied={isApplied}
-              simulationData={simulationData}
-              chartDataToUse={chartDataToUse}
-              getHighlightXValue={getHighlightXValue}
-              apiData={apiData}
-            />
+          <div className="ats-simulation-layout flex gap-[7px] w-full flex-1 min-h-0 max-[1536px]:flex-col">
+            <div className="ats-left-panel flex-[22] min-w-[280px] min-h-0 max-[1536px]:flex-none max-[1536px]:w-full">
+              <LeftPanel
+                sampleSizeControl={sampleSizeControl}
+                setSampleSizeControl={setSampleSizeControl}
+                disease={disease}
+                setDisease={setDisease}
+                primaryEndpoints={primaryEndpoints}
+                setPrimaryEndpoints={setPrimaryEndpoints}
+                secondaryEndpoints={secondaryEndpoints}
+                setSecondaryEndpoints={setSecondaryEndpoints}
+                nominalPower={nominalPower}
+                setNominalPower={setNominalPower}
+                alpha={alpha}
+                multiplicity={multiplicity}
+                treatmentDuration={treatmentDuration}
+                setTreatmentDuration={setTreatmentDuration}
+                hypothesisType={hypothesisType}
+                setHypothesisType={setHypothesisType}
+                treatmentArms={treatmentArms}
+                setTreatmentArms={setTreatmentArms}
+                randomizationRatio={randomizationRatio}
+                setRandomizationRatio={setRandomizationRatio}
+                subpopulation={subpopulation}
+                setSubpopulation={setSubpopulation}
+                activeData={activeData}
+                setActiveData={setActiveData}
+                onApply={handleApplySettings}
+                isLoading={isLoading}
+                onSaveEndpoints={handleSaveEndpoints}
+              />
+            </div>
+            <div className="ats-right-panel flex-[78] min-w-0 min-h-0 max-[1536px]:flex-none max-[1536px]:w-full">
+              <RightPanel
+                activeTab={activeTab}
+                setActiveTab={setActiveTab}
+                isApplied={isApplied}
+                simulationData={simulationData}
+                chartDataToUse={chartDataToUse}
+                getHighlightXValue={getHighlightXValue}
+                apiData={apiData}
+              />
+            </div>
           </div>
         </div>
       </AppLayout>

@@ -220,3 +220,35 @@ AppLayout (overflow-x-auto, overflow-y-auto)
 4. **환경 변수**: `.env.deploy` 참조. API_BASE_URL 기본값은 `https://nexus.oprimed.com`.
 
 5. **테스트 없음**: 현재 테스트 프레임워크 미설정. 필요 시 Jest/Vitest 추가 검토.
+
+---
+
+## AI ASSISTANT SETTINGS
+
+### 자동 적용 스킬 (Auto-Load Skills)
+
+사용자가 다음 키워드를 언급하면 **자동으로 해당 스킬을 로드**하여 작업:
+
+| 키워드/패턴 | 자동 로드 스킬 | 적용 대상 |
+|------------|---------------|----------|
+| "버셀스킬", "vercel 스킬", "Vercel 기준" | `vercel-react-best-practices` | React/Next.js 코드 작성/리뷰 |
+| "버셀스킬의 능력치까지 다 동원해서" | `vercel-react-best-practices` + 관련 카테고리 | 성능 최적화 중심 개발 |
+
+### vercel-react-best-practices 스킬 적용 시
+
+1. **57개 규칙 자동 적용**: Waterfall 제거, Bundle 최적화, Server 성능, Re-render 최적화 등
+2. **우선순위 기반 개선**: CRITICAL → HIGH → MEDIUM → LOW 순으로 개선
+3. **코드 생성 시**: 성능 최적화 패턴을 기본으로 적용
+4. **코드 리뷰 시**: 위반 항목을 찾아 개선안 제시
+
+### 예시 요청 패턴
+
+```
+"버셀스킬의 능력치까지 다 동원해서 작성해줘"
+→ vercel-react-best-practices 스킬 자동 로드
+→ React/Next.js 성능 최적화 기준으로 코드 생성
+
+"이 컴포넌트 Vercel 기준으로 리팩터링해줘"
+→ vercel-react-best-practices 스킬 자동 로드  
+→ 57개 규칙으로 코드 검토 및 개선
+```

@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import Image from "next/image";
 
 interface FeatureCardProps {
@@ -37,6 +38,7 @@ export default function FeatureCard({
   onClick,
   sectionType = "package",
 }: FeatureCardProps) {
+  const [isHovered, setIsHovered] = useState(false);
   const isPackage = sectionType === "package";
 
   // 카드 배경색
@@ -54,44 +56,65 @@ export default function FeatureCard({
       // Figma: Fill white, Glass Effect black r=24
       cardBg = "linear-gradient(180deg, rgba(255,255,255,0.95) 0%, rgba(248,248,248,0.90) 100%)";
       cardBorder = "1px solid rgba(255,255,255,0.8)";
-      cardShadow = "0 2px 12px rgba(0,0,0,0.06), inset 0 1px 0 rgba(255,255,255,0.9)";
+      cardShadow = isHovered 
+        ? "0 10px 20px rgba(0,0,0,0.08), inset 0 1px 0 rgba(255,255,255,1)" 
+        : "0 2px 12px rgba(0,0,0,0.06), inset 0 1px 0 rgba(255,255,255,0.9)";
     }
   } else {
-    if (variant === "purple") {
-      // Figma: Drug Response - Fill #C5C6EF, Glass Effect #C5C6EF r=24
-      cardBg = isSelected
-        ? "linear-gradient(180deg, #C5C6EF 0%, #B8B9E8 100%)"
-        : "linear-gradient(180deg, rgba(197,198,239,0.9) 0%, rgba(197,198,239,0.85) 100%)";
-      cardBorder = isSelected ? "1px solid rgba(255,255,255,0.5)" : "1px solid rgba(197,198,239,0.6)";
-      cardShadow = "0 2px 12px rgba(0,0,0,0.08)";
+    if (isSelected || isHovered) {
+      // Service card selected/hovered: lavender glass background
+      cardBg = "linear-gradient(180deg, rgba(232,230,255,0.8) 0%, rgba(220,218,255,0.75) 100%)";
+      cardBorder = "1px solid rgba(100,88,220,0.4)";
+      cardShadow = "0 2px 12px rgba(100,88,220,0.12), inset 0 1px 0 rgba(255,255,255,0.9)";
     } else {
-      // Figma: Fill white, Glass Effect black r=24
-      cardBg = isSelected
-        ? "linear-gradient(180deg, rgba(232,230,255,0.8) 0%, rgba(220,218,255,0.75) 100%)"
-        : "linear-gradient(180deg, rgba(255,255,255,0.95) 0%, rgba(248,248,248,0.90) 100%)";
-      cardBorder = isSelected
-        ? "1px solid rgba(100,88,220,0.4)"
-        : "1px solid rgba(255,255,255,0.8)";
-      cardShadow = isSelected
-        ? "0 2px 12px rgba(100,88,220,0.12), inset 0 1px 0 rgba(255,255,255,0.9)"
-        : "0 2px 12px rgba(0,0,0,0.06), inset 0 1px 0 rgba(255,255,255,0.9)";
+      // Default: white background
+      cardBg = "linear-gradient(180deg, rgba(255,255,255,0.95) 0%, rgba(248,248,248,0.90) 100%)";
+      cardBorder = "1px solid rgba(255,255,255,0.8)";
+      cardShadow = "0 2px 12px rgba(0,0,0,0.06), inset 0 1px 0 rgba(255,255,255,0.9)";
     }
   }
 
-  // 아이콘 배경색
+  // 아이콘 배경색 및 필터 (검정색 아이콘 효과)
   let iconBg: string;
+  let iconFilter: string = "none";
+
   if (isPackage) {
-    iconBg = isSelected ? "#FFFFFF" : "#5C5891";
+    if (isSelected) {
+      if (selectedIcon) {
+        // 전용 선택 아이콘이 있는 경우 배경을 투명하게 하여 흰색 테두리 방지
+        iconBg = "transparent";
+      } else {
+        iconBg = "#FFFFFF";
+      }
+      iconFilter = "none";
+    } else {
+      iconBg = "transparent"; /* 그레이 배경 제거 */
+      iconFilter = "brightness(0)"; // 아이콘 완전 블랙
+    }
   } else {
-    iconBg = variant === "purple" ? "#222222" : "#5C5891";
+    if (isSelected || isHovered) {
+      if (selectedIcon) {
+        // 이미 디자인된 전용 아이콘이 있는 경우 (예: Adaptive Trial)
+        // 배경을 투명하게 하고 필터를 해제하여 원본 이미지를 그대로 노출 (중복 원 방지)
+        iconBg = "transparent";
+        iconFilter = "none";
+      } else {
+        // 전용 아이콘이 없는 경우 기본 아이콘을 화이트로 변경하여 사용
+        iconBg = "#bdb9e9";
+        iconFilter = "brightness(0) invert(1)";
+      }
+    } else {
+      iconBg = "transparent"; /* 기본 상태 그레이 배경 제거 */
+      iconFilter = "brightness(0)"; // 아이콘 완전 블랙
+    }
   }
 
   // 텍스트 색상
   const titleColor = isPackage && isSelected ? "#FFFFFF" : "#000000";
   const descColor = isPackage && isSelected ? "rgba(255,255,255,0.85)" : "#484646";
 
-  // 아이콘 소스
-  const iconSrc = isSelected && selectedIcon ? selectedIcon : icon;
+  // 아이콘 소스 (호버 시에도 선택된 아이콘 사용하도록 변경, 단 Package는 선택 시에만)
+  const iconSrc = (isSelected || (!isPackage && isHovered)) && selectedIcon ? selectedIcon : icon;
 
   // 카드 padding / gap - Figma 기준
   const cardPad = 24; // 모든 방향 24px
@@ -100,6 +123,8 @@ export default function FeatureCard({
   return (
     <div
       onClick={onClick}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
       className="relative cursor-pointer flex flex-col"
       style={{
         width: "100%",
@@ -107,35 +132,50 @@ export default function FeatureCard({
         flex: 1,
         minHeight: "260px",
         padding: `${cardPad}px`,
-        gap: `${iconTextGap}px`,
         borderRadius: "24px",
         background: cardBg,
         border: cardBorder,
         boxShadow: cardShadow,
         backdropFilter: "blur(12px)",
         WebkitBackdropFilter: "blur(12px)",
-        transition: "all 0.2s ease",
+        transition: "all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1)",
+        transform: isPackage && isHovered && !isSelected ? "translateY(-4px)" : "none",
+        display: "flex",
+        flexDirection: "column",
       }}
     >
-      {/* 아이콘: Figma 54×54px r=32 */}
+      {/* 아이콘: 60x60 원형 프레임 (중간 원 제거를 위해 강제 크롭) */}
       <div
-        className="flex-shrink-0 flex items-center justify-center"
+        className="flex-shrink-0 flex items-center justify-center overflow-hidden"
         style={{
-          width: 54,
-          height: 54,
-          borderRadius: 32,
+          width: 60,
+          height: 60,
+          borderRadius: "50%",
           backgroundColor: iconBg,
           transition: "background-color 0.2s ease",
+          position: "relative",
         }}
       >
         <Image
           src={iconSrc}
           alt={title}
-          width={32}
-          height={32}
-          className="object-contain"
+          width={140}
+          height={140}
+          className="object-cover"
+          style={{
+            filter: iconFilter,
+            transition: "filter 0.2s ease",
+            position: "absolute",
+            top: "50%",
+            left: "50%",
+            /* 줌 효과 제거: 모든 상태에서 일정한 크기 유지 */
+            transform: "translate(-50%, -50%) scale(1)",
+          }}
         />
       </div>
+
+      {/* Spacer to push content to bottom */}
+      <div className="flex-1" />
 
       {/* 텍스트 영역: gap 8px */}
       <div className="flex flex-col" style={{ gap: "8px" }}>
@@ -161,7 +201,7 @@ export default function FeatureCard({
             fontFamily: "Inter",
             fontSize: "15px",
             fontWeight: isPackage && isSelected ? 500 : 400,
-            lineHeight: "22px",
+            lineHeight: "19px",
             letterSpacing: "-0.3px",
             color: descColor,
             margin: 0,

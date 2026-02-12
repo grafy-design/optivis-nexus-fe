@@ -21,10 +21,10 @@ export const MainContainer: React.FC<MainContainerProps> = ({ children }) => {
         minHeight: 0,
         display: "flex",
         flexDirection: "column",
-        paddingLeft: "14px",
-        paddingRight: "14px",
+        paddingLeft: "5px",
+        paddingRight: "5px",
         paddingTop: "0",
-        paddingBottom: "14px",
+        paddingBottom: "5px",
         boxSizing: "border-box",
         overflow: "hidden",
       }}

@@ -364,7 +364,7 @@ export default function ReportPage() {
   return (
     <>
       <AppLayout headerType="ats">
-        <div className="w-full flex flex-col items-center">
+        <div className="w-full h-full min-h-0 overflow-y-auto overflow-x-hidden flex flex-col items-center">
           {/* Top Section - Title */}
           <div className="w-full flex justify-center mb-2 max-w-full">
             <div className="w-[1772px] flex-shrink-0 mx-auto">
@@ -395,15 +395,7 @@ export default function ReportPage() {
           {/* Main Report Card */}
           <div className="w-full flex justify-center mb-2 max-w-full">
             <div className="w-[1772px] p-0 flex-shrink-0">
-              <div
-                className="relative rounded-[36px] overflow-hidden w-[1772px] h-[3704px] px-7 py-6"
-                style={{
-                  backgroundImage: "url(/assets/simulation/report-bg.png)",
-                  backgroundSize: "1772px 3704px",
-                  backgroundPosition: "0 0",
-                  backgroundRepeat: "no-repeat",
-                }}
-              >
+              <div className="figma-nine-slice figma-home-panel-middle relative w-[1772px] h-[3704px] px-7 py-6">
                 <div className="w-full">
                   {/* Trial Design Conditions Summary */}
                   <div id="trial-design-summary" className="mb-[100px]">

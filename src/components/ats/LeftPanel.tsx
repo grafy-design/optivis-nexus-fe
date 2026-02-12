@@ -87,17 +87,18 @@ export function LeftPanel({
   const [isAddEndpointsModalOpen, setIsAddEndpointsModalOpen] = useState(false);
 
   return (
-    <div className="flex flex-col w-full max-w-[380px]">
+    <div className="flex flex-col w-full h-full min-h-0">
       <div
-        className="relative rounded-[18px] overflow-hidden w-full h-[880px] max-w-full flex flex-col"
+        className="relative w-full h-full min-h-0 flex flex-col overflow-visible"
         style={{
-          backgroundImage: "url(/assets/simulation/left-card.png)",
-          backgroundSize: "380px 880px",
-          backgroundPosition: "center",
-          backgroundRepeat: "no-repeat",
+          borderImage:
+            'url("/assets/figma/home/frame-panel-left.png") 72 fill / 36px / 0 stretch',
+          borderStyle: "solid",
+          borderWidth: "30px",
+          borderColor: "transparent",
         }}
       >
-        <div className="flex flex-col w-full h-full p-[12px] min-h-0 gap-4">
+        <div className="flex flex-col w-full h-full p-0 min-h-0 gap-4">
           {/* Sample Size Control */}
           <div
             className="rounded-[18px] p-4 flex-shrink-0"
