@@ -24,7 +24,7 @@ import { SmallerSampleChart } from "@/components/charts/SmallerSampleChart";
 import { SmallerNToScreenChart } from "@/components/charts/SmallerNToScreenChart";
 import { LowerCostChart } from "@/components/charts/LowerCostChart";
 import { FormulaTooltip } from "@/components/math/FormulaTooltip";
-import ReactECharts from "echarts-for-react";
+import ReactECharts from "@/components/charts/DynamicECharts";
 import { Loading } from "@/components/common/Loading";
 import { LeftPanel } from "@/components/ats/LeftPanel";
 import { RightPanel } from "@/components/ats/RightPanel";
