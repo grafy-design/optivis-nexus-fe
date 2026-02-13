@@ -275,9 +275,8 @@ export default function HomePage() {
             display: "flex",
             flexDirection: "column",
             padding: "28px",
-        gap: "16px",
-        borderRadius: "44px",
-        overflow: "hidden",
+            borderRadius: "36px",
+            overflow: "hidden",
           }}
         >
           <div style={{ display: "flex", flexDirection: "column", gap: "21px", flex: 1, overflowY: "auto", minHeight: 0 }}>

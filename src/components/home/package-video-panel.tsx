@@ -15,7 +15,7 @@ export default function PackageVideoPanel({
     <div
       className="relative flex flex-col w-full h-full overflow-hidden"
       style={{
-        borderRadius: "32px", // Matching internal radius of HeroPanel's image/right section approx or just rounding it nicely
+        borderRadius: "24px", // Matching internal radius of HeroPanel's image/right section approx or just rounding it nicely
         backgroundColor: "#000",
       }}
     >
@@ -26,8 +26,8 @@ export default function PackageVideoPanel({
         loop
         muted
         playsInline
-        className="absolute inset-0 w-full h-full object-contain"
-        style={{ width: "100%", height: "100%", objectFit: "contain" }}
+        className="absolute inset-0 w-full h-full object-cover"
+        style={{ width: "100%", height: "100%", objectFit: "cover" }}
       />
 
       {/* Text Overlay */}

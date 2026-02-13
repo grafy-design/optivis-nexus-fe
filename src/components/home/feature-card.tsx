@@ -130,7 +130,7 @@ export default function FeatureCard({
         flex: 1,
         minHeight: "200px",
         padding: `${cardPad}px`,
-        borderRadius: "32px",
+        borderRadius: "24px",
         background: cardBg,
         border: cardBorder,
         boxShadow: cardShadow,

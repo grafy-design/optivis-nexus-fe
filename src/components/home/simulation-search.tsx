@@ -17,7 +17,7 @@ export default function SimulationSearch() {
         width: "min(408px, 100%)",
         height: "48px",
         backgroundColor: "#FFFFFF",
-        borderRadius: "36px",
+        borderRadius: "30px",
         paddingLeft: "24px",
         paddingRight: "24px",
         paddingTop: "12px",
