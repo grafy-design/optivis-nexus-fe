@@ -484,7 +484,7 @@ export function RightPanel({
                       className="mt-auto bg-neutral-95 rounded-[12px]"
                       style={{ height: "66%" }}
                     >
-                      <div className="grid grid-cols-2 gap-4 h-full pt-4 px-4 pb-0">
+                      <div className="grid grid-cols-2 gap-4 h-full pt-4 px-4 pb-4">
                         {/* Sample Size Section */}
                         {reductionCharts.find(
                           (c) => c.label === "Sample Size"
@@ -773,7 +773,7 @@ export function RightPanel({
                             (c) => c.label === "Enrollment Time"
                           );
                           return chart ? (
-                            <div className="grid grid-cols-2 gap-2 h-full pt-2 px-2 pb-0 items-end">
+                            <div className="grid grid-cols-2 gap-2 h-full pt-2 px-2 pb-2 items-end">
                               {/* Enrollment Time - OPTIVIS */}
                               <div className="flex flex-col gap-1">
                                 <div style={{ height: "140px", width: "100%" }}>
@@ -929,7 +929,7 @@ export function RightPanel({
                             (c) => c.label === "Cost"
                           );
                           return chart ? (
-                            <div className="grid grid-cols-2 gap-2 h-full pt-2 px-2 pb-0 items-end">
+                            <div className="grid grid-cols-2 gap-2 h-full pt-2 px-2 pb-2 items-end">
                               {/* Cost - OPTIVIS */}
                               <div className="flex flex-col gap-1">
                                 <div style={{ height: "140px", width: "100%" }}>

@@ -3,14 +3,18 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev --turbopack",
+    "dev": "next dev",
+    "dev:turbo": "next dev --turbopack",
     "build": "next build",
     "start": "next start -p 3003",
     "deploy": "npm run build && npm start",
     "lint": "eslint",
     "audit:fix": "npm audit fix",
     "audit": "npm audit --audit-level=high",
-    "clean-install": "npx rimraf node_modules package-lock.json && npm install"
+    "clean-install": "npx rimraf node_modules package-lock.json && npm install",
+    "tsserver:dupes": "node cleanup-tsserver.mjs",
+    "tsserver:cleanup": "node cleanup-tsserver.mjs --apply",
+    "tsserver:cleanup:ag": "node cleanup-tsserver.mjs --include-antigravity --apply"
   },
   "dependencies": {
     "@playwright/test": "^1.58.2",
