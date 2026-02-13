@@ -29,7 +29,9 @@ export function ComparisonBarChart({
     yAxis: { 
       show: false,
       type: 'value' as const,
-      max: maxValue * 1.2
+      min: 0,
+      max: maxValue * 1.2,
+      boundaryGap: false
     },
     tooltip: { show: false },
     legend: { show: false },
@@ -43,7 +45,7 @@ export function ComparisonBarChart({
           {
             type: 'bar',
             data: [optivisValue],
-            itemStyle: { color: '#f06600', borderRadius: [8, 8, 8, 8] },
+            itemStyle: { color: '#f06600', borderRadius: [8, 8, 0, 0] },
             barWidth: '45%',
             barGap: '10%',
             label: {
@@ -59,7 +61,7 @@ export function ComparisonBarChart({
           {
             type: 'bar',
             data: [traditionalValue],
-            itemStyle: { color: '#231f52', borderRadius: [8, 8, 8, 8] },
+            itemStyle: { color: '#231f52', borderRadius: [8, 8, 0, 0] },
             barWidth: '45%',
             label: {
               show: true,

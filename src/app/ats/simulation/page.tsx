@@ -740,7 +740,7 @@ export default function SimulationPage() {
             </p>
           </div>
 
-          <div className="ats-simulation-layout flex gap-[7px] w-full flex-1 min-h-0 max-[1536px]:flex-col">
+          <div className="ats-simulation-layout flex gap-[2px] w-full flex-1 min-h-0 max-[1536px]:flex-col">
             <div className="ats-left-panel flex-[22] min-w-[280px] min-h-0 max-[1536px]:flex-none max-[1536px]:w-full">
               <LeftPanel
                 sampleSizeControl={sampleSizeControl}

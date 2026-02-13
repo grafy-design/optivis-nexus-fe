@@ -394,7 +394,7 @@ export function RightPanel({
                     </div>
                     {/* Chart Area */}
                     <div
-                      className="mt-auto bg-neutral-95 rounded-[12px] border border-white"
+                      className="mt-auto bg-neutral-95 rounded-[12px]"
                       style={{ height: "66%" }}
                     >
                       {chartDataToUse &&
@@ -423,7 +423,7 @@ export function RightPanel({
                 >
                   <div className="flex flex-col w-full h-full p-4">
                     {/* Card Header */}
-                    <div className="flex flex-col gap-1 mb-4">
+                    <div className="flex flex-col gap-1 mb-4 flex-shrink-0">
                       <h3 className="text-body1m text-neutral-98">
                         Smaller Sample
                       </h3>
@@ -481,10 +481,10 @@ export function RightPanel({
                     </div>
                     {/* Chart Area */}
                     <div
-                      className="mt-auto bg-neutral-95 rounded-[12px] border border-white"
-                      style={{ height: "auto", maxHeight: "280px" }}
+                      className="mt-auto bg-neutral-95 rounded-[12px]"
+                      style={{ height: "66%" }}
                     >
-                      <div className="grid grid-cols-2 gap-4 h-full p-4">
+                      <div className="grid grid-cols-2 gap-4 h-full pt-4 px-4 pb-0">
                         {/* Sample Size Section */}
                         {reductionCharts.find(
                           (c) => c.label === "Sample Size"
@@ -494,7 +494,7 @@ export function RightPanel({
                               (c) => c.label === "Sample Size"
                             )!;
                             return (
-                              <div className="flex flex-col gap-2">
+                              <div className="flex flex-col h-full">
                                 <div className="flex items-start justify-between">
                                   <div className="flex flex-col gap-1">
                                     <h4 className="text-body2 text-[#262255]">
@@ -527,11 +527,11 @@ export function RightPanel({
                                     <FullscreenIcon />
                                   </button>
                                 </div>
-                                <div className="grid grid-cols-2 gap-2">
+                                <div className="grid grid-cols-2 gap-2 mt-auto items-end">
                                   {/* Sample Size - OPTIVIS */}
                                   <div className="flex flex-col gap-1">
                                     <div
-                                      style={{ height: "180px", width: "100%" }}
+                                      style={{ height: "270px", width: "100%" }}
                                     >
                                       <SingleBarChart
                                         value={chart.optivis}
@@ -547,7 +547,7 @@ export function RightPanel({
                                   {/* Sample Size - Traditional */}
                                   <div className="flex flex-col gap-1">
                                     <div
-                                      style={{ height: "180px", width: "100%" }}
+                                      style={{ height: "270px", width: "100%" }}
                                     >
                                       <SingleBarChart
                                         value={chart.traditional}
@@ -573,7 +573,7 @@ export function RightPanel({
                               (c) => c.label === "Power"
                             )!;
                             return (
-                              <div className="flex flex-col gap-2">
+                              <div className="flex flex-col h-full">
                                 <div className="flex items-start justify-between">
                                   <div className="flex flex-col gap-1">
                                     <h4 className="text-body2 text-[#262255]">
@@ -606,11 +606,11 @@ export function RightPanel({
                                     <FullscreenIcon />
                                   </button>
                                 </div>
-                                <div className="grid grid-cols-2 gap-2">
+                                <div className="grid grid-cols-2 gap-2 mt-auto items-end">
                                   {/* Power - OPTIVIS */}
                                   <div className="flex flex-col gap-1">
                                     <div
-                                      style={{ height: "180px", width: "100%" }}
+                                      style={{ height: "270px", width: "100%" }}
                                     >
                                       <SingleBarChart
                                         value={chart.optivis}
@@ -626,7 +626,7 @@ export function RightPanel({
                                   {/* Power - Traditional */}
                                   <div className="flex flex-col gap-1">
                                     <div
-                                      style={{ height: "180px", width: "100%" }}
+                                      style={{ height: "270px", width: "100%" }}
                                     >
                                       <SingleBarChart
                                         value={chart.traditional}
@@ -773,7 +773,7 @@ export function RightPanel({
                             (c) => c.label === "Enrollment Time"
                           );
                           return chart ? (
-                            <div className="grid grid-cols-2 gap-2 h-full p-2">
+                            <div className="grid grid-cols-2 gap-2 h-full pt-2 px-2 pb-0 items-end">
                               {/* Enrollment Time - OPTIVIS */}
                               <div className="flex flex-col gap-1">
                                 <div style={{ height: "140px", width: "100%" }}>
@@ -929,7 +929,7 @@ export function RightPanel({
                             (c) => c.label === "Cost"
                           );
                           return chart ? (
-                            <div className="grid grid-cols-2 gap-2 h-full p-2">
+                            <div className="grid grid-cols-2 gap-2 h-full pt-2 px-2 pb-0 items-end">
                               {/* Cost - OPTIVIS */}
                               <div className="flex flex-col gap-1">
                                 <div style={{ height: "140px", width: "100%" }}>
@@ -1138,7 +1138,7 @@ export function RightPanel({
 
                     {/* Sample Size Row (Formula & Used Value는 OPTIVIS/Traditional 헤더 info 아이콘에서 표시) */}
                     <div className="flex items-end py-3 flex-shrink-0">
-                      <div className="flex-1 flex items-start">
+                      <div className="flex-1 flex flex-col">
                         <div className="flex flex-col gap-1">
                           <div className="flex items-center gap-1">
                             <span className="text-body5 text-neutral-30">
@@ -1154,18 +1154,22 @@ export function RightPanel({
                                 </span>
                               </div>
                               <div className="flex items-center gap-4">
-                                <span className="text-body5 text-secondary-60 w-[98px] text-right">
-                                  {isApplied && simulationData
-                                    ? simulationData.comparisonTable.sampleSize
-                                        .optivis.treatmentGroup1 ?? "-"
-                                    : "-"}
-                                </span>
-                                <span className="text-body5 text-primary-20 w-[98px] text-right">
-                                  {isApplied && simulationData
-                                    ? simulationData.comparisonTable.sampleSize
-                                        .traditional.treatmentGroup1 ?? "-"
-                                    : "-"}
-                                </span>
+                                <div className="w-[98px] text-left">
+                                  <span className="text-body5 text-secondary-60">
+                                    {isApplied && simulationData
+                                      ? simulationData.comparisonTable.sampleSize
+                                          .optivis.treatmentGroup1 ?? "-"
+                                      : "-"}
+                                  </span>
+                                </div>
+                                <div className="w-[98px] text-left">
+                                  <span className="text-body5 text-primary-20">
+                                    {isApplied && simulationData
+                                      ? simulationData.comparisonTable.sampleSize
+                                          .traditional.treatmentGroup1 ?? "-"
+                                      : "-"}
+                                  </span>
+                                </div>
                               </div>
                             </div>
                             {/* Treatment Group 2 - null이 아닐 때만 표시 */}
@@ -1182,14 +1186,18 @@ export function RightPanel({
                                     </span>
                                   </div>
                                   <div className="flex items-center gap-4">
-                                    <span className="text-body5 text-secondary-60 w-[98px] text-right">
-                                      {simulationData.comparisonTable.sampleSize
-                                        .optivis.treatmentGroup2 ?? "-"}
-                                    </span>
-                                    <span className="text-body5 text-primary-20 w-[98px] text-right">
-                                      {simulationData.comparisonTable.sampleSize
-                                        .traditional.treatmentGroup2 ?? "-"}
-                                    </span>
+                                    <div className="w-[98px] text-left">
+                                      <span className="text-body5 text-secondary-60">
+                                        {simulationData.comparisonTable.sampleSize
+                                          .optivis.treatmentGroup2 ?? "-"}
+                                      </span>
+                                    </div>
+                                    <div className="w-[98px] text-left">
+                                      <span className="text-body5 text-primary-20">
+                                        {simulationData.comparisonTable.sampleSize
+                                          .traditional.treatmentGroup2 ?? "-"}
+                                      </span>
+                                    </div>
                                   </div>
                                 </div>
                               )}
@@ -1207,14 +1215,18 @@ export function RightPanel({
                                     </span>
                                   </div>
                                   <div className="flex items-center gap-4">
-                                    <span className="text-body5 text-secondary-60 w-[98px] text-right">
-                                      {simulationData.comparisonTable.sampleSize
-                                        .optivis.treatmentGroup3 ?? "-"}
-                                    </span>
-                                    <span className="text-body5 text-primary-20 w-[98px] text-right">
-                                      {simulationData.comparisonTable.sampleSize
-                                        .traditional.treatmentGroup3 ?? "-"}
-                                    </span>
+                                    <div className="w-[98px] text-left">
+                                      <span className="text-body5 text-secondary-60">
+                                        {simulationData.comparisonTable.sampleSize
+                                          .optivis.treatmentGroup3 ?? "-"}
+                                      </span>
+                                    </div>
+                                    <div className="w-[98px] text-left">
+                                      <span className="text-body5 text-primary-20">
+                                        {simulationData.comparisonTable.sampleSize
+                                          .traditional.treatmentGroup3 ?? "-"}
+                                      </span>
+                                    </div>
                                   </div>
                                 </div>
                               )}
@@ -1226,18 +1238,22 @@ export function RightPanel({
                                 </span>
                               </div>
                               <div className="flex items-center gap-4">
-                                <span className="text-body5 text-secondary-60 w-[98px] text-right">
-                                  {isApplied && simulationData
-                                    ? simulationData.comparisonTable.sampleSize
-                                        .optivis.controlGroup
-                                    : "-"}
-                                </span>
-                                <span className="text-body5 text-primary-20 w-[98px] text-right">
-                                  {isApplied && simulationData
-                                    ? simulationData.comparisonTable.sampleSize
-                                        .traditional.controlGroup
-                                    : "-"}
-                                </span>
+                                <div className="w-[98px] text-left">
+                                  <span className="text-body5 text-secondary-60">
+                                    {isApplied && simulationData
+                                      ? simulationData.comparisonTable.sampleSize
+                                          .optivis.controlGroup
+                                      : "-"}
+                                  </span>
+                                </div>
+                                <div className="w-[98px] text-left">
+                                  <span className="text-body5 text-primary-20">
+                                    {isApplied && simulationData
+                                      ? simulationData.comparisonTable.sampleSize
+                                          .traditional.controlGroup
+                                      : "-"}
+                                  </span>
+                                </div>
                               </div>
                             </div>
                             {/* Total */}
@@ -1248,18 +1264,22 @@ export function RightPanel({
                                 </span>
                               </div>
                               <div className="flex items-center gap-4">
-                                <span className="text-body5 text-secondary-60 w-[98px] text-right">
-                                  {isApplied && simulationData
-                                    ? simulationData.comparisonTable.sampleSize
-                                        .optivis.total
-                                    : "-"}
-                                </span>
-                                <span className="text-body5 text-primary-20 w-[98px] text-right">
-                                  {isApplied && simulationData
-                                    ? simulationData.comparisonTable.sampleSize
-                                        .traditional.total
-                                    : "-"}
-                                </span>
+                                <div className="w-[98px] text-left">
+                                  <span className="text-body5 text-secondary-60">
+                                    {isApplied && simulationData
+                                      ? simulationData.comparisonTable.sampleSize
+                                          .optivis.total
+                                      : "-"}
+                                  </span>
+                                </div>
+                                <div className="w-[98px] text-left">
+                                  <span className="text-body5 text-primary-20">
+                                    {isApplied && simulationData
+                                      ? simulationData.comparisonTable.sampleSize
+                                          .traditional.total
+                                      : "-"}
+                                  </span>
+                                </div>
                               </div>
                             </div>
                           </div>
@@ -1348,7 +1368,7 @@ export function RightPanel({
                     <div className="flex flex-col gap-2 h-full overflow-hidden">
                       {/* Smaller Sample Chart - Single */}
                       {chartDataToUse.smallerSample.optivis.length > 0 && (
-                        <div className="flex flex-col gap-2 flex-shrink-0">
+                        <div className="flex flex-col gap-2 flex-1 min-h-0">
                           <div className="flex items-start justify-between">
                             <div className="flex flex-col gap-2">
                               <h4 className="text-body5 text-neutral-10">
@@ -1379,10 +1399,9 @@ export function RightPanel({
                               <FullscreenIcon />
                             </button>
                           </div>
-                          <div
-                            className="bg-white rounded-[12px]"
-                            style={{ height: "94px" }}
-                          >
+                            <div
+                              className="bg-white rounded-[12px] flex-1 min-h-0"
+                            >
                             <SmallerSampleChart
                               optivisData={chartDataToUse.smallerSample.optivis}
                               traditionalData={
@@ -1398,7 +1417,7 @@ export function RightPanel({
                         </div>
                       )}
                       {/* Smaller N to screen & Lower cost - Side by side */}
-                      <div className="grid grid-cols-2 gap-3 flex-shrink-0">
+                      <div className="grid grid-cols-2 gap-3 flex-1 min-h-0">
                         {/* Smaller N to screen Chart */}
                         {chartDataToUse.smallerNToScreen.optivis.length > 0 && (
                           <div className="flex flex-col gap-2">
@@ -1434,8 +1453,7 @@ export function RightPanel({
                               </button>
                             </div>
                             <div
-                              className="bg-white rounded-[12px]"
-                              style={{ height: "94px" }}
+                              className="bg-white rounded-[12px] flex-1 min-h-0"
                             >
                               <SmallerNToScreenChart
                                 optivisData={
@@ -1487,8 +1505,7 @@ export function RightPanel({
                               </button>
                             </div>
                             <div
-                              className="bg-white rounded-[12px]"
-                              style={{ height: "94px" }}
+                              className="bg-white rounded-[12px] flex-1 min-h-0"
                             >
                               <LowerCostChart
                                 optivisData={chartDataToUse.lowerCost.optivis}

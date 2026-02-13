@@ -20,7 +20,7 @@ export function SingleBarChart({
   const commonOption = {
     grid: { left: 0, right: 0, top: 0, bottom: 0, containLabel: false },
     xAxis: { show: false, type: 'category' as const, data: [''] },
-    yAxis: { show: false, type: 'value' as const, max: maxValue * 1.2 },
+    yAxis: { show: false, type: 'value' as const, min: 0, max: maxValue * 1.2, boundaryGap: false },
     tooltip: { show: false },
     legend: { show: false },
   };
@@ -33,7 +33,7 @@ export function SingleBarChart({
           {
             type: 'bar',
             data: [value],
-            itemStyle: { color, borderRadius: [8, 8, 8, 8] },
+            itemStyle: { color, borderRadius: [8, 8, 0, 0] },
             barWidth: '100%',
             label: {
               show: true,
