@@ -15,7 +15,7 @@ import "simplebar-react/dist/simplebar.min.css";
 interface AppLayoutProps {
   children: React.ReactNode;
   headerType?: "default" | "ats" | "tsi";
-  scaleMode?: "width" | "height";
+  scaleMode?: "width" | "height" | "fit";
 }
 
 export const AppLayout: React.FC<AppLayoutProps> = ({

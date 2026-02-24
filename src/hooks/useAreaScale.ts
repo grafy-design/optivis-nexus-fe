@@ -19,7 +19,7 @@ const DESIGN_VIEWPORT_HEIGHT = 1314;
 /** Minimum scale factor — prevents content from becoming unreadably small */
 const MIN_SCALE = 0.55;
 
-type ScaleMode = "width" | "height";
+type ScaleMode = "width" | "height" | "fit";
 
 export function useAreaScale(mode: ScaleMode = "width") {
   const [scale, setScale] = useState(1);
@@ -35,7 +35,9 @@ export function useAreaScale(mode: ScaleMode = "width") {
         const raw =
           mode === "height"
             ? vh / DESIGN_VIEWPORT_HEIGHT
-            : vw / DESIGN_VIEWPORT_WIDTH;
+            : mode === "fit"
+              ? Math.min(vw / DESIGN_VIEWPORT_WIDTH, vh / DESIGN_VIEWPORT_HEIGHT)
+              : vw / DESIGN_VIEWPORT_WIDTH;
         setScale(Math.max(MIN_SCALE, Math.min(1, raw)));
       });
     };

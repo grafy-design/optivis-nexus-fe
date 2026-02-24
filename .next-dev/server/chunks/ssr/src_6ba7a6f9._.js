@@ -1239,7 +1239,7 @@ function useAreaScale(mode = "width") {
             rafId = requestAnimationFrame(()=>{
                 const vw = window.innerWidth;
                 const vh = window.innerHeight;
-                const raw = mode === "height" ? vh / DESIGN_VIEWPORT_HEIGHT : vw / DESIGN_VIEWPORT_WIDTH;
+                const raw = mode === "height" ? vh / DESIGN_VIEWPORT_HEIGHT : mode === "fit" ? Math.min(vw / DESIGN_VIEWPORT_WIDTH, vh / DESIGN_VIEWPORT_HEIGHT) : vw / DESIGN_VIEWPORT_WIDTH;
                 setScale(Math.max(MIN_SCALE, Math.min(1, raw)));
             });
         };

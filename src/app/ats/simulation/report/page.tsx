@@ -280,7 +280,9 @@ export default function ReportPage() {
               | "flexDirection"
               | "alignItems"
               | "gap"
-              | "flex";
+              | "flex"
+              | "height"
+              | "overflow";
 
             const savedStyles: Array<{
               el: HTMLElement;
@@ -303,6 +305,10 @@ export default function ReportPage() {
 
             const targetWidth = pageWidth - padding * 2;
 
+            // captureTarget (results-overview): flex-1 제거 → 콘텐츠 크기에 맞춤
+            setStyle(captureTarget, "flex", "none");
+            setStyle(captureTarget, "height", "auto");
+            setStyle(captureTarget, "overflow", "visible");
             setStyle(captureTarget, "width", `${targetWidth}px`);
             setStyle(captureTarget, "minWidth", `${targetWidth}px`);
             setStyle(captureTarget, "maxWidth", `${targetWidth}px`);
@@ -312,14 +318,22 @@ export default function ReportPage() {
               setStyle(flexColWrapper, "display", "flex");
               setStyle(flexColWrapper, "width", "100%");
               setStyle(flexColWrapper, "flexDirection", "row");
-              setStyle(flexColWrapper, "alignItems", "stretch");
+              setStyle(flexColWrapper, "alignItems", "flex-start");
               setStyle(flexColWrapper, "gap", "24px");
+              setStyle(flexColWrapper, "flex", "none");
 
               const gridEl = flexColWrapper.children[0] as HTMLElement | null;
               if (gridEl) {
                 setStyle(gridEl, "flex", "3 1 0%");
                 setStyle(gridEl, "minWidth", "0");
                 setStyle(gridEl, "width", "100%");
+
+                // 네이비 박스(Insight Summary)의 flex-1 제거 → 콘텐츠 높이에 맞춤
+                const navyBox = gridEl.children[0] as HTMLElement | null;
+                if (navyBox) {
+                  setStyle(navyBox, "flex", "none");
+                  setStyle(navyBox, "height", "auto");
+                }
               }
 
               const insightEl = flexColWrapper.children[1] as HTMLElement | null;
@@ -464,7 +478,7 @@ export default function ReportPage() {
 
   return (
     <>
-      <AppLayout headerType="ats">
+      <AppLayout headerType="ats" scaleMode="fit">
         <div id="report-page-root" className="w-full h-full min-h-0 overflow-hidden flex flex-col">
           {/* Title Section (left-aligned) */}
           <div className="flex items-start justify-between mb-4 flex-shrink-0">
@@ -485,8 +499,8 @@ export default function ReportPage() {
           <div id="report-content" className="flex flex-1 min-h-0" style={{ gap: "0px" }}>
             {/* LEFT: Results Overview (liquid glass frame) - 고정, 풀높이 */}
             <div className="w-[700px] flex-shrink-0 h-full flex flex-col">
-              <div className="figma-nine-slice figma-home-panel-middle relative px-[42px] py-9 flex-1 flex flex-col">
-                <div id="results-overview" className="flex flex-col flex-1">
+              <div className="figma-nine-slice figma-home-panel-middle relative px-[42px] py-9 flex-1 flex flex-col overflow-hidden">
+                <div id="results-overview" className="flex flex-col flex-1 overflow-y-auto min-h-0">
                   <h2 className="text-h2 text-[#2d1067] mb-8">
                     Results Overview
                   </h2>
