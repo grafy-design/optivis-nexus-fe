@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Sidebar } from "./Sidebar";
 import { Header } from "./Header";
 import { ATSHeader } from "./ATSHeader";
@@ -11,6 +11,12 @@ import { useAreaScale } from "@/hooks/useAreaScale";
 // --- [TEMP_SCALE_END] ---
 import SimpleBar from "simplebar-react";
 import "simplebar-react/dist/simplebar.min.css";
+
+declare global {
+  interface Window {
+    __NEXUS_LAYOUT_READY__?: boolean;
+  }
+}
 
 interface AppLayoutProps {
   children: React.ReactNode;
@@ -23,20 +29,39 @@ export const AppLayout: React.FC<AppLayoutProps> = ({
   headerType = "default",
   scaleMode = "width",
 }) => {
+  const [isLayoutReady, setIsLayoutReady] = useState(() => {
+    if (typeof window === "undefined") {
+      return false;
+    }
+
+    return window.__NEXUS_LAYOUT_READY__ === true;
+  });
+
+  useEffect(() => {
+    if (window.__NEXUS_LAYOUT_READY__ !== true) {
+      window.__NEXUS_LAYOUT_READY__ = true;
+    }
+
+    if (!isLayoutReady) {
+      setIsLayoutReady(true);
+    }
+  }, [isLayoutReady]);
+
   // --- [TEMP_SCALE_START] proportional scaling ---
   const { scale } = useAreaScale(scaleMode);
-  const isScaled = scale < 1;
-
-  // Prevent body scrollbars when zoom compensation makes root wider/taller
-  useEffect(() => {
-    if (isScaled) {
-      document.body.style.overflow = "hidden";
-    }
-    return () => {
-      document.body.style.overflow = "";
-    };
-  }, [isScaled]);
   // --- [TEMP_SCALE_END] ---
+
+  if (!isLayoutReady) {
+    return (
+      <div
+        style={{
+          width: "100vw",
+          height: "100vh",
+          backgroundColor: "#E7E5E7",
+        }}
+      />
+    );
+  }
 
   return (
     /*
@@ -48,16 +73,9 @@ export const AppLayout: React.FC<AppLayoutProps> = ({
     <div
       style={{
         // --- [TEMP_SCALE_START] zoom on root for uniform proportional scaling ---
-        ...(isScaled
-          ? {
-              zoom: scale,
-              width: `${100 / scale}vw`,
-              height: `${100 / scale}vh`,
-            }
-          : {
-              width: "100%",
-              height: "100vh",
-            }),
+        zoom: scale,
+        width: `${100 / scale}vw`,
+        height: `${100 / scale}vh`,
         // --- [TEMP_SCALE_END] ---
         position: "relative",
         overflow: "hidden",

@@ -8,6 +8,12 @@ export async function GET(
   { params }: { params: Promise<{ taskId: string }> }
 ) {
   try {
+    const now = new Date();
+    const year = now.getFullYear();
+    const month = String(now.getMonth() + 1).padStart(2, "0");
+    const day = String(now.getDate()).padStart(2, "0");
+    const reportFileName = `${year}-${month}-${day}_OPTIVIS Nexus_ATS_Report.pdf`;
+
     const { taskId } = await params;
 
     const response = await fetch(
@@ -29,12 +35,13 @@ export async function GET(
     }
 
     const blob = await response.blob();
+    const encodedFileName = encodeURIComponent(reportFileName);
+
     return new NextResponse(blob, {
       headers: {
-        "Content-Type":
-          response.headers.get("Content-Type") ?? "application/octet-stream",
-        "Content-Disposition":
-          response.headers.get("Content-Disposition") ?? "",
+        "Content-Type": "application/pdf",
+        "Content-Disposition": `attachment; filename="${reportFileName}"; filename*=UTF-8''${encodedFileName}`,
+        "X-Content-Type-Options": "nosniff",
       },
     });
   } catch (error) {

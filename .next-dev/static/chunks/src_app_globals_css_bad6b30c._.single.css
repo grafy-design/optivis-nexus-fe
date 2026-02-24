@@ -1251,10 +1251,6 @@
     margin-bottom: 60px;
   }
 
-  .mb-\[76px\] {
-    margin-bottom: 76px;
-  }
-
   .mb-\[100px\] {
     margin-bottom: 100px;
   }
@@ -1503,10 +1499,6 @@
     height: 110px;
   }
 
-  .h-\[132px\] {
-    height: 132px;
-  }
-
   .h-\[196px\] {
     height: 196px;
   }
@@ -1563,10 +1555,6 @@
     height: 468px;
   }
 
-  .h-\[512px\] {
-    height: 512px;
-  }
-
   .h-\[522px\] {
     height: 522px;
   }
@@ -1589,10 +1577,6 @@
 
   .h-\[616px\] {
     height: 616px;
-  }
-
-  .h-\[636px\] {
-    height: 636px;
   }
 
   .h-\[656px\] {
@@ -1629,10 +1613,6 @@
 
   .h-\[2244px\] {
     height: 2244px;
-  }
-
-  .h-\[3704px\] {
-    height: 3704px;
   }
 
   .h-auto {
@@ -1991,10 +1971,6 @@
     width: 462px;
   }
 
-  .w-\[500px\] {
-    width: 500px;
-  }
-
   .w-\[536px\] {
     width: 536px;
   }
@@ -2019,10 +1995,6 @@
     width: 746px;
   }
 
-  .w-\[806px\] {
-    width: 806px;
-  }
-
   .w-\[850px\] {
     width: 850px;
   }
@@ -2033,10 +2005,6 @@
 
   .w-\[889px\] {
     width: 889px;
-  }
-
-  .w-\[1000px\] {
-    width: 1000px;
   }
 
   .w-\[1032px\] {
@@ -4362,10 +4330,6 @@
 
   .disabled\:opacity-50:disabled {
     opacity: .5;
-  }
-
-  .disabled\:opacity-70:disabled {
-    opacity: .7;
   }
 
   @media (hover: hover) {

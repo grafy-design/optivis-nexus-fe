@@ -10,7 +10,7 @@
 //   2. Remove imports / usage in AppLayout.tsx (search for [TEMP_SCALE_START]).
 //   3. Uncomment the @media breakpoints marked with [TEMP_SCALE_MODE_DISABLE].
 
-import { useState, useEffect } from "react";
+import { useLayoutEffect, useState } from "react";
 
 /** Figma design reference: total viewport width */
 const DESIGN_VIEWPORT_WIDTH = 2560;
@@ -21,31 +21,41 @@ const MIN_SCALE = 0.55;
 
 type ScaleMode = "width" | "height" | "fit";
 
+const computeScale = (mode: ScaleMode) => {
+  const vw = window.innerWidth;
+  const vh = window.innerHeight;
+  const raw =
+    mode === "height"
+      ? vh / DESIGN_VIEWPORT_HEIGHT
+      : mode === "fit"
+        ? Math.min(vw / DESIGN_VIEWPORT_WIDTH, vh / DESIGN_VIEWPORT_HEIGHT)
+        : vw / DESIGN_VIEWPORT_WIDTH;
+
+  return Math.max(MIN_SCALE, Math.min(1, raw));
+};
+
 export function useAreaScale(mode: ScaleMode = "width") {
   const [scale, setScale] = useState(1);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     let rafId: number;
 
-    const compute = () => {
+    const applyScale = () => {
+      const nextScale = computeScale(mode);
+      setScale((prev) => (Math.abs(prev - nextScale) < 0.0001 ? prev : nextScale));
+    };
+
+    const handleResize = () => {
       cancelAnimationFrame(rafId);
       rafId = requestAnimationFrame(() => {
-        const vw = window.innerWidth;
-        const vh = window.innerHeight;
-        const raw =
-          mode === "height"
-            ? vh / DESIGN_VIEWPORT_HEIGHT
-            : mode === "fit"
-              ? Math.min(vw / DESIGN_VIEWPORT_WIDTH, vh / DESIGN_VIEWPORT_HEIGHT)
-              : vw / DESIGN_VIEWPORT_WIDTH;
-        setScale(Math.max(MIN_SCALE, Math.min(1, raw)));
+        applyScale();
       });
     };
 
-    compute();
-    window.addEventListener("resize", compute);
+    applyScale();
+    window.addEventListener("resize", handleResize);
     return () => {
-      window.removeEventListener("resize", compute);
+      window.removeEventListener("resize", handleResize);
       cancelAnimationFrame(rafId);
     };
   }, [mode]);

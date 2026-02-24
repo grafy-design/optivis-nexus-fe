@@ -1230,23 +1230,30 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist
 /** Figma design reference: total viewport width */ const DESIGN_VIEWPORT_WIDTH = 2560;
 const DESIGN_VIEWPORT_HEIGHT = 1314;
 /** Minimum scale factor — prevents content from becoming unreadably small */ const MIN_SCALE = 0.55;
+const computeScale = (mode)=>{
+    const vw = window.innerWidth;
+    const vh = window.innerHeight;
+    const raw = mode === "height" ? vh / DESIGN_VIEWPORT_HEIGHT : mode === "fit" ? Math.min(vw / DESIGN_VIEWPORT_WIDTH, vh / DESIGN_VIEWPORT_HEIGHT) : vw / DESIGN_VIEWPORT_WIDTH;
+    return Math.max(MIN_SCALE, Math.min(1, raw));
+};
 function useAreaScale(mode = "width") {
     const [scale, setScale] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(1);
-    (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useEffect"])(()=>{
+    (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useLayoutEffect"])(()=>{
         let rafId;
-        const compute = ()=>{
+        const applyScale = ()=>{
+            const nextScale = computeScale(mode);
+            setScale((prev)=>Math.abs(prev - nextScale) < 0.0001 ? prev : nextScale);
+        };
+        const handleResize = ()=>{
             cancelAnimationFrame(rafId);
             rafId = requestAnimationFrame(()=>{
-                const vw = window.innerWidth;
-                const vh = window.innerHeight;
-                const raw = mode === "height" ? vh / DESIGN_VIEWPORT_HEIGHT : mode === "fit" ? Math.min(vw / DESIGN_VIEWPORT_WIDTH, vh / DESIGN_VIEWPORT_HEIGHT) : vw / DESIGN_VIEWPORT_WIDTH;
-                setScale(Math.max(MIN_SCALE, Math.min(1, raw)));
+                applyScale();
             });
         };
-        compute();
-        window.addEventListener("resize", compute);
+        applyScale();
+        window.addEventListener("resize", handleResize);
         return ()=>{
-            window.removeEventListener("resize", compute);
+            window.removeEventListener("resize", handleResize);
             cancelAnimationFrame(rafId);
         };
     }, [
@@ -1284,21 +1291,39 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$hooks$2f$useAreaScale
 ;
 ;
 const AppLayout = ({ children, headerType = "default", scaleMode = "width" })=>{
+    const [isLayoutReady, setIsLayoutReady] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(()=>{
+        if ("TURBOPACK compile-time truthy", 1) {
+            return false;
+        }
+        //TURBOPACK unreachable
+        ;
+    });
+    (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useEffect"])(()=>{
+        if (window.__NEXUS_LAYOUT_READY__ !== true) {
+            window.__NEXUS_LAYOUT_READY__ = true;
+        }
+        if (!isLayoutReady) {
+            setIsLayoutReady(true);
+        }
+    }, [
+        isLayoutReady
+    ]);
     // --- [TEMP_SCALE_START] proportional scaling ---
     const { scale } = (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$hooks$2f$useAreaScale$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useAreaScale"])(scaleMode);
-    const isScaled = scale < 1;
-    // Prevent body scrollbars when zoom compensation makes root wider/taller
-    (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useEffect"])(()=>{
-        if (isScaled) {
-            document.body.style.overflow = "hidden";
-        }
-        return ()=>{
-            document.body.style.overflow = "";
-        };
-    }, [
-        isScaled
-    ]);
     // --- [TEMP_SCALE_END] ---
+    if (!isLayoutReady) {
+        return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+            style: {
+                width: "100vw",
+                height: "100vh",
+                backgroundColor: "#E7E5E7"
+            }
+        }, void 0, false, {
+            fileName: "[project]/src/components/layout/AppLayout.tsx",
+            lineNumber: 56,
+            columnNumber: 7
+        }, ("TURBOPACK compile-time value", void 0));
+    }
     return(/*
      * Figma 전체 프레임: 2560×1314px
      * bg: rgb(231,229,231) = #E7E5E7
@@ -1307,14 +1332,9 @@ const AppLayout = ({ children, headerType = "default", scaleMode = "width" })=>{
      */ /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
         style: {
             // --- [TEMP_SCALE_START] zoom on root for uniform proportional scaling ---
-            ...isScaled ? {
-                zoom: scale,
-                width: `${100 / scale}vw`,
-                height: `${100 / scale}vh`
-            } : {
-                width: "100%",
-                height: "100vh"
-            },
+            zoom: scale,
+            width: `${100 / scale}vw`,
+            height: `${100 / scale}vh`,
             // --- [TEMP_SCALE_END] ---
             position: "relative",
             overflow: "hidden",
@@ -1334,12 +1354,12 @@ const AppLayout = ({ children, headerType = "default", scaleMode = "width" })=>{
                 },
                 children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$layout$2f$Sidebar$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["Sidebar"], {}, void 0, false, {
                     fileName: "[project]/src/components/layout/AppLayout.tsx",
-                    lineNumber: 83,
+                    lineNumber: 101,
                     columnNumber: 9
                 }, ("TURBOPACK compile-time value", void 0))
             }, void 0, false, {
                 fileName: "[project]/src/components/layout/AppLayout.tsx",
-                lineNumber: 71,
+                lineNumber: 89,
                 columnNumber: 7
             }, ("TURBOPACK compile-time value", void 0)),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1354,15 +1374,15 @@ const AppLayout = ({ children, headerType = "default", scaleMode = "width" })=>{
                 children: [
                     headerType === "ats" ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$layout$2f$ATSHeader$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["ATSHeader"], {}, void 0, false, {
                         fileName: "[project]/src/components/layout/AppLayout.tsx",
-                        lineNumber: 99,
+                        lineNumber: 117,
                         columnNumber: 11
                     }, ("TURBOPACK compile-time value", void 0)) : headerType === "tsi" ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$layout$2f$TSIHeader$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["TSIHeader"], {}, void 0, false, {
                         fileName: "[project]/src/components/layout/AppLayout.tsx",
-                        lineNumber: 101,
+                        lineNumber: 119,
                         columnNumber: 11
                     }, ("TURBOPACK compile-time value", void 0)) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$layout$2f$Header$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["Header"], {}, void 0, false, {
                         fileName: "[project]/src/components/layout/AppLayout.tsx",
-                        lineNumber: 103,
+                        lineNumber: 121,
                         columnNumber: 11
                     }, ("TURBOPACK compile-time value", void 0)),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1378,24 +1398,24 @@ const AppLayout = ({ children, headerType = "default", scaleMode = "width" })=>{
                             children: children
                         }, void 0, false, {
                             fileName: "[project]/src/components/layout/AppLayout.tsx",
-                            lineNumber: 116,
+                            lineNumber: 134,
                             columnNumber: 11
                         }, ("TURBOPACK compile-time value", void 0))
                     }, void 0, false, {
                         fileName: "[project]/src/components/layout/AppLayout.tsx",
-                        lineNumber: 106,
+                        lineNumber: 124,
                         columnNumber: 9
                     }, ("TURBOPACK compile-time value", void 0))
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/components/layout/AppLayout.tsx",
-                lineNumber: 88,
+                lineNumber: 106,
                 columnNumber: 7
             }, ("TURBOPACK compile-time value", void 0))
         ]
     }, void 0, true, {
         fileName: "[project]/src/components/layout/AppLayout.tsx",
-        lineNumber: 48,
+        lineNumber: 73,
         columnNumber: 5
     }, ("TURBOPACK compile-time value", void 0)));
 };

@@ -1,0 +1,3 @@
+{
+  "/api/proxy/download/[taskId]/route": "app/api/proxy/download/[taskId]/route.js"
+}

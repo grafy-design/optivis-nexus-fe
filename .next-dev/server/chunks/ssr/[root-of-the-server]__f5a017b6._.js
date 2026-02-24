@@ -1230,23 +1230,30 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist
 /** Figma design reference: total viewport width */ const DESIGN_VIEWPORT_WIDTH = 2560;
 const DESIGN_VIEWPORT_HEIGHT = 1314;
 /** Minimum scale factor — prevents content from becoming unreadably small */ const MIN_SCALE = 0.55;
+const computeScale = (mode)=>{
+    const vw = window.innerWidth;
+    const vh = window.innerHeight;
+    const raw = mode === "height" ? vh / DESIGN_VIEWPORT_HEIGHT : mode === "fit" ? Math.min(vw / DESIGN_VIEWPORT_WIDTH, vh / DESIGN_VIEWPORT_HEIGHT) : vw / DESIGN_VIEWPORT_WIDTH;
+    return Math.max(MIN_SCALE, Math.min(1, raw));
+};
 function useAreaScale(mode = "width") {
     const [scale, setScale] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(1);
-    (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useEffect"])(()=>{
+    (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useLayoutEffect"])(()=>{
         let rafId;
-        const compute = ()=>{
+        const applyScale = ()=>{
+            const nextScale = computeScale(mode);
+            setScale((prev)=>Math.abs(prev - nextScale) < 0.0001 ? prev : nextScale);
+        };
+        const handleResize = ()=>{
             cancelAnimationFrame(rafId);
             rafId = requestAnimationFrame(()=>{
-                const vw = window.innerWidth;
-                const vh = window.innerHeight;
-                const raw = mode === "height" ? vh / DESIGN_VIEWPORT_HEIGHT : mode === "fit" ? Math.min(vw / DESIGN_VIEWPORT_WIDTH, vh / DESIGN_VIEWPORT_HEIGHT) : vw / DESIGN_VIEWPORT_WIDTH;
-                setScale(Math.max(MIN_SCALE, Math.min(1, raw)));
+                applyScale();
             });
         };
-        compute();
-        window.addEventListener("resize", compute);
+        applyScale();
+        window.addEventListener("resize", handleResize);
         return ()=>{
-            window.removeEventListener("resize", compute);
+            window.removeEventListener("resize", handleResize);
             cancelAnimationFrame(rafId);
         };
     }, [
@@ -1284,21 +1291,39 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$hooks$2f$useAreaScale
 ;
 ;
 const AppLayout = ({ children, headerType = "default", scaleMode = "width" })=>{
+    const [isLayoutReady, setIsLayoutReady] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(()=>{
+        if ("TURBOPACK compile-time truthy", 1) {
+            return false;
+        }
+        //TURBOPACK unreachable
+        ;
+    });
+    (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useEffect"])(()=>{
+        if (window.__NEXUS_LAYOUT_READY__ !== true) {
+            window.__NEXUS_LAYOUT_READY__ = true;
+        }
+        if (!isLayoutReady) {
+            setIsLayoutReady(true);
+        }
+    }, [
+        isLayoutReady
+    ]);
     // --- [TEMP_SCALE_START] proportional scaling ---
     const { scale } = (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$hooks$2f$useAreaScale$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useAreaScale"])(scaleMode);
-    const isScaled = scale < 1;
-    // Prevent body scrollbars when zoom compensation makes root wider/taller
-    (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useEffect"])(()=>{
-        if (isScaled) {
-            document.body.style.overflow = "hidden";
-        }
-        return ()=>{
-            document.body.style.overflow = "";
-        };
-    }, [
-        isScaled
-    ]);
     // --- [TEMP_SCALE_END] ---
+    if (!isLayoutReady) {
+        return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+            style: {
+                width: "100vw",
+                height: "100vh",
+                backgroundColor: "#E7E5E7"
+            }
+        }, void 0, false, {
+            fileName: "[project]/src/components/layout/AppLayout.tsx",
+            lineNumber: 56,
+            columnNumber: 7
+        }, ("TURBOPACK compile-time value", void 0));
+    }
     return(/*
      * Figma 전체 프레임: 2560×1314px
      * bg: rgb(231,229,231) = #E7E5E7
@@ -1307,14 +1332,9 @@ const AppLayout = ({ children, headerType = "default", scaleMode = "width" })=>{
      */ /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
         style: {
             // --- [TEMP_SCALE_START] zoom on root for uniform proportional scaling ---
-            ...isScaled ? {
-                zoom: scale,
-                width: `${100 / scale}vw`,
-                height: `${100 / scale}vh`
-            } : {
-                width: "100%",
-                height: "100vh"
-            },
+            zoom: scale,
+            width: `${100 / scale}vw`,
+            height: `${100 / scale}vh`,
             // --- [TEMP_SCALE_END] ---
             position: "relative",
             overflow: "hidden",
@@ -1334,12 +1354,12 @@ const AppLayout = ({ children, headerType = "default", scaleMode = "width" })=>{
                 },
                 children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$layout$2f$Sidebar$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["Sidebar"], {}, void 0, false, {
                     fileName: "[project]/src/components/layout/AppLayout.tsx",
-                    lineNumber: 83,
+                    lineNumber: 101,
                     columnNumber: 9
                 }, ("TURBOPACK compile-time value", void 0))
             }, void 0, false, {
                 fileName: "[project]/src/components/layout/AppLayout.tsx",
-                lineNumber: 71,
+                lineNumber: 89,
                 columnNumber: 7
             }, ("TURBOPACK compile-time value", void 0)),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1354,15 +1374,15 @@ const AppLayout = ({ children, headerType = "default", scaleMode = "width" })=>{
                 children: [
                     headerType === "ats" ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$layout$2f$ATSHeader$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["ATSHeader"], {}, void 0, false, {
                         fileName: "[project]/src/components/layout/AppLayout.tsx",
-                        lineNumber: 99,
+                        lineNumber: 117,
                         columnNumber: 11
                     }, ("TURBOPACK compile-time value", void 0)) : headerType === "tsi" ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$layout$2f$TSIHeader$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["TSIHeader"], {}, void 0, false, {
                         fileName: "[project]/src/components/layout/AppLayout.tsx",
-                        lineNumber: 101,
+                        lineNumber: 119,
                         columnNumber: 11
                     }, ("TURBOPACK compile-time value", void 0)) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$layout$2f$Header$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["Header"], {}, void 0, false, {
                         fileName: "[project]/src/components/layout/AppLayout.tsx",
-                        lineNumber: 103,
+                        lineNumber: 121,
                         columnNumber: 11
                     }, ("TURBOPACK compile-time value", void 0)),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1378,24 +1398,24 @@ const AppLayout = ({ children, headerType = "default", scaleMode = "width" })=>{
                             children: children
                         }, void 0, false, {
                             fileName: "[project]/src/components/layout/AppLayout.tsx",
-                            lineNumber: 116,
+                            lineNumber: 134,
                             columnNumber: 11
                         }, ("TURBOPACK compile-time value", void 0))
                     }, void 0, false, {
                         fileName: "[project]/src/components/layout/AppLayout.tsx",
-                        lineNumber: 106,
+                        lineNumber: 124,
                         columnNumber: 9
                     }, ("TURBOPACK compile-time value", void 0))
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/components/layout/AppLayout.tsx",
-                lineNumber: 88,
+                lineNumber: 106,
                 columnNumber: 7
             }, ("TURBOPACK compile-time value", void 0))
         ]
     }, void 0, true, {
         fileName: "[project]/src/components/layout/AppLayout.tsx",
-        lineNumber: 48,
+        lineNumber: 73,
         columnNumber: 5
     }, ("TURBOPACK compile-time value", void 0)));
 };
@@ -4068,6 +4088,23 @@ function ReportPage() {
         const seconds = String(now.getSeconds()).padStart(2, "0");
         return `${year}. ${month}. ${day} ${hours}:${minutes}:${seconds}`;
     }, []);
+    const getReportPdfFileName = ()=>{
+        const now = new Date();
+        const year = now.getFullYear();
+        const month = String(now.getMonth() + 1).padStart(2, "0");
+        const day = String(now.getDate()).padStart(2, "0");
+        return `${year}-${month}-${day}_OPTIVIS Nexus_ATS_Report.pdf`;
+    };
+    const triggerDownload = (file, fileName)=>{
+        const url = window.URL.createObjectURL(file);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = fileName;
+        document.body.appendChild(a);
+        a.click();
+        window.URL.revokeObjectURL(url);
+        document.body.removeChild(a);
+    };
     // PDF 다운로드 함수 - 클라이언트에서 생성 (기존)
     const handleDownloadPDF = async ()=>{
         setIsDownloadingPDF(true);
@@ -4108,7 +4145,7 @@ function ReportPage() {
                     const originalBgColor = element.style.backgroundColor;
                     // 임시로 배경색 설정
                     element.style.backgroundColor = backgroundColor;
-                    let captureTarget = element;
+                    const captureTarget = element;
                     let cleanupCaptureTarget = null;
                     if (sectionId === "results-overview") {
                         const savedStyles = [];
@@ -4221,7 +4258,14 @@ function ReportPage() {
                 const textWidth = pdf.getTextWidth(pageText);
                 pdf.text(pageText, (pageWidth - textWidth) / 2, pageHeight - 40); // 하단 중앙
             }
-            pdf.save("simulation-report.pdf");
+            const fileName = getReportPdfFileName();
+            const pdfBlob = pdf.output("blob");
+            const file = new File([
+                pdfBlob
+            ], fileName, {
+                type: "application/pdf"
+            });
+            triggerDownload(file, file.name);
             setIsDownloadingPDF(false);
         } catch (error) {
             // PDF 다운로드 실패
@@ -4239,15 +4283,18 @@ function ReportPage() {
             }
             // API 서비스를 통해 파일 다운로드
             const blob = await (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$services$2f$studyService$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["downloadReportFile"])(taskId);
+            const pdfBlob = blob.type === "application/pdf" ? blob : new Blob([
+                blob
+            ], {
+                type: "application/pdf"
+            });
+            const file = new File([
+                pdfBlob
+            ], getReportPdfFileName(), {
+                type: "application/pdf"
+            });
             // 파일 다운로드
-            const url = window.URL.createObjectURL(blob);
-            const a = document.createElement("a");
-            a.href = url;
-            a.download = "simulation-report.pdf";
-            document.body.appendChild(a);
-            a.click();
-            window.URL.revokeObjectURL(url);
-            document.body.removeChild(a);
+            triggerDownload(file, file.name);
         } catch (error) {
             // PDF 다운로드 실패
             alert("PDF 다운로드에 실패했습니다.");
@@ -4277,7 +4324,7 @@ function ReportPage() {
                                             children: "Adaptive Trial Simulation"
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                            lineNumber: 489,
+                                            lineNumber: 515,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -4285,18 +4332,18 @@ function ReportPage() {
                                             children: currentDate
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                            lineNumber: 492,
+                                            lineNumber: 518,
                                             columnNumber: 15
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                    lineNumber: 485,
+                                    lineNumber: 511,
                                     columnNumber: 13
                                 }, this)
                             }, void 0, false, {
                                 fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                lineNumber: 484,
+                                lineNumber: 510,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -4319,7 +4366,7 @@ function ReportPage() {
                                                         children: "Results Overview"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                        lineNumber: 504,
+                                                        lineNumber: 530,
                                                         columnNumber: 19
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -4339,7 +4386,7 @@ function ReportPage() {
                                                                             children: "Insight Summary"
                                                                         }, void 0, false, {
                                                                             fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                            lineNumber: 517,
+                                                                            lineNumber: 543,
                                                                             columnNumber: 25
                                                                         }, this),
                                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -4359,7 +4406,7 @@ function ReportPage() {
                                                                                             className: "flex-shrink-0"
                                                                                         }, void 0, false, {
                                                                                             fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                            lineNumber: 525,
+                                                                                            lineNumber: 551,
                                                                                             columnNumber: 29
                                                                                         }, this),
                                                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -4369,25 +4416,25 @@ function ReportPage() {
                                                                                                 children: apiData?.result_resultsoverview?.OPTIVIS?.[0]?.sample_size_text || ""
                                                                                             }, void 0, false, {
                                                                                                 fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                                lineNumber: 533,
+                                                                                                lineNumber: 559,
                                                                                                 columnNumber: 31
                                                                                             }, this)
                                                                                         }, void 0, false, {
                                                                                             fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                            lineNumber: 532,
+                                                                                            lineNumber: 558,
                                                                                             columnNumber: 29
                                                                                         }, this)
                                                                                     ]
                                                                                 }, void 0, true, {
                                                                                     fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                    lineNumber: 524,
+                                                                                    lineNumber: 550,
                                                                                     columnNumber: 27
                                                                                 }, this),
                                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                                                     className: "jsx-20ca2f99cd134e45" + " " + "h-[1px] bg-[#adaaaa]"
                                                                                 }, void 0, false, {
                                                                                     fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                    lineNumber: 539,
+                                                                                    lineNumber: 565,
                                                                                     columnNumber: 27
                                                                                 }, this),
                                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -4401,7 +4448,7 @@ function ReportPage() {
                                                                                             className: "flex-shrink-0"
                                                                                         }, void 0, false, {
                                                                                             fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                            lineNumber: 541,
+                                                                                            lineNumber: 567,
                                                                                             columnNumber: 29
                                                                                         }, this),
                                                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -4411,25 +4458,25 @@ function ReportPage() {
                                                                                                 children: apiData?.result_resultsoverview?.OPTIVIS?.[0]?.enrollment_text || ""
                                                                                             }, void 0, false, {
                                                                                                 fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                                lineNumber: 549,
+                                                                                                lineNumber: 575,
                                                                                                 columnNumber: 31
                                                                                             }, this)
                                                                                         }, void 0, false, {
                                                                                             fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                            lineNumber: 548,
+                                                                                            lineNumber: 574,
                                                                                             columnNumber: 29
                                                                                         }, this)
                                                                                     ]
                                                                                 }, void 0, true, {
                                                                                     fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                    lineNumber: 540,
+                                                                                    lineNumber: 566,
                                                                                     columnNumber: 27
                                                                                 }, this),
                                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                                                     className: "jsx-20ca2f99cd134e45" + " " + "h-[1px] bg-[#adaaaa]"
                                                                                 }, void 0, false, {
                                                                                     fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                    lineNumber: 555,
+                                                                                    lineNumber: 581,
                                                                                     columnNumber: 27
                                                                                 }, this),
                                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -4443,7 +4490,7 @@ function ReportPage() {
                                                                                             className: "flex-shrink-0"
                                                                                         }, void 0, false, {
                                                                                             fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                            lineNumber: 557,
+                                                                                            lineNumber: 583,
                                                                                             columnNumber: 29
                                                                                         }, this),
                                                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -4453,25 +4500,25 @@ function ReportPage() {
                                                                                                 children: apiData?.result_resultsoverview?.OPTIVIS?.[0]?.cost_text || ""
                                                                                             }, void 0, false, {
                                                                                                 fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                                lineNumber: 565,
+                                                                                                lineNumber: 591,
                                                                                                 columnNumber: 31
                                                                                             }, this)
                                                                                         }, void 0, false, {
                                                                                             fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                            lineNumber: 564,
+                                                                                            lineNumber: 590,
                                                                                             columnNumber: 29
                                                                                         }, this)
                                                                                     ]
                                                                                 }, void 0, true, {
                                                                                     fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                    lineNumber: 556,
+                                                                                    lineNumber: 582,
                                                                                     columnNumber: 27
                                                                                 }, this),
                                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                                                     className: "jsx-20ca2f99cd134e45" + " " + "h-[1px] bg-[#adaaaa]"
                                                                                 }, void 0, false, {
                                                                                     fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                    lineNumber: 571,
+                                                                                    lineNumber: 597,
                                                                                     columnNumber: 27
                                                                                 }, this),
                                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -4485,7 +4532,7 @@ function ReportPage() {
                                                                                             className: "flex-shrink-0"
                                                                                         }, void 0, false, {
                                                                                             fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                            lineNumber: 573,
+                                                                                            lineNumber: 599,
                                                                                             columnNumber: 29
                                                                                         }, this),
                                                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -4495,24 +4542,24 @@ function ReportPage() {
                                                                                                 children: apiData?.result_resultsoverview?.OPTIVIS?.[0]?.power_text || ""
                                                                                             }, void 0, false, {
                                                                                                 fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                                lineNumber: 581,
+                                                                                                lineNumber: 607,
                                                                                                 columnNumber: 31
                                                                                             }, this)
                                                                                         }, void 0, false, {
                                                                                             fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                            lineNumber: 580,
+                                                                                            lineNumber: 606,
                                                                                             columnNumber: 29
                                                                                         }, this)
                                                                                     ]
                                                                                 }, void 0, true, {
                                                                                     fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                    lineNumber: 572,
+                                                                                    lineNumber: 598,
                                                                                     columnNumber: 27
                                                                                 }, this)
                                                                             ]
                                                                         }, void 0, true, {
                                                                             fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                            lineNumber: 520,
+                                                                            lineNumber: 546,
                                                                             columnNumber: 25
                                                                         }, this),
                                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -4523,7 +4570,7 @@ function ReportPage() {
                                                                                     children: apiData?.sample_size_evaluation?.title || ""
                                                                                 }, void 0, false, {
                                                                                     fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                    lineNumber: 589,
+                                                                                    lineNumber: 615,
                                                                                     columnNumber: 27
                                                                                 }, this),
                                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -4531,24 +4578,24 @@ function ReportPage() {
                                                                                     children: apiData?.sample_size_evaluation?.content || ""
                                                                                 }, void 0, false, {
                                                                                     fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                    lineNumber: 592,
+                                                                                    lineNumber: 618,
                                                                                     columnNumber: 27
                                                                                 }, this)
                                                                             ]
                                                                         }, void 0, true, {
                                                                             fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                            lineNumber: 588,
+                                                                            lineNumber: 614,
                                                                             columnNumber: 25
                                                                         }, this)
                                                                     ]
                                                                 }, void 0, true, {
                                                                     fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                    lineNumber: 510,
+                                                                    lineNumber: 536,
                                                                     columnNumber: 23
                                                                 }, this)
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                lineNumber: 509,
+                                                                lineNumber: 535,
                                                                 columnNumber: 21
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -4571,7 +4618,7 @@ function ReportPage() {
                                                                                             children: chart.label
                                                                                         }, void 0, false, {
                                                                                             fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                            lineNumber: 622,
+                                                                                            lineNumber: 648,
                                                                                             columnNumber: 35
                                                                                         }, this),
                                                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -4582,7 +4629,7 @@ function ReportPage() {
                                                                                                     color: "#231F52"
                                                                                                 }, void 0, false, {
                                                                                                     fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                                    lineNumber: 626,
+                                                                                                    lineNumber: 652,
                                                                                                     columnNumber: 37
                                                                                                 }, this),
                                                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -4590,24 +4637,24 @@ function ReportPage() {
                                                                                                     children: chart.change
                                                                                                 }, void 0, false, {
                                                                                                     fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                                    lineNumber: 632,
+                                                                                                    lineNumber: 658,
                                                                                                     columnNumber: 37
                                                                                                 }, this)
                                                                                             ]
                                                                                         }, void 0, true, {
                                                                                             fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                            lineNumber: 625,
+                                                                                            lineNumber: 651,
                                                                                             columnNumber: 35
                                                                                         }, this)
                                                                                     ]
                                                                                 }, void 0, true, {
                                                                                     fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                    lineNumber: 621,
+                                                                                    lineNumber: 647,
                                                                                     columnNumber: 33
                                                                                 }, this)
                                                                             }, void 0, false, {
                                                                                 fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                lineNumber: 620,
+                                                                                lineNumber: 646,
                                                                                 columnNumber: 31
                                                                             }, this),
                                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -4629,17 +4676,17 @@ function ReportPage() {
                                                                                                 formatter: formatter
                                                                                             }, void 0, false, {
                                                                                                 fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                                lineNumber: 647,
+                                                                                                lineNumber: 673,
                                                                                                 columnNumber: 37
                                                                                             }, this)
                                                                                         }, void 0, false, {
                                                                                             fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                            lineNumber: 641,
+                                                                                            lineNumber: 667,
                                                                                             columnNumber: 35
                                                                                         }, this)
                                                                                     }, void 0, false, {
                                                                                         fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                        lineNumber: 640,
+                                                                                        lineNumber: 666,
                                                                                         columnNumber: 33
                                                                                     }, this),
                                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -4658,57 +4705,57 @@ function ReportPage() {
                                                                                                 formatter: formatter
                                                                                             }, void 0, false, {
                                                                                                 fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                                lineNumber: 667,
+                                                                                                lineNumber: 693,
                                                                                                 columnNumber: 37
                                                                                             }, this)
                                                                                         }, void 0, false, {
                                                                                             fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                            lineNumber: 661,
+                                                                                            lineNumber: 687,
                                                                                             columnNumber: 35
                                                                                         }, this)
                                                                                     }, void 0, false, {
                                                                                         fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                        lineNumber: 660,
+                                                                                        lineNumber: 686,
                                                                                         columnNumber: 33
                                                                                     }, this)
                                                                                 ]
                                                                             }, void 0, true, {
                                                                                 fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                lineNumber: 638,
+                                                                                lineNumber: 664,
                                                                                 columnNumber: 31
                                                                             }, this)
                                                                         ]
                                                                     }, index, true, {
                                                                         fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                        lineNumber: 613,
+                                                                        lineNumber: 639,
                                                                         columnNumber: 29
                                                                     }, this);
                                                                 })
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                lineNumber: 600,
+                                                                lineNumber: 626,
                                                                 columnNumber: 21
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                        lineNumber: 507,
+                                                        lineNumber: 533,
                                                         columnNumber: 19
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                lineNumber: 503,
+                                                lineNumber: 529,
                                                 columnNumber: 17
                                             }, this)
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                            lineNumber: 502,
+                                            lineNumber: 528,
                                             columnNumber: 15
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                        lineNumber: 501,
+                                        lineNumber: 527,
                                         columnNumber: 13
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -4727,7 +4774,7 @@ function ReportPage() {
                                                                 children: "Trial Design Conditions Summary"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                lineNumber: 696,
+                                                                lineNumber: 722,
                                                                 columnNumber: 21
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -4752,17 +4799,17 @@ function ReportPage() {
                                                                                             children: "Endpoints Design"
                                                                                         }, void 0, false, {
                                                                                             fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                            lineNumber: 712,
+                                                                                            lineNumber: 738,
                                                                                             columnNumber: 31
                                                                                         }, this)
                                                                                     }, void 0, false, {
                                                                                         fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                        lineNumber: 704,
+                                                                                        lineNumber: 730,
                                                                                         columnNumber: 29
                                                                                     }, this)
                                                                                 }, void 0, false, {
                                                                                     fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                    lineNumber: 703,
+                                                                                    lineNumber: 729,
                                                                                     columnNumber: 27
                                                                                 }, this),
                                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -4780,7 +4827,7 @@ function ReportPage() {
                                                                                                             children: "Endpoint Type"
                                                                                                         }, void 0, false, {
                                                                                                             fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                                            lineNumber: 722,
+                                                                                                            lineNumber: 748,
                                                                                                             columnNumber: 35
                                                                                                         }, this),
                                                                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
@@ -4788,7 +4835,7 @@ function ReportPage() {
                                                                                                             children: "No"
                                                                                                         }, void 0, false, {
                                                                                                             fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                                            lineNumber: 725,
+                                                                                                            lineNumber: 751,
                                                                                                             columnNumber: 35
                                                                                                         }, this),
                                                                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
@@ -4796,7 +4843,7 @@ function ReportPage() {
                                                                                                             children: "Outcome"
                                                                                                         }, void 0, false, {
                                                                                                             fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                                            lineNumber: 728,
+                                                                                                            lineNumber: 754,
                                                                                                             columnNumber: 35
                                                                                                         }, this),
                                                                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
@@ -4804,7 +4851,7 @@ function ReportPage() {
                                                                                                             children: "Type"
                                                                                                         }, void 0, false, {
                                                                                                             fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                                            lineNumber: 731,
+                                                                                                            lineNumber: 757,
                                                                                                             columnNumber: 35
                                                                                                         }, this),
                                                                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
@@ -4812,7 +4859,7 @@ function ReportPage() {
                                                                                                             children: "Nominal Power"
                                                                                                         }, void 0, false, {
                                                                                                             fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                                            lineNumber: 734,
+                                                                                                            lineNumber: 760,
                                                                                                             columnNumber: 35
                                                                                                         }, this),
                                                                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
@@ -4820,7 +4867,7 @@ function ReportPage() {
                                                                                                             children: "Threshold"
                                                                                                         }, void 0, false, {
                                                                                                             fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                                            lineNumber: 737,
+                                                                                                            lineNumber: 763,
                                                                                                             columnNumber: 35
                                                                                                         }, this),
                                                                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
@@ -4828,18 +4875,18 @@ function ReportPage() {
                                                                                                             children: "Expected Effect size"
                                                                                                         }, void 0, false, {
                                                                                                             fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                                            lineNumber: 740,
+                                                                                                            lineNumber: 766,
                                                                                                             columnNumber: 35
                                                                                                         }, this)
                                                                                                     ]
                                                                                                 }, void 0, true, {
                                                                                                     fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                                    lineNumber: 721,
+                                                                                                    lineNumber: 747,
                                                                                                     columnNumber: 33
                                                                                                 }, this)
                                                                                             }, void 0, false, {
                                                                                                 fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                                lineNumber: 720,
+                                                                                                lineNumber: 746,
                                                                                                 columnNumber: 31
                                                                                             }, this),
                                                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("tbody", {
@@ -4869,12 +4916,12 @@ function ReportPage() {
                                                                                                                                 className: "jsx-20ca2f99cd134e45" + " " + "h-[1px] bg-[#AEA9B1]"
                                                                                                                             }, void 0, false, {
                                                                                                                                 fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                                                                lineNumber: 776,
+                                                                                                                                lineNumber: 802,
                                                                                                                                 columnNumber: 45
                                                                                                                             }, this)
                                                                                                                         }, void 0, false, {
                                                                                                                             fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                                                            lineNumber: 775,
+                                                                                                                            lineNumber: 801,
                                                                                                                             columnNumber: 43
                                                                                                                         }, this),
                                                                                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -4884,12 +4931,12 @@ function ReportPage() {
                                                                                                                                 className: "jsx-20ca2f99cd134e45" + " " + "h-[1px] bg-[#AEA9B1]"
                                                                                                                             }, void 0, false, {
                                                                                                                                 fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                                                                lineNumber: 779,
+                                                                                                                                lineNumber: 805,
                                                                                                                                 columnNumber: 45
                                                                                                                             }, this)
                                                                                                                         }, void 0, false, {
                                                                                                                             fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                                                            lineNumber: 778,
+                                                                                                                            lineNumber: 804,
                                                                                                                             columnNumber: 43
                                                                                                                         }, this),
                                                                                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -4898,18 +4945,18 @@ function ReportPage() {
                                                                                                                                 className: "jsx-20ca2f99cd134e45" + " " + "h-[1px] bg-[#AEA9B1]"
                                                                                                                             }, void 0, false, {
                                                                                                                                 fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                                                                lineNumber: 782,
+                                                                                                                                lineNumber: 808,
                                                                                                                                 columnNumber: 45
                                                                                                                             }, this)
                                                                                                                         }, void 0, false, {
                                                                                                                             fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                                                            lineNumber: 781,
+                                                                                                                            lineNumber: 807,
                                                                                                                             columnNumber: 43
                                                                                                                         }, this)
                                                                                                                     ]
                                                                                                                 }, void 0, true, {
                                                                                                                     fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                                                    lineNumber: 774,
+                                                                                                                    lineNumber: 800,
                                                                                                                     columnNumber: 41
                                                                                                                 }, this),
                                                                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("tr", {
@@ -4921,7 +4968,7 @@ function ReportPage() {
                                                                                                                             children: "Primary"
                                                                                                                         }, void 0, false, {
                                                                                                                             fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                                                            lineNumber: 788,
+                                                                                                                            lineNumber: 814,
                                                                                                                             columnNumber: 43
                                                                                                                         }, this),
                                                                                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -4932,7 +4979,7 @@ function ReportPage() {
                                                                                                                             ]
                                                                                                                         }, void 0, true, {
                                                                                                                             fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                                                            lineNumber: 795,
+                                                                                                                            lineNumber: 821,
                                                                                                                             columnNumber: 41
                                                                                                                         }, this),
                                                                                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -4940,7 +4987,7 @@ function ReportPage() {
                                                                                                                             children: endpoint.name
                                                                                                                         }, void 0, false, {
                                                                                                                             fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                                                            lineNumber: 798,
+                                                                                                                            lineNumber: 824,
                                                                                                                             columnNumber: 41
                                                                                                                         }, this),
                                                                                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -4948,7 +4995,7 @@ function ReportPage() {
                                                                                                                             children: endpoint.type || "Continuous"
                                                                                                                         }, void 0, false, {
                                                                                                                             fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                                                            lineNumber: 801,
+                                                                                                                            lineNumber: 827,
                                                                                                                             columnNumber: 41
                                                                                                                         }, this),
                                                                                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -4956,7 +5003,7 @@ function ReportPage() {
                                                                                                                             children: index === 0 ? `${Math.round(nominalPower * 100)}%` : "-"
                                                                                                                         }, void 0, false, {
                                                                                                                             fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                                                            lineNumber: 804,
+                                                                                                                            lineNumber: 830,
                                                                                                                             columnNumber: 41
                                                                                                                         }, this),
                                                                                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -4964,7 +5011,7 @@ function ReportPage() {
                                                                                                                             children: endpoint.type === "Binary" && endpoint.threshold !== null && endpoint.threshold !== undefined ? endpoint.threshold.toFixed(1) : "-"
                                                                                                                         }, void 0, false, {
                                                                                                                             fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                                                            lineNumber: 811,
+                                                                                                                            lineNumber: 837,
                                                                                                                             columnNumber: 41
                                                                                                                         }, this),
                                                                                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -4977,7 +5024,7 @@ function ReportPage() {
                                                                                                                                         children: effectSize.toFixed(1)
                                                                                                                                     }, void 0, false, {
                                                                                                                                         fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                                                                        lineNumber: 820,
+                                                                                                                                        lineNumber: 846,
                                                                                                                                         columnNumber: 45
                                                                                                                                     }, this),
                                                                                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -4988,7 +5035,7 @@ function ReportPage() {
                                                                                                                                                 children: "Low"
                                                                                                                                             }, void 0, false, {
                                                                                                                                                 fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                                                                                lineNumber: 824,
+                                                                                                                                                lineNumber: 850,
                                                                                                                                                 columnNumber: 47
                                                                                                                                             }, this),
                                                                                                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -5001,12 +5048,12 @@ function ReportPage() {
                                                                                                                                                     className: "jsx-20ca2f99cd134e45" + " " + "h-2 rounded-[3px]"
                                                                                                                                                 }, void 0, false, {
                                                                                                                                                     fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                                                                                    lineNumber: 828,
+                                                                                                                                                    lineNumber: 854,
                                                                                                                                                     columnNumber: 49
                                                                                                                                                 }, this)
                                                                                                                                             }, void 0, false, {
                                                                                                                                                 fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                                                                                lineNumber: 827,
+                                                                                                                                                lineNumber: 853,
                                                                                                                                                 columnNumber: 47
                                                                                                                                             }, this),
                                                                                                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -5014,36 +5061,36 @@ function ReportPage() {
                                                                                                                                                 children: "High"
                                                                                                                                             }, void 0, false, {
                                                                                                                                                 fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                                                                                lineNumber: 836,
+                                                                                                                                                lineNumber: 862,
                                                                                                                                                 columnNumber: 47
                                                                                                                                             }, this)
                                                                                                                                         ]
                                                                                                                                     }, void 0, true, {
                                                                                                                                         fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                                                                        lineNumber: 823,
+                                                                                                                                        lineNumber: 849,
                                                                                                                                         columnNumber: 45
                                                                                                                                     }, this)
                                                                                                                                 ]
                                                                                                                             }, void 0, true, {
                                                                                                                                 fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                                                                lineNumber: 819,
+                                                                                                                                lineNumber: 845,
                                                                                                                                 columnNumber: 43
                                                                                                                             }, this)
                                                                                                                         }, void 0, false, {
                                                                                                                             fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                                                            lineNumber: 818,
+                                                                                                                            lineNumber: 844,
                                                                                                                             columnNumber: 41
                                                                                                                         }, this)
                                                                                                                     ]
                                                                                                                 }, void 0, true, {
                                                                                                                     fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                                                    lineNumber: 786,
+                                                                                                                    lineNumber: 812,
                                                                                                                     columnNumber: 39
                                                                                                                 }, this)
                                                                                                             ]
                                                                                                         }, `primary-${index}`, true, {
                                                                                                             fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                                            lineNumber: 771,
+                                                                                                            lineNumber: 797,
                                                                                                             columnNumber: 37
                                                                                                         }, this);
                                                                                                     }),
@@ -5056,12 +5103,12 @@ function ReportPage() {
                                                                                                                     className: "jsx-20ca2f99cd134e45" + " " + "h-[1px] bg-[#AEA9B1]"
                                                                                                                 }, void 0, false, {
                                                                                                                     fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                                                    lineNumber: 852,
+                                                                                                                    lineNumber: 878,
                                                                                                                     columnNumber: 41
                                                                                                                 }, this)
                                                                                                             }, void 0, false, {
                                                                                                                 fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                                                lineNumber: 851,
+                                                                                                                lineNumber: 877,
                                                                                                                 columnNumber: 39
                                                                                                             }, this),
                                                                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -5071,12 +5118,12 @@ function ReportPage() {
                                                                                                                     className: "jsx-20ca2f99cd134e45" + " " + "h-[1px] bg-[#AEA9B1]"
                                                                                                                 }, void 0, false, {
                                                                                                                     fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                                                    lineNumber: 855,
+                                                                                                                    lineNumber: 881,
                                                                                                                     columnNumber: 41
                                                                                                                 }, this)
                                                                                                             }, void 0, false, {
                                                                                                                 fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                                                lineNumber: 854,
+                                                                                                                lineNumber: 880,
                                                                                                                 columnNumber: 39
                                                                                                             }, this),
                                                                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -5085,18 +5132,18 @@ function ReportPage() {
                                                                                                                     className: "jsx-20ca2f99cd134e45" + " " + "h-[1px] bg-[#AEA9B1]"
                                                                                                                 }, void 0, false, {
                                                                                                                     fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                                                    lineNumber: 858,
+                                                                                                                    lineNumber: 884,
                                                                                                                     columnNumber: 41
                                                                                                                 }, this)
                                                                                                             }, void 0, false, {
                                                                                                                 fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                                                lineNumber: 857,
+                                                                                                                lineNumber: 883,
                                                                                                                 columnNumber: 39
                                                                                                             }, this)
                                                                                                         ]
                                                                                                     }, void 0, true, {
                                                                                                         fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                                        lineNumber: 850,
+                                                                                                        lineNumber: 876,
                                                                                                         columnNumber: 37
                                                                                                     }, this),
                                                                                                     secondaryEndpoints.map((endpoint, index)=>{
@@ -5120,7 +5167,7 @@ function ReportPage() {
                                                                                                                     children: "Secondary"
                                                                                                                 }, void 0, false, {
                                                                                                                     fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                                                    lineNumber: 889,
+                                                                                                                    lineNumber: 915,
                                                                                                                     columnNumber: 41
                                                                                                                 }, this),
                                                                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -5131,7 +5178,7 @@ function ReportPage() {
                                                                                                                     ]
                                                                                                                 }, void 0, true, {
                                                                                                                     fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                                                    lineNumber: 896,
+                                                                                                                    lineNumber: 922,
                                                                                                                     columnNumber: 39
                                                                                                                 }, this),
                                                                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -5139,7 +5186,7 @@ function ReportPage() {
                                                                                                                     children: endpoint.name
                                                                                                                 }, void 0, false, {
                                                                                                                     fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                                                    lineNumber: 899,
+                                                                                                                    lineNumber: 925,
                                                                                                                     columnNumber: 39
                                                                                                                 }, this),
                                                                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -5147,7 +5194,7 @@ function ReportPage() {
                                                                                                                     children: endpoint.type || "Continuous"
                                                                                                                 }, void 0, false, {
                                                                                                                     fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                                                    lineNumber: 902,
+                                                                                                                    lineNumber: 928,
                                                                                                                     columnNumber: 39
                                                                                                                 }, this),
                                                                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -5155,7 +5202,7 @@ function ReportPage() {
                                                                                                                     children: "-"
                                                                                                                 }, void 0, false, {
                                                                                                                     fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                                                    lineNumber: 905,
+                                                                                                                    lineNumber: 931,
                                                                                                                     columnNumber: 39
                                                                                                                 }, this),
                                                                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -5163,7 +5210,7 @@ function ReportPage() {
                                                                                                                     children: endpoint.type === "Binary" && endpoint.threshold !== null && endpoint.threshold !== undefined ? endpoint.threshold.toFixed(1) : "-"
                                                                                                                 }, void 0, false, {
                                                                                                                     fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                                                    lineNumber: 908,
+                                                                                                                    lineNumber: 934,
                                                                                                                     columnNumber: 39
                                                                                                                 }, this),
                                                                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -5176,7 +5223,7 @@ function ReportPage() {
                                                                                                                                 children: effectSize.toFixed(1)
                                                                                                                             }, void 0, false, {
                                                                                                                                 fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                                                                lineNumber: 917,
+                                                                                                                                lineNumber: 943,
                                                                                                                                 columnNumber: 43
                                                                                                                             }, this),
                                                                                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -5187,7 +5234,7 @@ function ReportPage() {
                                                                                                                                         children: "Low"
                                                                                                                                     }, void 0, false, {
                                                                                                                                         fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                                                                        lineNumber: 921,
+                                                                                                                                        lineNumber: 947,
                                                                                                                                         columnNumber: 45
                                                                                                                                     }, this),
                                                                                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -5200,12 +5247,12 @@ function ReportPage() {
                                                                                                                                             className: "jsx-20ca2f99cd134e45" + " " + "h-2 rounded-[3px]"
                                                                                                                                         }, void 0, false, {
                                                                                                                                             fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                                                                            lineNumber: 925,
+                                                                                                                                            lineNumber: 951,
                                                                                                                                             columnNumber: 47
                                                                                                                                         }, this)
                                                                                                                                     }, void 0, false, {
                                                                                                                                         fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                                                                        lineNumber: 924,
+                                                                                                                                        lineNumber: 950,
                                                                                                                                         columnNumber: 45
                                                                                                                                     }, this),
                                                                                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -5213,59 +5260,59 @@ function ReportPage() {
                                                                                                                                         children: "High"
                                                                                                                                     }, void 0, false, {
                                                                                                                                         fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                                                                        lineNumber: 933,
+                                                                                                                                        lineNumber: 959,
                                                                                                                                         columnNumber: 45
                                                                                                                                     }, this)
                                                                                                                                 ]
                                                                                                                             }, void 0, true, {
                                                                                                                                 fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                                                                lineNumber: 920,
+                                                                                                                                lineNumber: 946,
                                                                                                                                 columnNumber: 43
                                                                                                                             }, this)
                                                                                                                         ]
                                                                                                                     }, void 0, true, {
                                                                                                                         fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                                                        lineNumber: 916,
+                                                                                                                        lineNumber: 942,
                                                                                                                         columnNumber: 41
                                                                                                                     }, this)
                                                                                                                 }, void 0, false, {
                                                                                                                     fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                                                    lineNumber: 915,
+                                                                                                                    lineNumber: 941,
                                                                                                                     columnNumber: 39
                                                                                                                 }, this)
                                                                                                             ]
                                                                                                         }, `secondary-${index}`, true, {
                                                                                                             fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                                            lineNumber: 887,
+                                                                                                            lineNumber: 913,
                                                                                                             columnNumber: 37
                                                                                                         }, this);
                                                                                                     })
                                                                                                 ]
                                                                                             }, void 0, true, {
                                                                                                 fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                                lineNumber: 745,
+                                                                                                lineNumber: 771,
                                                                                                 columnNumber: 31
                                                                                             }, this)
                                                                                         ]
                                                                                     }, void 0, true, {
                                                                                         fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                        lineNumber: 719,
+                                                                                        lineNumber: 745,
                                                                                         columnNumber: 29
                                                                                     }, this)
                                                                                 }, void 0, false, {
                                                                                     fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                    lineNumber: 718,
+                                                                                    lineNumber: 744,
                                                                                     columnNumber: 27
                                                                                 }, this)
                                                                             ]
                                                                         }, void 0, true, {
                                                                             fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                            lineNumber: 702,
+                                                                            lineNumber: 728,
                                                                             columnNumber: 25
                                                                         }, this)
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                        lineNumber: 701,
+                                                                        lineNumber: 727,
                                                                         columnNumber: 23
                                                                     }, this),
                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -5280,12 +5327,12 @@ function ReportPage() {
                                                                                         children: "Trial Design"
                                                                                     }, void 0, false, {
                                                                                         fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                        lineNumber: 952,
+                                                                                        lineNumber: 978,
                                                                                         columnNumber: 29
                                                                                     }, this)
                                                                                 }, void 0, false, {
                                                                                     fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                    lineNumber: 951,
+                                                                                    lineNumber: 977,
                                                                                     columnNumber: 27
                                                                                 }, this),
                                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -5301,7 +5348,7 @@ function ReportPage() {
                                                                                                         children: "Primary Endpoint"
                                                                                                     }, void 0, false, {
                                                                                                         fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                                        lineNumber: 960,
+                                                                                                        lineNumber: 986,
                                                                                                         columnNumber: 33
                                                                                                     }, this),
                                                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -5309,7 +5356,7 @@ function ReportPage() {
                                                                                                         children: "Hypothesis Type"
                                                                                                     }, void 0, false, {
                                                                                                         fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                                        lineNumber: 963,
+                                                                                                        lineNumber: 989,
                                                                                                         columnNumber: 33
                                                                                                     }, this),
                                                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -5317,7 +5364,7 @@ function ReportPage() {
                                                                                                         children: "Treatment Arms"
                                                                                                     }, void 0, false, {
                                                                                                         fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                                        lineNumber: 966,
+                                                                                                        lineNumber: 992,
                                                                                                         columnNumber: 33
                                                                                                     }, this),
                                                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -5325,13 +5372,13 @@ function ReportPage() {
                                                                                                         children: "Randomization Ratio"
                                                                                                     }, void 0, false, {
                                                                                                         fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                                        lineNumber: 969,
+                                                                                                        lineNumber: 995,
                                                                                                         columnNumber: 33
                                                                                                     }, this)
                                                                                                 ]
                                                                                             }, void 0, true, {
                                                                                                 fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                                lineNumber: 959,
+                                                                                                lineNumber: 985,
                                                                                                 columnNumber: 31
                                                                                             }, this),
                                                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -5342,7 +5389,7 @@ function ReportPage() {
                                                                                                         children: treatmentDuration
                                                                                                     }, void 0, false, {
                                                                                                         fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                                        lineNumber: 975,
+                                                                                                        lineNumber: 1001,
                                                                                                         columnNumber: 33
                                                                                                     }, this),
                                                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -5350,7 +5397,7 @@ function ReportPage() {
                                                                                                         children: hypothesisType
                                                                                                     }, void 0, false, {
                                                                                                         fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                                        lineNumber: 978,
+                                                                                                        lineNumber: 1004,
                                                                                                         columnNumber: 33
                                                                                                     }, this),
                                                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -5361,7 +5408,7 @@ function ReportPage() {
                                                                                                         ]
                                                                                                     }, void 0, true, {
                                                                                                         fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                                        lineNumber: 981,
+                                                                                                        lineNumber: 1007,
                                                                                                         columnNumber: 33
                                                                                                     }, this),
                                                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -5369,47 +5416,47 @@ function ReportPage() {
                                                                                                         children: randomizationRatio
                                                                                                     }, void 0, false, {
                                                                                                         fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                                        lineNumber: 984,
+                                                                                                        lineNumber: 1010,
                                                                                                         columnNumber: 33
                                                                                                     }, this)
                                                                                                 ]
                                                                                             }, void 0, true, {
                                                                                                 fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                                lineNumber: 974,
+                                                                                                lineNumber: 1000,
                                                                                                 columnNumber: 31
                                                                                             }, this)
                                                                                         ]
                                                                                     }, void 0, true, {
                                                                                         fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                        lineNumber: 957,
+                                                                                        lineNumber: 983,
                                                                                         columnNumber: 29
                                                                                     }, this)
                                                                                 }, void 0, false, {
                                                                                     fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                    lineNumber: 956,
+                                                                                    lineNumber: 982,
                                                                                     columnNumber: 27
                                                                                 }, this)
                                                                             ]
                                                                         }, void 0, true, {
                                                                             fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                            lineNumber: 950,
+                                                                            lineNumber: 976,
                                                                             columnNumber: 25
                                                                         }, this)
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                        lineNumber: 949,
+                                                                        lineNumber: 975,
                                                                         columnNumber: 23
                                                                     }, this)
                                                                 ]
                                                             }, void 0, true, {
                                                                 fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                lineNumber: 699,
+                                                                lineNumber: 725,
                                                                 columnNumber: 21
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                        lineNumber: 695,
+                                                        lineNumber: 721,
                                                         columnNumber: 19
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -5421,7 +5468,7 @@ function ReportPage() {
                                                                 children: "Prediction Accuracy by Model"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                lineNumber: 997,
+                                                                lineNumber: 1023,
                                                                 columnNumber: 21
                                                             }, this),
                                                             apiData?.graph_acc_model && apiData.graph_acc_model.length > 0 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -5440,23 +5487,23 @@ function ReportPage() {
                                                                                 className: "jsx-20ca2f99cd134e45" + " " + "max-w-full max-h-full object-contain"
                                                                             }, void 0, false, {
                                                                                 fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                lineNumber: 1015,
+                                                                                lineNumber: 1041,
                                                                                 columnNumber: 37
                                                                             }, this)
                                                                         }, void 0, false, {
                                                                             fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                            lineNumber: 1013,
+                                                                            lineNumber: 1039,
                                                                             columnNumber: 35
                                                                         }, this)
                                                                     }, graphItem.id, false, {
                                                                         fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                        lineNumber: 1008,
+                                                                        lineNumber: 1034,
                                                                         columnNumber: 33
                                                                     }, this);
                                                                 })
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                lineNumber: 1003,
+                                                                lineNumber: 1029,
                                                                 columnNumber: 25
                                                             }, this),
                                                             apiData?.result_prec_model && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["Fragment"], {
@@ -5490,7 +5537,7 @@ function ReportPage() {
                                                                                                             ]
                                                                                                         }, void 0, true, {
                                                                                                             fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                                            lineNumber: 1072,
+                                                                                                            lineNumber: 1098,
                                                                                                             columnNumber: 45
                                                                                                         }, this),
                                                                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -5498,7 +5545,7 @@ function ReportPage() {
                                                                                                             children: header.display_value
                                                                                                         }, void 0, false, {
                                                                                                             fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                                            lineNumber: 1076,
+                                                                                                            lineNumber: 1102,
                                                                                                             columnNumber: 43
                                                                                                         }, this),
                                                                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -5509,24 +5556,24 @@ function ReportPage() {
                                                                                                             className: "jsx-20ca2f99cd134e45" + " " + "absolute bottom-0 border-b border-[#e2e1e5]"
                                                                                                         }, void 0, false, {
                                                                                                             fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                                            lineNumber: 1079,
+                                                                                                            lineNumber: 1105,
                                                                                                             columnNumber: 43
                                                                                                         }, this)
                                                                                                     ]
                                                                                                 }, key, true, {
                                                                                                     fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                                    lineNumber: 1067,
+                                                                                                    lineNumber: 1093,
                                                                                                     columnNumber: 41
                                                                                                 }, this);
                                                                                             })
                                                                                         }, void 0, false, {
                                                                                             fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                            lineNumber: 1034,
+                                                                                            lineNumber: 1060,
                                                                                             columnNumber: 33
                                                                                         }, this)
                                                                                     }, void 0, false, {
                                                                                         fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                        lineNumber: 1033,
+                                                                                        lineNumber: 1059,
                                                                                         columnNumber: 31
                                                                                     }, this),
                                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("tbody", {
@@ -5565,41 +5612,41 @@ function ReportPage() {
                                                                                                                 className: "jsx-20ca2f99cd134e45" + " " + "absolute top-0 border-t border-[#e2e1e5]"
                                                                                                             }, void 0, false, {
                                                                                                                 fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                                                lineNumber: 1139,
+                                                                                                                lineNumber: 1165,
                                                                                                                 columnNumber: 49
                                                                                                             }, this)
                                                                                                         ]
                                                                                                     }, key, true, {
                                                                                                         fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                                        lineNumber: 1131,
+                                                                                                        lineNumber: 1157,
                                                                                                         columnNumber: 45
                                                                                                     }, this);
                                                                                                 })
                                                                                             }, row.id, false, {
                                                                                                 fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                                lineNumber: 1106,
+                                                                                                lineNumber: 1132,
                                                                                                 columnNumber: 39
                                                                                             }, this);
                                                                                         })
                                                                                     }, void 0, false, {
                                                                                         fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                        lineNumber: 1092,
+                                                                                        lineNumber: 1118,
                                                                                         columnNumber: 31
                                                                                     }, this)
                                                                                 ]
                                                                             }, void 0, true, {
                                                                                 fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                lineNumber: 1032,
+                                                                                lineNumber: 1058,
                                                                                 columnNumber: 29
                                                                             }, this)
                                                                         }, void 0, false, {
                                                                             fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                            lineNumber: 1031,
+                                                                            lineNumber: 1057,
                                                                             columnNumber: 27
                                                                         }, this)
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                        lineNumber: 1030,
+                                                                        lineNumber: 1056,
                                                                         columnNumber: 25
                                                                     }, this),
                                                                     (()=>{
@@ -5620,7 +5667,7 @@ function ReportPage() {
                                                                                                 ]
                                                                                             }, void 0, true, {
                                                                                                 fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                                lineNumber: 1185,
+                                                                                                lineNumber: 1211,
                                                                                                 columnNumber: 37
                                                                                             }, this),
                                                                                             " ",
@@ -5628,17 +5675,17 @@ function ReportPage() {
                                                                                         ]
                                                                                     }, void 0, true, {
                                                                                         fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                        lineNumber: 1184,
+                                                                                        lineNumber: 1210,
                                                                                         columnNumber: 35
                                                                                     }, this)
                                                                                 }, index, false, {
                                                                                     fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                    lineNumber: 1183,
+                                                                                    lineNumber: 1209,
                                                                                     columnNumber: 33
                                                                                 }, this))
                                                                         }, void 0, false, {
                                                                             fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                            lineNumber: 1181,
+                                                                            lineNumber: 1207,
                                                                             columnNumber: 29
                                                                         }, this);
                                                                     })()
@@ -5647,7 +5694,7 @@ function ReportPage() {
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                        lineNumber: 996,
+                                                        lineNumber: 1022,
                                                         columnNumber: 19
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -5659,7 +5706,7 @@ function ReportPage() {
                                                                 children: "Demonstration of Robustness"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                lineNumber: 1201,
+                                                                lineNumber: 1227,
                                                                 columnNumber: 21
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -5673,12 +5720,12 @@ function ReportPage() {
                                                                             apiData: apiData
                                                                         }, void 0, false, {
                                                                             fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                            lineNumber: 1212,
+                                                                            lineNumber: 1238,
                                                                             columnNumber: 27
                                                                         }, void 0)
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                        lineNumber: 1207,
+                                                                        lineNumber: 1233,
                                                                         columnNumber: 23
                                                                     }, this),
                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(StepCard, {
@@ -5692,25 +5739,25 @@ function ReportPage() {
                                                                                     apiData: apiData
                                                                                 }, void 0, false, {
                                                                                     fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                    lineNumber: 1223,
+                                                                                    lineNumber: 1249,
                                                                                     columnNumber: 29
                                                                                 }, void 0),
                                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$ats$2f$simulation$2f$report$2f$charts$2f$Step2BoxplotChart$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["Step2BoxplotChart"], {
                                                                                     apiData: apiData
                                                                                 }, void 0, false, {
                                                                                     fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                    lineNumber: 1224,
+                                                                                    lineNumber: 1250,
                                                                                     columnNumber: 29
                                                                                 }, void 0)
                                                                             ]
                                                                         }, void 0, true, {
                                                                             fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                            lineNumber: 1222,
+                                                                            lineNumber: 1248,
                                                                             columnNumber: 27
                                                                         }, void 0)
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                        lineNumber: 1217,
+                                                                        lineNumber: 1243,
                                                                         columnNumber: 23
                                                                     }, this),
                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(StepCard, {
@@ -5724,25 +5771,25 @@ function ReportPage() {
                                                                                     apiData: apiData
                                                                                 }, void 0, false, {
                                                                                     fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                    lineNumber: 1236,
+                                                                                    lineNumber: 1262,
                                                                                     columnNumber: 29
                                                                                 }, void 0),
                                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$ats$2f$simulation$2f$report$2f$charts$2f$Step3PerformanceGainChart$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["Step3PerformanceGainChart"], {
                                                                                     apiData: apiData
                                                                                 }, void 0, false, {
                                                                                     fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                    lineNumber: 1237,
+                                                                                    lineNumber: 1263,
                                                                                     columnNumber: 29
                                                                                 }, void 0)
                                                                             ]
                                                                         }, void 0, true, {
                                                                             fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                            lineNumber: 1235,
+                                                                            lineNumber: 1261,
                                                                             columnNumber: 27
                                                                         }, void 0)
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                        lineNumber: 1230,
+                                                                        lineNumber: 1256,
                                                                         columnNumber: 23
                                                                     }, this),
                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(StepCard, {
@@ -5753,24 +5800,24 @@ function ReportPage() {
                                                                             apiData: apiData
                                                                         }, void 0, false, {
                                                                             fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                            lineNumber: 1248,
+                                                                            lineNumber: 1274,
                                                                             columnNumber: 27
                                                                         }, void 0)
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                        lineNumber: 1243,
+                                                                        lineNumber: 1269,
                                                                         columnNumber: 23
                                                                     }, this)
                                                                 ]
                                                             }, void 0, true, {
                                                                 fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                lineNumber: 1205,
+                                                                lineNumber: 1231,
                                                                 columnNumber: 21
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                        lineNumber: 1200,
+                                                        lineNumber: 1226,
                                                         columnNumber: 19
                                                     }, this),
                                                     apiData?.appendix && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -5783,12 +5830,12 @@ function ReportPage() {
                                                                     children: apiData.appendix.title
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                    lineNumber: 1258,
+                                                                    lineNumber: 1284,
                                                                     columnNumber: 25
                                                                 }, this)
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                lineNumber: 1257,
+                                                                lineNumber: 1283,
                                                                 columnNumber: 23
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -5803,23 +5850,23 @@ function ReportPage() {
                                                                         children: apiData.appendix.content
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                        lineNumber: 1269,
+                                                                        lineNumber: 1295,
                                                                         columnNumber: 27
                                                                     }, this)
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                    lineNumber: 1268,
+                                                                    lineNumber: 1294,
                                                                     columnNumber: 25
                                                                 }, this)
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                lineNumber: 1264,
+                                                                lineNumber: 1290,
                                                                 columnNumber: 23
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                        lineNumber: 1256,
+                                                        lineNumber: 1282,
                                                         columnNumber: 21
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -5832,7 +5879,7 @@ function ReportPage() {
                                                                     children: "Save Simulation"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                    lineNumber: 1279,
+                                                                    lineNumber: 1305,
                                                                     columnNumber: 23
                                                                 }, this),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$button$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
@@ -5843,46 +5890,46 @@ function ReportPage() {
                                                                     children: "Go to Main"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                    lineNumber: 1282,
+                                                                    lineNumber: 1308,
                                                                     columnNumber: 23
                                                                 }, this)
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                            lineNumber: 1278,
+                                                            lineNumber: 1304,
                                                             columnNumber: 21
                                                         }, this)
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                        lineNumber: 1277,
+                                                        lineNumber: 1303,
                                                         columnNumber: 19
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                lineNumber: 693,
+                                                lineNumber: 719,
                                                 columnNumber: 17
                                             }, this)
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                            lineNumber: 692,
+                                            lineNumber: 718,
                                             columnNumber: 15
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                        lineNumber: 691,
+                                        lineNumber: 717,
                                         columnNumber: 13
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                lineNumber: 499,
+                                lineNumber: 525,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                        lineNumber: 482,
+                        lineNumber: 508,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$styled$2d$jsx$2f$style$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
@@ -5892,14 +5939,14 @@ function ReportPage() {
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                lineNumber: 481,
+                lineNumber: 507,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$common$2f$Loading$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["Loading"], {
                 isLoading: isDownloadingPDF
             }, void 0, false, {
                 fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                lineNumber: 1336,
+                lineNumber: 1362,
                 columnNumber: 7
             }, this)
         ]

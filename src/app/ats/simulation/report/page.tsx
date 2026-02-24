@@ -223,6 +223,26 @@ export default function ReportPage() {
     return `${year}. ${month}. ${day} ${hours}:${minutes}:${seconds}`;
   }, []);
 
+  const getReportPdfFileName = () => {
+    const now = new Date();
+    const year = now.getFullYear();
+    const month = String(now.getMonth() + 1).padStart(2, "0");
+    const day = String(now.getDate()).padStart(2, "0");
+
+    return `${year}-${month}-${day}_OPTIVIS Nexus_ATS_Report.pdf`;
+  };
+
+  const triggerDownload = (file: Blob, fileName: string) => {
+    const url = window.URL.createObjectURL(file);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = fileName;
+    document.body.appendChild(a);
+    a.click();
+    window.URL.revokeObjectURL(url);
+    document.body.removeChild(a);
+  };
+
   // PDF 다운로드 함수 - 클라이언트에서 생성 (기존)
   const handleDownloadPDF = async () => {
     setIsDownloadingPDF(true);
@@ -268,7 +288,7 @@ export default function ReportPage() {
           // 임시로 배경색 설정
           (element as HTMLElement).style.backgroundColor = backgroundColor;
 
-          let captureTarget: HTMLElement = element as HTMLElement;
+          const captureTarget: HTMLElement = element as HTMLElement;
           let cleanupCaptureTarget: (() => void) | null = null;
 
           if (sectionId === "results-overview") {
@@ -436,7 +456,13 @@ export default function ReportPage() {
         pdf.text(pageText, (pageWidth - textWidth) / 2, pageHeight - 40); // 하단 중앙
       }
 
-      pdf.save("simulation-report.pdf");
+      const fileName = getReportPdfFileName();
+      const pdfBlob = pdf.output("blob");
+      const file = new File([pdfBlob], fileName, {
+        type: "application/pdf",
+      });
+
+      triggerDownload(file, file.name);
       setIsDownloadingPDF(false);
     } catch (error) {
       // PDF 다운로드 실패
@@ -456,16 +482,16 @@ export default function ReportPage() {
 
       // API 서비스를 통해 파일 다운로드
       const blob = await downloadReportFile(taskId);
+      const pdfBlob =
+        blob.type === "application/pdf"
+          ? blob
+          : new Blob([blob], { type: "application/pdf" });
+      const file = new File([pdfBlob], getReportPdfFileName(), {
+        type: "application/pdf",
+      });
 
       // 파일 다운로드
-      const url = window.URL.createObjectURL(blob);
-      const a = document.createElement("a");
-      a.href = url;
-      a.download = "simulation-report.pdf";
-      document.body.appendChild(a);
-      a.click();
-      window.URL.revokeObjectURL(url);
-      document.body.removeChild(a);
+      triggerDownload(file, file.name);
     } catch (error) {
       // PDF 다운로드 실패
       alert("PDF 다운로드에 실패했습니다.");
