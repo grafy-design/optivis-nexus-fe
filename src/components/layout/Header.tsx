@@ -146,14 +146,14 @@ export const Header = () => {
         flexShrink: 0,
       }}
     >
-      {/* 로고: Poppins SemiBold 32px */}
+      {/* 로고: Helvetica Now Display Bold */}
       <h1
         style={{
-          fontFamily: "Poppins",
-          fontSize: "32px",
-          fontWeight: 600,
-          lineHeight: "32px",
-          letterSpacing: "-0.96px",
+          fontFamily: "'Helvetica Now Display', 'Helvetica Neue', Helvetica, Arial, sans-serif",
+          fontSize: "42px",
+          fontWeight: 700,
+          lineHeight: "1",
+          letterSpacing: "-1.2px",
           color: "#000000",
           margin: 0,
           flexShrink: 0,
@@ -162,12 +162,12 @@ export const Header = () => {
         OPTIVIS Nexus
       </h1>
 
-      {/* 오른쪽: 버튼 3개, gap 14px */}
+      {/* 오른쪽: 버튼 3개, gap 10px (14px에서 30% 축소) */}
       <div
         style={{
           display: "flex",
           alignItems: "center",
-          gap: "14px",
+          gap: "10px",
           flexShrink: 0,
         }}
       >

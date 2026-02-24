@@ -23,7 +23,7 @@ export const MainContainer: React.FC<MainContainerProps> = ({ children }) => {
         flexDirection: "column",
         paddingLeft: "5px",
         paddingRight: "5px",
-        paddingTop: "0",
+        paddingTop: "5px",
         paddingBottom: "5px",
         boxSizing: "border-box",
         overflow: "hidden",

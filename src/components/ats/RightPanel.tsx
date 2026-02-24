@@ -320,7 +320,7 @@ export function RightPanel({
               {activeTab === "compare" ? (
                 /* Smaller Sample Card - Compare View */
                 <div
-                  className="rounded-[18px] overflow-hidden flex-1 min-h-0"
+                  className="rounded-[18px] overflow-hidden flex-[3] min-h-0"
                   style={{
                     background: "var(--primary-15)",
                   }}
@@ -416,7 +416,7 @@ export function RightPanel({
               ) : /* Sample Size & Power Card - Reduction View */
               isApplied && reductionCharts.length > 0 ? (
                 <div
-                  className="rounded-[18px] overflow-hidden flex-1 min-h-0"
+                  className="rounded-[18px] overflow-hidden flex-[3] min-h-0"
                   style={{
                     background: "#262255",
                   }}
@@ -650,7 +650,7 @@ export function RightPanel({
               ) : null}
 
               {/* Bottom Two Cards */}
-              <div className="flex gap-4 h-[276px]">
+              <div className="flex gap-4 flex-[2] min-h-0">
                 {/* Smaller N to screen Card */}
                 <div
                   className="flex-1 min-w-0 rounded-[24px] overflow-hidden"
@@ -748,8 +748,7 @@ export function RightPanel({
                     </div>
                     {/* Chart Area */}
                     <div
-                      className="mt-auto bg-white/60 rounded-[12px]"
-                      style={{ height: "148px" }}
+                      className="mt-auto bg-white/60 rounded-[12px] flex-1 min-h-0"
                     >
                       {activeTab === "compare" ? (
                         chartDataToUse &&
@@ -906,8 +905,7 @@ export function RightPanel({
                     </div>
                     {/* Chart Area */}
                     <div
-                      className="mt-auto bg-white/60 rounded-[12px]"
-                      style={{ height: "148px" }}
+                      className="mt-auto bg-white/60 rounded-[12px] flex-1 min-h-0"
                     >
                       {activeTab === "compare" ? (
                         chartDataToUse &&

@@ -12,6 +12,8 @@ interface FeatureCardProps {
   isSelected?: boolean;
   onClick?: () => void;
   sectionType?: "package" | "service";
+  locked?: boolean;
+  disabled?: boolean;
 }
 
 /**
@@ -37,6 +39,8 @@ export default function FeatureCard({
   isSelected = false,
   onClick,
   sectionType = "package",
+  locked = false,
+  disabled = false,
 }: FeatureCardProps) {
   const [isHovered, setIsHovered] = useState(false);
   const isPackage = sectionType === "package";
@@ -46,8 +50,12 @@ export default function FeatureCard({
   let cardBorder: string;
   let cardShadow: string;
 
-    if (isPackage) {
-    if (isSelected) {
+  if (isPackage) {
+    if (disabled) {
+      cardBg = "linear-gradient(180deg, rgba(196,196,196,0.95) 0%, rgba(182,182,182,0.92) 100%)";
+      cardBorder = "1px solid rgba(166,166,166,0.92)";
+      cardShadow = "inset 0 1px 0 rgba(255,255,255,0.30)";
+    } else if (isSelected) {
       // Figma: Fill #262255, Glass Effect black r=24
       cardBg = "linear-gradient(180deg, rgba(56,51,110,1) 0%, rgba(38,34,85,1) 100%)";
       cardBorder = "1px solid rgba(255,255,255,0.15)";
@@ -59,7 +67,11 @@ export default function FeatureCard({
       cardShadow = "inset 0 1px 0 rgba(255,255,255,0.9)";
     }
   } else {
-    if (isSelected || isHovered) {
+    if (disabled) {
+      cardBg = "linear-gradient(180deg, rgba(226,226,226,0.95) 0%, rgba(215,215,215,0.92) 100%)";
+      cardBorder = "1px solid rgba(196,196,196,0.92)";
+      cardShadow = "inset 0 1px 0 rgba(255,255,255,0.45)";
+    } else if (isSelected || isHovered) {
       // Service card selected/hovered: lavender glass background
       cardBg = "linear-gradient(180deg, rgba(232,230,255,0.8) 0%, rgba(220,218,255,0.75) 100%)";
       cardBorder = "1px solid rgba(100,88,220,0.4)";
@@ -77,7 +89,10 @@ export default function FeatureCard({
   let iconFilter: string = "none";
 
   if (isPackage) {
-    if (isSelected) {
+    if (disabled) {
+      iconBg = "transparent";
+      iconFilter = "brightness(0) saturate(0) opacity(0.58)";
+    } else if (isSelected) {
       if (selectedIcon) {
         // 전용 선택 아이콘이 있는 경우 배경을 투명하게 하여 흰색 테두리 방지
         iconBg = "transparent";
@@ -90,7 +105,10 @@ export default function FeatureCard({
       iconFilter = "brightness(0)"; // 아이콘 완전 블랙
     }
   } else {
-    if (isSelected || isHovered) {
+    if (disabled) {
+      iconBg = "transparent";
+      iconFilter = "brightness(0) saturate(0) opacity(0.58)";
+    } else if (isSelected || isHovered) {
       if (selectedIcon) {
         // 이미 디자인된 전용 아이콘이 있는 경우 (예: Adaptive Trial)
         // 배경을 투명하게 하고 필터를 해제하여 원본 이미지를 그대로 노출 (중복 원 방지)
@@ -108,11 +126,19 @@ export default function FeatureCard({
   }
 
   // 텍스트 색상
-  const titleColor = isPackage && isSelected ? "#FFFFFF" : "#000000";
-  const descColor = isPackage && isSelected ? "rgba(255,255,255,0.85)" : "#484646";
+  const titleColor = disabled
+    ? "#7A7A7A"
+    : isPackage && isSelected
+      ? "#FFFFFF"
+      : "#000000";
+  const descColor = disabled
+    ? "#888888"
+    : isPackage && isSelected
+      ? "rgba(255,255,255,0.85)"
+      : "#484646";
 
   // 아이콘 소스 (호버 시에도 선택된 아이콘 사용하도록 변경, 단 Package는 선택 시에만)
-  const iconSrc = (isSelected || (!isPackage && isHovered)) && selectedIcon ? selectedIcon : icon;
+  const iconSrc = (isSelected || (!isPackage && isHovered && !disabled)) && selectedIcon ? selectedIcon : icon;
 
   // 카드 padding / gap - Figma 기준
   const cardPad = 24; // 모든 방향 24px
@@ -120,10 +146,14 @@ export default function FeatureCard({
 
   return (
     <div
-      onClick={onClick}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-      className="relative cursor-pointer flex flex-col"
+      onClick={disabled ? undefined : onClick}
+      onMouseEnter={() => {
+        if (!disabled) setIsHovered(true);
+      }}
+      onMouseLeave={() => {
+        if (!disabled) setIsHovered(false);
+      }}
+      className="relative flex flex-col"
       style={{
         width: "100%",
         /* 높이는 내용에 따라 flex로 채움 (Figma 352px 기준이나 반응형 허용) */
@@ -137,14 +167,37 @@ export default function FeatureCard({
         backdropFilter: "blur(12px)",
         WebkitBackdropFilter: "blur(12px)",
         transition: "all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1)",
-        transform: isPackage && isHovered && !isSelected ? "translateY(-4px)" : "none",
+        transform: isPackage && isHovered && !isSelected && !disabled ? "translateY(-4px)" : "none",
         display: "flex",
         flexDirection: "column",
+        cursor: disabled ? "default" : "pointer",
+        opacity: 1,
       }}
     >
+      {locked && (
+        <div
+          aria-hidden="true"
+          style={{
+            position: "absolute",
+            top: "20px",
+            right: "20px",
+            width: "29px",
+            height: "29px",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M8 10V7.5C8 5.01472 10.0147 3 12.5 3C14.9853 3 17 5.01472 17 7.5V10" stroke="#767676" strokeWidth="1.8" strokeLinecap="round"/>
+            <rect x="6" y="10" width="13" height="11" rx="2.5" stroke="#767676" strokeWidth="1.8"/>
+          </svg>
+        </div>
+      )}
+
       {/* 아이콘: 60x60 원형 프레임 (중간 원 제거를 위해 강제 크롭) */}
       <div
-        className="flex-shrink-0 flex items-center justify-center overflow-hidden"
+        className="home-feature-card-icon flex-shrink-0 flex items-center justify-center overflow-hidden"
         style={{
           width: 60,
           height: 60,
@@ -159,7 +212,7 @@ export default function FeatureCard({
           alt={title}
           width={140}
           height={140}
-          className="object-cover"
+          className="home-feature-card-icon-img object-cover"
           style={{
             filter: iconFilter,
             transition: "filter 0.2s ease",
@@ -179,6 +232,7 @@ export default function FeatureCard({
       <div className="flex flex-col" style={{ gap: "8px" }}>
         {/* 타이틀: Inter 600 19.5px */}
         <p
+          className="home-feature-card-title"
           style={{
             fontFamily: "Inter",
             fontSize: "19.5px",
@@ -195,11 +249,12 @@ export default function FeatureCard({
 
         {/* 설명: Inter 400 15px */}
         <p
+          className="home-feature-card-desc"
           style={{
             fontFamily: "Inter",
             fontSize: "15px",
             fontWeight: isPackage && isSelected ? 500 : 400,
-            lineHeight: "19px",
+            lineHeight: "1.115",
             letterSpacing: "-0.3px",
             color: descColor,
             margin: 0,
@@ -209,6 +264,29 @@ export default function FeatureCard({
           {description}
         </p>
       </div>
+
+      <style jsx>{`
+        /* [TEMP_SCALE_MODE_DISABLE] 차후 반응형 작업 시 복구
+        @media (max-width: 1800px) {
+          .home-feature-card-icon {
+            width: 51px !important;
+            height: 51px !important;
+          }
+
+          .home-feature-card-icon-img {
+            transform: translate(-50%, -50%) scale(0.86) !important;
+          }
+
+          .home-feature-card-title {
+            font-size: 16.5px !important;
+          }
+
+          .home-feature-card-desc {
+            font-size: 12px !important;
+          }
+        }
+        */
+      `}</style>
     </div>
   );
 }

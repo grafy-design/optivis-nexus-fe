@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { AppLayout } from "@/components/layout/AppLayout";
 import FeatureSection from "@/components/home/feature-section";
 import HeroPanel from "@/components/home/hero-panel";
@@ -15,6 +16,8 @@ interface Service {
   icon: string;
   selectedIcon?: string;
   variant?: "glass" | "solid" | "purple";
+  locked?: boolean;
+  disabled?: boolean;
 }
 
 interface Package {
@@ -31,6 +34,10 @@ interface RightPanelContent {
   description: string;
   imageUrl: string;
   videoUrl?: string; // 영상 URL 필드 추가
+  videoStartOffsetSeconds?: number;
+  videoPlaybackRate?: number;
+  videoScale?: number;
+  videoReverseLoop?: boolean;
 }
 
 const packages: Package[] = [
@@ -50,6 +57,8 @@ const packages: Package[] = [
         icon: "/assets/icons/twin-predict.svg", // Reusing parent icon temporarily
         variant: "glass" as const,
         selectedIcon: "/assets/icons/twin-predict-selected.svg",
+        locked: true,
+        disabled: true,
       },
     ],
   },
@@ -105,6 +114,8 @@ const packages: Package[] = [
         icon: "/assets/icons/virtual-control.svg", // Reusing parent icon temporarily
         variant: "glass" as const,
         selectedIcon: "/assets/icons/virtual-control-selected.svg",
+        locked: true,
+        disabled: true,
       },
       {
         id: "9",
@@ -114,6 +125,8 @@ const packages: Package[] = [
         icon: "/assets/icons/virtual-control.svg", // Reusing parent icon temporarily
         variant: "glass" as const,
         selectedIcon: "/assets/icons/virtual-control-selected.svg",
+        locked: true,
+        disabled: true,
       },
     ],
   },
@@ -132,6 +145,9 @@ const serviceContentMap: Record<string, RightPanelContent> = {
     description:
       "Simulates individual patient outcomes under various treatment conditions. Offers tailored response probabilities and treatment recommendations for clinical decision-making.",
     imageUrl: "/assets/main/target-subgroup-identification.png",
+    videoUrl: "https://pub-797907feee5143c4a0f4f34c25916ee8.r2.dev/oprimed_movie/2-1%20ATS.mp4",
+    videoPlaybackRate: 0.8,
+    videoScale: 1.06,
   },
   "6": {
     title: "Conditional Drug\nResponse Prediction",
@@ -166,25 +182,34 @@ const packageContentMap: Record<string, RightPanelContent> = {
     description:
       "Simulates individual patient outcomes under various treatment conditions. Offers tailored response probabilities and treatment recommendations for clinical decision-making.",
     imageUrl: "", // Not used for package video
-    videoUrl: "https://pub-797907feee5143c4a0f4f34c25916ee8.r2.dev/oprimed_movie/1-Twin%20Predict.webm",
+    videoUrl: "https://pub-797907feee5143c4a0f4f34c25916ee8.r2.dev/oprimed_movie/2-to.mp4",
+    videoStartOffsetSeconds: 3,
+    videoPlaybackRate: 0.8,
+    videoScale: 1.08,
   },
   "2": {
     title: "Trial Optimizer",
     description:
       "Generates optimal clinical trial design strategies through repeated simulations across diverse trial design conditions.",
     imageUrl: "",
-    videoUrl: "https://pub-797907feee5143c4a0f4f34c25916ee8.r2.dev/oprimed_movie/2-Trial%20Optimizer.webm",
+    videoUrl: "https://pub-797907feee5143c4a0f4f34c25916ee8.r2.dev/oprimed_movie/1-tp.mp4",
+    videoStartOffsetSeconds: 1,
+    videoPlaybackRate: 0.8,
+    videoScale: 1.24,
+    videoReverseLoop: true,
   },
   "3": {
     title: "Virtual Control",
     description:
       "Supports early trial design by identifying target subgroups and simulating different scenarios. Helps sponsors reduce sample size, optimize power, and refine study strategies.",
     imageUrl: "",
-    videoUrl: "https://pub-797907feee5143c4a0f4f34c25916ee8.r2.dev/oprimed_movie/3-Virtual%20Control.webm",
+    videoUrl: "https://pub-797907feee5143c4a0f4f34c25916ee8.r2.dev/oprimed_movie/3-vc.mp4",
   },
 };
 
 export default function HomePage() {
+  const [searchQuery, setSearchQuery] = useState("");
+
   const {
     selectedPackageId,
     selectedServiceId,
@@ -201,8 +226,11 @@ export default function HomePage() {
       : null;
 
   const handlePackageSelect = (packageId: string) => {
-    const newPackageId = packageId === selectedPackageId ? null : packageId;
-    setSelectedPackageId(newPackageId);
+    if (packageId === selectedPackageId) {
+      return;
+    }
+
+    setSelectedPackageId(packageId);
     setSelectedServiceId(null);
   };
 
@@ -239,9 +267,12 @@ export default function HomePage() {
               description: pkg.description,
               icon: pkg.icon,
               selectedIcon: pkg.selectedIcon,
+              locked: pkg.id === "1" || pkg.id === "3",
             }))}
             selectedId={selectedPackageId}
             onSelect={handlePackageSelect}
+            slotRows={packages.length}
+            maxVisibleFeatures={packages.length}
           />
         </div>
 
@@ -258,6 +289,8 @@ export default function HomePage() {
             features={availableServices}
             selectedId={selectedServiceId}
             onSelect={handleServiceSelect}
+            slotRows={3}
+            maxVisibleFeatures={3}
           />
         </div>
 
@@ -287,11 +320,13 @@ export default function HomePage() {
                   description={rightPanelContent.description}
                   imageUrl={rightPanelContent.imageUrl}
                   videoUrl={rightPanelContent.videoUrl}
+                  videoPlaybackRate={rightPanelContent.videoPlaybackRate}
+                  videoScale={rightPanelContent.videoScale}
                   serviceId={selectedServiceId}
                 />
                 <div style={{ display: "flex", flexDirection: "column", gap: "16px", flex: 1, minHeight: 0 }}>
-                  <SimulationSearch />
-                  <SimulationTable serviceId={selectedServiceId} />
+                  <SimulationSearch value={searchQuery} onChange={setSearchQuery} />
+                  <SimulationTable serviceId={selectedServiceId} searchQuery={searchQuery} />
                 </div>
               </>
             ) : selectedPackageId && packageContentMap[selectedPackageId] ? (
@@ -301,13 +336,29 @@ export default function HomePage() {
                   title={packageContentMap[selectedPackageId].title}
                   description={packageContentMap[selectedPackageId].description}
                   videoUrl={packageContentMap[selectedPackageId].videoUrl!}
+                  videoStartOffsetSeconds={packageContentMap[selectedPackageId].videoStartOffsetSeconds}
+                  videoPlaybackRate={packageContentMap[selectedPackageId].videoPlaybackRate}
+                  videoScale={packageContentMap[selectedPackageId].videoScale}
+                  videoReverseLoop={packageContentMap[selectedPackageId].videoReverseLoop}
                 />
               </div>
             ) : (
               <div style={{ display: "flex", alignItems: "center", justifyContent: "center", width: "100%", height: "100%" }}>
-                <p style={{ fontFamily: "Inter", fontSize: "19.5px", fontWeight: 600, color: "#828993", letterSpacing: "-0.585px" }}>
+                <p
+                  className="home-empty-guide-text"
+                  style={{ fontFamily: "Inter", fontSize: "19.5px", fontWeight: 600, color: "#828993", letterSpacing: "-0.585px" }}
+                >
                   {selectedPackageId ? "Service를 선택해주세요." : "Package를 선택해주세요."}
                 </p>
+                <style jsx>{`
+                  /* [TEMP_SCALE_MODE_DISABLE] 차후 반응형 작업 시 복구
+                  @media (max-width: 1800px) {
+                    .home-empty-guide-text {
+                      font-size: 16.5px !important;
+                    }
+                  }
+                  */
+                `}</style>
               </div>
             )}
           </div>

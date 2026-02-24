@@ -38,9 +38,9 @@ function StepCard({
   chartContent,
 }: StepCardProps) {
   return (
-    <div className="rounded-[16px] h-[512px] p-5 flex flex-col items-start flex-1 bg-[#f5f5f6]">
-      {/* Step 버튼 + 타이틀 + Description 영역 (고정 높이 132px) */}
-      <div className="h-[132px] w-full flex flex-col flex-shrink-0 mb-[76px]">
+    <div className="rounded-[16px] min-h-[512px] p-5 flex flex-col items-start flex-1 bg-[#f5f5f6]">
+      {/* Step 버튼 + 타이틀 + Description 영역 */}
+      <div className="w-full flex flex-col flex-shrink-0 mb-8">
         {/* Step 버튼 */}
         <div className="mb-3">
           <button className="px-3 py-1 bg-[#f06600] rounded-[8px] text-body5m text-white h-6">
@@ -48,15 +48,15 @@ function StepCard({
           </button>
         </div>
         {/* 타이틀 + Description 영역 */}
-        <div className="flex flex-col w-[700px] flex-1">
+        <div className="flex flex-col w-full flex-1">
           {/* 타이틀 */}
           <h3 className="text-h3 text-[#1b1b1b] mb-6">{title}</h3>
           {/* Description */}
-          <p className="text-body3 text-[#666b73] w-[500px]">{description}</p>
+          <p className="text-body3 text-[#666b73] max-w-[500px]">{description}</p>
         </div>
       </div>
-      {/* 차트 영역 (고정 크기) */}
-      <div className="w-[806px] h-[264px] flex-shrink-0 overflow-hidden">
+      {/* 차트 영역 */}
+      <div className="w-full h-[264px] flex-shrink-0 overflow-hidden">
         {chartContent}
       </div>
     </div>
@@ -101,6 +101,13 @@ export default function ReportPage() {
       router.push(simulationBasePath);
     }
   }, [isApplied, apiData, router, simulationBasePath]);
+
+  // 헤더의 Save as PDF 버튼 이벤트 리스너
+  useEffect(() => {
+    const handler = () => handleDownloadPDF();
+    window.addEventListener("save-report-pdf", handler);
+    return () => window.removeEventListener("save-report-pdf", handler);
+  });
 
   // 리포트 페이지는 result_resultsoverview만 사용하므로 하이라이트 데이터 로직 제거
 
@@ -261,8 +268,91 @@ export default function ReportPage() {
           // 임시로 배경색 설정
           (element as HTMLElement).style.backgroundColor = backgroundColor;
 
+          let captureTarget: HTMLElement = element as HTMLElement;
+          let cleanupCaptureTarget: (() => void) | null = null;
+
+          if (sectionId === "results-overview") {
+            type StyleProp =
+              | "width"
+              | "minWidth"
+              | "maxWidth"
+              | "display"
+              | "flexDirection"
+              | "alignItems"
+              | "gap"
+              | "flex";
+
+            const savedStyles: Array<{
+              el: HTMLElement;
+              prop: StyleProp;
+              val: string;
+            }> = [];
+
+            const setStyle = (
+              target: HTMLElement,
+              prop: StyleProp,
+              value: string,
+            ) => {
+              savedStyles.push({
+                el: target,
+                prop,
+                val: target.style[prop],
+              });
+              target.style[prop] = value;
+            };
+
+            const targetWidth = pageWidth - padding * 2;
+
+            setStyle(captureTarget, "width", `${targetWidth}px`);
+            setStyle(captureTarget, "minWidth", `${targetWidth}px`);
+            setStyle(captureTarget, "maxWidth", `${targetWidth}px`);
+
+            const flexColWrapper = captureTarget.children.item(1) as HTMLElement | null;
+            if (flexColWrapper) {
+              setStyle(flexColWrapper, "display", "flex");
+              setStyle(flexColWrapper, "width", "100%");
+              setStyle(flexColWrapper, "flexDirection", "row");
+              setStyle(flexColWrapper, "alignItems", "stretch");
+              setStyle(flexColWrapper, "gap", "24px");
+
+              const gridEl = flexColWrapper.children[0] as HTMLElement | null;
+              if (gridEl) {
+                setStyle(gridEl, "flex", "3 1 0%");
+                setStyle(gridEl, "minWidth", "0");
+                setStyle(gridEl, "width", "100%");
+              }
+
+              const insightEl = flexColWrapper.children[1] as HTMLElement | null;
+              if (insightEl) {
+                setStyle(insightEl, "flex", "2 1 0%");
+                setStyle(insightEl, "minWidth", "0");
+                setStyle(insightEl, "width", "100%");
+              }
+            }
+
+            cleanupCaptureTarget = () => {
+              for (let i = savedStyles.length - 1; i >= 0; i--) {
+                const item = savedStyles[i];
+                item.el.style[item.prop] = item.val;
+              }
+              window.dispatchEvent(new Event("resize"));
+            };
+
+            await new Promise<void>((resolve) => {
+              requestAnimationFrame(() => {
+                requestAnimationFrame(() => {
+                  resolve();
+                });
+              });
+            });
+            window.dispatchEvent(new Event("resize"));
+            await new Promise<void>((resolve) => {
+              setTimeout(() => resolve(), 120);
+            });
+          }
+
           try {
-            const imgData = await toPng(element, {
+            const imgData = await toPng(captureTarget, {
               backgroundColor: backgroundColor,
               pixelRatio: 2,
               quality: 1,
@@ -271,16 +361,26 @@ export default function ReportPage() {
 
             // 원래 배경색 복원
             (element as HTMLElement).style.backgroundColor = originalBgColor;
+            cleanupCaptureTarget?.();
 
-            // 요소의 실제 크기 사용 (비율 유지)
-            const elementWidth = element.offsetWidth;
-            const elementHeight = element.offsetHeight;
-
-            // PDF 페이지 너비에 맞게 스케일링 (비율 유지)
+            const pdfWithImageProps = pdf as jsPDF & {
+              getImageProperties: (imageData: string) => {
+                width: number;
+                height: number;
+              };
+            };
+            const imageProps = pdfWithImageProps.getImageProperties(imgData);
             const maxWidth = pageWidth - padding * 2;
-            const scale = Math.min(1, maxWidth / elementWidth);
-            const imgWidth = elementWidth * scale;
-            const imgHeight = elementHeight * scale;
+            const captureWidth = captureTarget.offsetWidth;
+            const imgWidth =
+              sectionId === "results-overview"
+                ? maxWidth
+                : Math.min(maxWidth, captureWidth);
+            const imgHeight = (imageProps.height * imgWidth) / imageProps.width;
+            const x =
+              sectionId === "results-overview"
+                ? (pageWidth - imgWidth) / 2
+                : padding;
 
             // 현재 페이지에 넣을 수 있는지 확인 (하단 padding 고려)
             if (currentHeight + imgHeight > pageHeight - padding) {
@@ -293,7 +393,7 @@ export default function ReportPage() {
             pdf.addImage(
               imgData,
               "PNG",
-              padding, // 좌측 padding
+              x,
               currentHeight,
               imgWidth,
               imgHeight,
@@ -302,6 +402,7 @@ export default function ReportPage() {
           } catch (error) {
             // 에러 발생 시 원래 배경색 복원
             (element as HTMLElement).style.backgroundColor = originalBgColor;
+            cleanupCaptureTarget?.();
             throw error;
           }
         }
@@ -364,39 +465,218 @@ export default function ReportPage() {
   return (
     <>
       <AppLayout headerType="ats">
-        <div className="w-full h-full min-h-0 overflow-y-auto overflow-x-hidden flex flex-col items-center">
-          {/* Top Section - Title */}
-          <div className="w-full flex justify-center mb-2 max-w-full">
-            <div className="w-[1772px] flex-shrink-0 mx-auto">
-              {/* Title Section */}
-              <div className="flex items-start justify-between mb-10 min-w-full">
-                <div
-                  id="report-header"
-                  className="flex flex-col gap-1 flex-shrink-0 items-start"
-                >
-                  <div className="text-title text-neutral-5 text-left mb-2">
-                    Adaptive Trial Simulation
-                  </div>
-                  <p className="text-body2m text-neutral-50 text-left">
-                    {currentDate}
-                  </p>
-                </div>
-                <button
-                  onClick={handleDownloadPDF}
-                  disabled={isDownloadingPDF}
-                  className="px-5 py-2.5 bg-[#aaaaad] text-white rounded-[100px] text-body3 hover:opacity-90 transition-opacity flex items-center gap-2 cursor-pointer disabled:opacity-70 disabled:cursor-not-allowed"
-                >
-                  Save as PDF
-                </button>
+        <div className="w-full h-full min-h-0 overflow-hidden flex flex-col">
+          {/* Title Section (left-aligned) */}
+          <div className="flex items-start justify-between mb-4 flex-shrink-0">
+            <div
+              id="report-header"
+              className="flex flex-col gap-1 flex-shrink-0 items-start"
+            >
+              <div className="text-title text-neutral-5 text-left mb-2">
+                Adaptive Trial Simulation
               </div>
+              <p className="text-body2m text-neutral-50 text-left">
+                {currentDate}
+              </p>
             </div>
           </div>
 
-          {/* Main Report Card */}
-          <div className="w-full flex justify-center mb-2 max-w-full">
-            <div className="w-[1772px] p-0 flex-shrink-0">
-              <div className="figma-nine-slice figma-home-panel-middle relative w-[1772px] h-[3704px] px-7 py-6">
-                <div className="w-full">
+          {/* Two-column layout */}
+          <div className="flex gap-[11px] flex-1 min-h-0">
+            {/* LEFT: Results Overview (liquid glass frame) - 고정, 풀높이 */}
+            <div className="w-[700px] flex-shrink-0 h-full flex flex-col">
+              <div className="figma-nine-slice figma-home-panel-middle relative px-[42px] py-9 flex-1 flex flex-col">
+                <div id="results-overview" className="flex flex-col flex-1">
+                  <h2 className="text-h2 text-[#2d1067] mb-8">
+                    Results Overview
+                  </h2>
+                  <div className="flex flex-col gap-6 flex-1">
+                    {/* Insight Summary */}
+                    <div className="flex-1 flex flex-col">
+                      <div
+                        className="flex flex-col items-center bg-[#231f52] rounded-[16px] w-full flex-1"
+                        style={{
+                          padding: "24px",
+                          gap: "24px",
+                        }}
+                      >
+                        <h3 className="text-h3 text-white text-left w-full">
+                          Insight Summary
+                        </h3>
+                        <div
+                          className="space-y-4 w-full"
+                          style={{ marginTop: "24px" }}
+                        >
+                          <div className="flex items-center gap-8">
+                            <Image
+                              src="/assets/simulation/insight-summary-sample.svg"
+                              alt="Sample Size"
+                              width={20}
+                              height={18}
+                              className="flex-shrink-0"
+                            />
+                            <span className="text-body2 text-white">
+                              <span className="font-semibold">
+                                {apiData?.result_resultsoverview?.OPTIVIS?.[0]
+                                  ?.sample_size_text || ""}
+                              </span>
+                            </span>
+                          </div>
+                          <div className="h-[1px] bg-[#adaaaa]" />
+                          <div className="flex items-center gap-8">
+                            <Image
+                              src="/assets/simulation/insight-summary-enrollment.svg"
+                              alt="Enrollment"
+                              width={20}
+                              height={18}
+                              className="flex-shrink-0"
+                            />
+                            <span className="text-body2 text-white">
+                              <span className="font-semibold">
+                                {apiData?.result_resultsoverview?.OPTIVIS?.[0]
+                                  ?.enrollment_text || ""}
+                              </span>
+                            </span>
+                          </div>
+                          <div className="h-[1px] bg-[#adaaaa]" />
+                          <div className="flex items-center gap-8">
+                            <Image
+                              src="/assets/simulation/insight-summary-cost.svg"
+                              alt="Cost"
+                              width={20}
+                              height={18}
+                              className="flex-shrink-0"
+                            />
+                            <span className="text-body2 text-white">
+                              <span className="font-semibold">
+                                {apiData?.result_resultsoverview?.OPTIVIS?.[0]
+                                  ?.cost_text || ""}
+                              </span>
+                            </span>
+                          </div>
+                          <div className="h-[1px] bg-[#adaaaa]" />
+                          <div className="flex items-center gap-8">
+                            <Image
+                              src="/assets/simulation/insight-summary-loss.svg"
+                              alt="Power Loss"
+                              width={20}
+                              height={18}
+                              className="flex-shrink-0"
+                            />
+                            <span className="text-body2 text-white">
+                              <span className="font-semibold">
+                                {apiData?.result_resultsoverview?.OPTIVIS?.[0]
+                                  ?.power_text || ""}
+                              </span>
+                            </span>
+                          </div>
+                        </div>
+                        <div className="bg-white rounded-[16px] p-4 w-full flex-1 flex flex-col">
+                          <h3 className="text-h3 text-[#231f52]">
+                            {apiData?.sample_size_evaluation?.title || ""}
+                          </h3>
+                          <p className="text-body4m text-neutral-5 whitespace-pre-line mt-auto">
+                            {apiData?.sample_size_evaluation?.content || ""}
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* 2x2 그리드 (4개의 흰색 카드) */}
+                    <div className="grid grid-cols-2 gap-4">
+                      {reportData.reductionView.charts.map(
+                        (chart, index) => {
+                          const formatter =
+                            chart.label === "Cost"
+                              ? (val: number) => `${val}M`
+                              : chart.label === "Enrollment Time"
+                                ? (val: number) => val.toFixed(2)
+                                : chart.label === "Power"
+                                  ? (val: number) => `${val}%`
+                                  : undefined;
+
+                          return (
+                            <div
+                              key={index}
+                              className="flex flex-col items-center bg-white rounded-[16px] p-3"
+                              style={{
+                                gap: "12px",
+                              }}
+                            >
+                              <div className="flex items-start justify-between w-full">
+                                <div className="flex flex-col gap-1">
+                                  <h4 className="text-body2 text-[#262255]">
+                                    {chart.label}
+                                  </h4>
+                                  <div className="flex items-center gap-1 mt-1">
+                                    <ArrowIcon
+                                      direction={
+                                        chart.isNegative ? "up" : "down"
+                                      }
+                                      color="#231F52"
+                                    />
+                                    <span className="text-h4 text-neutral-15">
+                                      {chart.change}
+                                    </span>
+                                  </div>
+                                </div>
+                              </div>
+                              <div className="grid grid-cols-2 gap-2 w-full">
+                                {/* OPTIVIS */}
+                                <div className="flex flex-col gap-1">
+                                  <div
+                                    style={{
+                                      height: "150px",
+                                      width: "100%",
+                                    }}
+                                  >
+                                    <SingleBarChart
+                                      value={chart.optivis}
+                                      maxValue={Math.max(
+                                        chart.optivis,
+                                        chart.traditional,
+                                      )}
+                                      color="#f06600"
+                                      height="100%"
+                                      formatter={formatter}
+                                    />
+                                  </div>
+                                </div>
+                                {/* Traditional */}
+                                <div className="flex flex-col gap-1">
+                                  <div
+                                    style={{
+                                      height: "150px",
+                                      width: "100%",
+                                    }}
+                                  >
+                                    <SingleBarChart
+                                      value={chart.traditional}
+                                      maxValue={Math.max(
+                                        chart.optivis,
+                                        chart.traditional,
+                                      )}
+                                      color="#231f52"
+                                      height="100%"
+                                      formatter={formatter}
+                                    />
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          );
+                        },
+                      )}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* RIGHT: Main content (liquid glass frame) - 독립 스크롤 */}
+            <div className="flex-1 min-w-0 h-full flex flex-col">
+              <div className="figma-nine-slice figma-home-panel-middle relative px-[42px] py-9 flex-1 flex flex-col overflow-hidden">
+                <div className="w-full overflow-y-auto flex-1 min-h-0">
                   {/* Trial Design Conditions Summary */}
                   <div id="trial-design-summary" className="mb-[100px]">
                     <h2 className="text-h2 text-[#2d1067] mb-[44px]">
@@ -698,203 +978,6 @@ export default function ReportPage() {
                     </div>
                   </div>
 
-                  {/* Results Overview */}
-                  <div id="results-overview" className="mb-[100px]">
-                    <h2 className="text-h2 text-[#2d1067] mb-[44px]">
-                      Results Overview
-                    </h2>
-                    <div className="flex gap-6">
-                      {/* 구역 1: 2x2 그리드 (4개의 흰색 카드) */}
-                      <div className="flex-shrink-0">
-                        <div
-                          className="grid grid-cols-2"
-                          style={{
-                            gap: "24px",
-                            width: "1048px", // 512px * 2 + 24px gap
-                          }}
-                        >
-                          {reportData.reductionView.charts.map(
-                            (chart, index) => {
-                              const formatter =
-                                chart.label === "Cost"
-                                  ? (val: number) => `${val}M`
-                                  : chart.label === "Enrollment Time"
-                                    ? (val: number) => val.toFixed(2)
-                                    : chart.label === "Power"
-                                      ? (val: number) => `${val}%`
-                                      : undefined;
-
-                              return (
-                                <div
-                                  key={index}
-                                  className="flex flex-col items-center bg-white rounded-[16px]"
-                                  style={{
-                                    width: "512px",
-                                    height: "306px",
-                                    padding: "12px 16px 16px 16px",
-                                    gap: "20px",
-                                  }}
-                                >
-                                  <div className="flex items-start justify-between w-full ">
-                                    <div className="flex flex-col gap-1">
-                                      <h4 className="text-body2 text-[#262255]">
-                                        {chart.label}
-                                      </h4>
-                                      <div className="flex items-center gap-1 mt-1">
-                                        <ArrowIcon
-                                          direction={
-                                            chart.isNegative ? "up" : "down"
-                                          }
-                                          color="#231F52"
-                                        />
-                                        <span className="text-h4 text-neutral-15">
-                                          {chart.change}
-                                        </span>
-                                      </div>
-                                    </div>
-                                  </div>
-                                  <div className="grid grid-cols-2 gap-2 w-full">
-                                    {/* OPTIVIS */}
-                                    <div className="flex flex-col gap-1">
-                                      <div
-                                        style={{
-                                          height: "180px",
-                                          width: "100%",
-                                        }}
-                                      >
-                                        <SingleBarChart
-                                          value={chart.optivis}
-                                          maxValue={Math.max(
-                                            chart.optivis,
-                                            chart.traditional,
-                                          )}
-                                          color="#f06600"
-                                          height="100%"
-                                          formatter={formatter}
-                                        />
-                                      </div>
-                                    </div>
-                                    {/* Traditional */}
-                                    <div className="flex flex-col gap-1">
-                                      <div
-                                        style={{
-                                          height: "180px",
-                                          width: "100%",
-                                        }}
-                                      >
-                                        <SingleBarChart
-                                          value={chart.traditional}
-                                          maxValue={Math.max(
-                                            chart.optivis,
-                                            chart.traditional,
-                                          )}
-                                          color="#231f52"
-                                          height="100%"
-                                          formatter={formatter}
-                                        />
-                                      </div>
-                                    </div>
-                                  </div>
-                                </div>
-                              );
-                            },
-                          )}
-                        </div>
-                      </div>
-
-                      {/* 구역 2: Insight Summary */}
-                      <div className="flex-1 min-w-0">
-                        <div
-                          className="flex flex-col items-center bg-[#231f52] rounded-[16px] w-full h-[636px]"
-                          style={{
-                            padding: "24px",
-                            gap: "24px",
-                          }}
-                        >
-                          <h3 className="text-h3 text-white text-left w-full">
-                            Insight Summary
-                          </h3>
-                          <div
-                            className="space-y-4 w-full"
-                            style={{ marginTop: "53px" }}
-                          >
-                            <div className="flex items-center gap-8">
-                              <Image
-                                src="/assets/simulation/insight-summary-sample.svg"
-                                alt="Sample Size"
-                                width={20}
-                                height={18}
-                                className="flex-shrink-0"
-                              />
-                              <span className="text-body2 text-white">
-                                <span className="font-semibold">
-                                  {apiData?.result_resultsoverview?.OPTIVIS?.[0]
-                                    ?.sample_size_text || ""}
-                                </span>
-                              </span>
-                            </div>
-                            <div className="h-[1px] bg-[#adaaaa]" />
-                            <div className="flex items-center gap-8">
-                              <Image
-                                src="/assets/simulation/insight-summary-enrollment.svg"
-                                alt="Enrollment"
-                                width={20}
-                                height={18}
-                                className="flex-shrink-0"
-                              />
-                              <span className="text-body2 text-white">
-                                <span className="font-semibold">
-                                  {apiData?.result_resultsoverview?.OPTIVIS?.[0]
-                                    ?.enrollment_text || ""}
-                                </span>
-                              </span>
-                            </div>
-                            <div className="h-[1px] bg-[#adaaaa]" />
-                            <div className="flex items-center gap-8">
-                              <Image
-                                src="/assets/simulation/insight-summary-cost.svg"
-                                alt="Cost"
-                                width={20}
-                                height={18}
-                                className="flex-shrink-0"
-                              />
-                              <span className="text-body2 text-white">
-                                <span className="font-semibold">
-                                  {apiData?.result_resultsoverview?.OPTIVIS?.[0]
-                                    ?.cost_text || ""}
-                                </span>
-                              </span>
-                            </div>
-                            <div className="h-[1px] bg-[#adaaaa]" />
-                            <div className="flex items-center gap-8">
-                              <Image
-                                src="/assets/simulation/insight-summary-loss.svg"
-                                alt="Power Loss"
-                                width={20}
-                                height={18}
-                                className="flex-shrink-0"
-                              />
-                              <span className="text-body2 text-white">
-                                <span className="font-semibold">
-                                  {apiData?.result_resultsoverview?.OPTIVIS?.[0]
-                                    ?.power_text || ""}
-                                </span>
-                              </span>
-                            </div>
-                          </div>
-                          <div className="bg-white rounded-[16px] p-4 w-full flex-1 flex flex-col">
-                            <h3 className="text-h3 text-[#231f52]">
-                              {apiData?.sample_size_evaluation?.title || ""}
-                            </h3>
-                            <p className="text-body4m text-neutral-5 whitespace-pre-line mt-auto">
-                              {apiData?.sample_size_evaluation?.content || ""}
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
                   {/* Prediction Accuracy by Model Section */}
                   <div id="prediction-accuracy" className="mb-[100px]">
                     <h2 className="text-h2 text-[#2d1067] mb-[44px]">
@@ -1161,12 +1244,6 @@ export default function ReportPage() {
                         <h2 className="text-h2 text-[#2d1067]">
                           {(apiData as any).appendix.title}
                         </h2>
-                        <button
-                          onClick={handleDownloadPDFFromBackend}
-                          className="px-5 py-2.5 bg-[#aaaaad] text-white rounded-[100px] text-body3 hover:opacity-90 transition-opacity flex items-center gap-2 cursor-pointer"
-                        >
-                          Save as PDF
-                        </button>
                       </div>
 
                       {/* 카드 1개 */}
@@ -1175,42 +1252,29 @@ export default function ReportPage() {
                         style={{ height: "132px" }}
                       >
                         <div className="h-full flex items-center">
-                          <p className="text-body3m text-neutral-20 w-[1000px]">
+                          <p className="text-body3m text-neutral-20 max-w-[1000px]">
                             {(apiData as any).appendix.content}
                           </p>
                         </div>
                       </div>
                     </div>
                   )}
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Footer - 카드 밖 */}
-          <div className="w-full flex justify-center mb-2 max-w-full">
-            <div className="w-[1772px] flex-shrink-0 mx-auto">
-              <div className="flex items-center justify-between py-4">
-                <div className="text-body5 text-neutral-40"></div>
-                <div className="flex gap-4">
-                  <button className="px-5 py-2.5 bg-[#aaaaad] text-white rounded-[100px] text-body3 hover:opacity-90 transition-opacity cursor-pointer flex items-center gap-2">
-                    <Image
-                      src="/assets/header/download.svg"
-                      alt=""
-                      width={22}
-                      height={22}
-                      className="object-contain brightness-0 invert"
-                    />
-                    Save Simulation
-                  </button>
-                  <Button
-                    variant="orange"
-                    size="md"
-                    onClick={() => router.push("/")}
-                    className="rounded-[100px]"
-                  >
-                    Go to Main
-                  </Button>
+                  {/* Footer - 오른쪽 패널 하단 */}
+                  <div className="flex items-center justify-end py-6 flex-shrink-0">
+                    <div className="flex gap-4">
+                      <button className="px-5 py-2.5 bg-[#aaaaad] text-white rounded-[100px] text-body3 hover:opacity-90 transition-opacity cursor-pointer flex items-center gap-2">
+                        Save Simulation
+                      </button>
+                      <Button
+                        variant="orange"
+                        size="md"
+                        onClick={() => router.push("/")}
+                        className="rounded-[100px]"
+                      >
+                        Go to Main
+                      </Button>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>

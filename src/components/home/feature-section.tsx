@@ -10,6 +10,8 @@ export interface Feature {
   icon: string;
   selectedIcon?: string;
   variant?: "glass" | "solid" | "purple";
+  locked?: boolean;
+  disabled?: boolean;
 }
 
 interface FeatureSectionProps {
@@ -17,6 +19,8 @@ interface FeatureSectionProps {
   features: Feature[];
   selectedId?: string | null;
   onSelect?: (id: string) => void;
+  slotRows?: number;
+  maxVisibleFeatures?: number;
 }
 
 export default function FeatureSection({
@@ -24,16 +28,27 @@ export default function FeatureSection({
   features,
   selectedId: externalSelectedId,
   onSelect: externalOnSelect,
+  slotRows,
+  maxVisibleFeatures,
 }: FeatureSectionProps) {
-  const handleCardClick = (id: string) => {
+  const handleCardClick = (feature: Feature) => {
+    if (feature.disabled) {
+      return;
+    }
+
     if (externalOnSelect) {
-      externalOnSelect(id);
+      externalOnSelect(feature.id);
     }
   };
 
   const selectedId = externalSelectedId;
   const sectionType = title.includes("Package") ? "package" : "service";
   const panelClass = sectionType === "package" ? "figma-home-panel-left" : "figma-home-panel-middle";
+  const displayedFeatures =
+    typeof maxVisibleFeatures === "number" && maxVisibleFeatures > 0
+      ? features.slice(0, maxVisibleFeatures)
+      : features;
+  const shouldUseSlotLayout = typeof slotRows === "number" && slotRows > 0;
 
   // Figma: 섹션 번호/이름 파싱 ("01 Package" -> "01", "Package")
   const parts = title.split(" ");
@@ -67,6 +82,7 @@ export default function FeatureSection({
       >
         <div className="flex items-center" style={{ gap: "20.6px" }}>
           <span
+            className="home-feature-section-text"
             style={{
               fontFamily: "Inter",
               fontSize: "17px",
@@ -78,6 +94,7 @@ export default function FeatureSection({
             {sectionNum}
           </span>
           <span
+            className="home-feature-section-text"
             style={{
               fontFamily: "Inter",
               fontSize: "17px",
@@ -102,23 +119,51 @@ export default function FeatureSection({
 
       {/* Feature Cards: gap=16px */}
       <div
-        className="flex flex-col"
-        style={{ gap: "16px", flex: 1, overflowY: "auto", minHeight: 0 }}
+        className={cn(shouldUseSlotLayout ? "grid" : "flex flex-col")}
+        style={
+          shouldUseSlotLayout
+            ? {
+                gridTemplateRows: `repeat(${slotRows}, minmax(0, 1fr))`,
+                gap: "16px",
+                flex: 1,
+                minHeight: 0,
+                overflow: "hidden",
+              }
+            : {
+                gap: "16px",
+                flex: 1,
+                overflowY: "auto",
+                minHeight: 0,
+              }
+        }
       >
-        {features.map((feature) => (
-          <FeatureCard
-            key={feature.id}
-            title={feature.title}
-            description={feature.description}
-            icon={feature.icon}
-            selectedIcon={feature.selectedIcon}
-            variant={feature.variant || "glass"}
-            isSelected={selectedId === feature.id}
-            onClick={() => handleCardClick(feature.id)}
-            sectionType={sectionType}
-          />
+        {displayedFeatures.map((feature) => (
+          <div key={feature.id} style={{ minHeight: 0, display: shouldUseSlotLayout ? "flex" : "block" }}>
+            <FeatureCard
+              title={feature.title}
+              description={feature.description}
+              icon={feature.icon}
+              selectedIcon={feature.selectedIcon}
+              variant={feature.variant || "glass"}
+              isSelected={!feature.disabled && selectedId === feature.id}
+              onClick={() => handleCardClick(feature)}
+              sectionType={sectionType}
+              locked={feature.locked}
+              disabled={feature.disabled}
+            />
+          </div>
         ))}
       </div>
+
+      <style jsx>{`
+        /* [TEMP_SCALE_MODE_DISABLE] 차후 반응형 작업 시 복구
+        @media (max-width: 1800px) {
+          .home-feature-section-text {
+            font-size: 14px !important;
+          }
+        }
+        */
+      `}</style>
     </div>
   );
 }

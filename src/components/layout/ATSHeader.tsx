@@ -106,6 +106,21 @@ export const ATSHeader = () => {
 
         {/* Right - Actions */}
         <div className="flex items-center gap-4">
+          {isReportPage && (
+            <button
+              onClick={() => window.dispatchEvent(new Event("save-report-pdf"))}
+              className="h-12 px-5 bg-[#aaaaad] text-white rounded-[100px] text-body3 hover:opacity-90 transition-opacity flex items-center gap-2 cursor-pointer"
+            >
+              <Image
+                src="/assets/header/download.svg"
+                alt=""
+                width={22}
+                height={22}
+                className="object-contain brightness-0 invert"
+              />
+              Save as PDF
+            </button>
+          )}
           {!isReportPage && (
             <button
               onClick={handleMakeReport}

@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 
@@ -8,6 +9,8 @@ interface HeroPanelProps {
   description: string;
   imageUrl: string;
   videoUrl?: string;
+  videoPlaybackRate?: number;
+  videoScale?: number;
   serviceId?: string | null;
 }
 
@@ -27,9 +30,30 @@ export default function HeroPanel({
   description,
   imageUrl,
   videoUrl,
+  videoPlaybackRate = 1,
+  videoScale = 1,
   serviceId,
 }: HeroPanelProps) {
   const router = useRouter();
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) {
+      return;
+    }
+
+    const applyPlaybackRate = () => {
+      video.playbackRate = videoPlaybackRate;
+    };
+
+    applyPlaybackRate();
+    video.addEventListener("loadedmetadata", applyPlaybackRate);
+
+    return () => {
+      video.removeEventListener("loadedmetadata", applyPlaybackRate);
+    };
+  }, [videoUrl, videoPlaybackRate]);
 
   const isDisabled = serviceId === "6";
 
@@ -63,6 +87,7 @@ export default function HeroPanel({
         <div className="flex flex-col" style={{ gap: "21.99px" }}>
           {/* 제목: Poppins 600 50px #111111 */}
           <h2
+            className="home-hero-title"
             style={{
               fontFamily: "Poppins",
               fontSize: "clamp(28px, 3.5vw, 50px)",
@@ -77,6 +102,7 @@ export default function HeroPanel({
           </h2>
           {/* 설명: Inter 400 20px #484646 */}
           <p
+            className="home-hero-desc"
             style={{
               fontFamily: "Inter",
               fontSize: "clamp(15px, 1.4vw, 20px)",
@@ -112,6 +138,7 @@ export default function HeroPanel({
           }}
         >
           <span
+            className="home-hero-btn-text"
             style={{
               fontFamily: "Inter",
               fontSize: "19.5px",
@@ -126,6 +153,7 @@ export default function HeroPanel({
           </span>
           {/* 화살표 아이콘 (Figma: Frame 1618872882 20.57×20.57px) */}
           <svg
+            className="home-hero-btn-icon"
             width="21"
             height="21"
             viewBox="0 0 21 21"
@@ -156,13 +184,19 @@ export default function HeroPanel({
       >
         {videoUrl ? (
           <video
+            ref={videoRef}
             src={videoUrl}
             autoPlay
             loop
             muted
             playsInline
             className="w-full h-full object-cover"
-            style={{ width: "100%", height: "100%" }}
+            style={{
+              width: "100%",
+              height: "100%",
+              transform: `scale(${videoScale})`,
+              transformOrigin: "center center",
+            }}
           />
         ) : (
           <Image
@@ -176,6 +210,29 @@ export default function HeroPanel({
           />
         )}
       </div>
+
+      <style jsx>{`
+        /* [TEMP_SCALE_MODE_DISABLE] 차후 반응형 작업 시 복구
+        @media (max-width: 1800px) {
+          .home-hero-title {
+            font-size: clamp(25px, 3.2vw, 47px) !important;
+          }
+
+          .home-hero-desc {
+            font-size: clamp(12px, 1.1vw, 17px) !important;
+          }
+
+          .home-hero-btn-text {
+            font-size: 16.5px !important;
+          }
+
+          .home-hero-btn-icon {
+            width: 18px !important;
+            height: 18px !important;
+          }
+        }
+        */
+      `}</style>
     </div>
   );
 }

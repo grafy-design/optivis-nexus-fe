@@ -3,8 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "dev:turbo": "next dev --turbopack",
+    "dev": "NODE_OPTIONS='--max-old-space-size=4096' next dev --turbopack",
+    "dev:webpack": "NODE_OPTIONS='--max-old-space-size=4096' next dev",
+    "dev:turbo": "NODE_OPTIONS='--max-old-space-size=4096' next dev --turbopack",
     "build": "next build",
     "start": "next start -p 3003",
     "deploy": "npm run build && npm start",

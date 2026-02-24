@@ -415,24 +415,24 @@
 }
 
 .figma-home-panel-left::before {
-  border-width: 36px;
+  border-width: 20px 50px 70px 50px;
   border-image-source: url("/assets/figma/home/frame-panel-left.png");
-  border-image-slice: 72 fill;
-  border-image-width: 36px;
+  border-image-slice: 40 100 140 100 fill;
+  border-image-width: 20px 50px 70px 50px;
 }
 
 .figma-home-panel-middle::before {
-  border-width: 36px;
+  border-width: 20px 50px 70px 50px;
   border-image-source: url("/assets/figma/home/frame-panel-middle.png");
-  border-image-slice: 72 fill;
-  border-image-width: 36px;
+  border-image-slice: 40 100 140 100 fill;
+  border-image-width: 20px 50px 70px 50px;
 }
 
 .figma-home-panel-right::before {
-  border-width: 36px;
+  border-width: 20px 50px 70px 50px;
   border-image-source: url("/assets/figma/home/frame-panel-right.png");
-  border-image-slice: 72 fill;
-  border-image-width: 36px;
+  border-image-slice: 40 100 140 100 fill;
+  border-image-width: 20px 50px 70px 50px;
 }
 
 .figma-header-btn-template::before {

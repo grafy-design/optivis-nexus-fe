@@ -1,10 +1,6 @@
 const BACKEND_URL =
   process.env.NEXT_PUBLIC_API_BASE_URL ?? "https://nexus.oprimed.com";
 
-// 브라우저에서는 프록시 API Route를 사용하고, 서버에서는 직접 백엔드 호출
-const isClient = typeof window !== "undefined";
-const API_BASE_URL = isClient ? "" : BACKEND_URL;
-
 // API 응답 타입 정의
 export interface StudyResult {
   id: number;
@@ -285,9 +281,10 @@ export const callMLStudyDesign = async (
   const timeoutId = setTimeout(() => controller.abort(), timeout);
 
   try {
+    const isClient = typeof window !== "undefined";
     const url = isClient
       ? "/api/proxy/study-play"
-      : `${API_BASE_URL}/api/nexus/learning/study/play/`;
+      : `${BACKEND_URL}/api/nexus/learning/study/play/`;
 
     const response = await fetch(url, {
       method: "POST",
@@ -342,9 +339,10 @@ export const callMLStudyDesign = async (
 // 파일 다운로드 API 호출
 export const downloadReportFile = async (taskId: string): Promise<Blob> => {
   try {
+    const isClient = typeof window !== "undefined";
     const url = isClient
       ? `/api/proxy/download/${taskId}`
-      : `${API_BASE_URL}/api/nexus/files/download/${taskId}/`;
+      : `${BACKEND_URL}/api/nexus/files/download/${taskId}/`;
 
     const response = await fetch(url, {
       method: "GET",
