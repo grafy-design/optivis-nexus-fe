@@ -2,5 +2,6 @@
   "/api/proxy/study-play/route": "app/api/proxy/study-play/route.js",
   "/ats/simulation/page": "app/ats/simulation/page.js",
   "/ats/simulation/report/page": "app/ats/simulation/report/page.js",
-  "/page": "app/page.js"
+  "/page": "app/page.js",
+  "/tsi/page": "app/tsi/page.js"
 }

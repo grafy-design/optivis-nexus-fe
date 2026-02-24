@@ -11,6 +11,7 @@ interface HeroPanelProps {
   videoUrl?: string;
   videoPlaybackRate?: number;
   videoScale?: number;
+  videoReverseLoop?: boolean;
   serviceId?: string | null;
 }
 
@@ -32,10 +33,14 @@ export default function HeroPanel({
   videoUrl,
   videoPlaybackRate = 1,
   videoScale = 1,
+  videoReverseLoop = false,
   serviceId,
 }: HeroPanelProps) {
   const router = useRouter();
   const videoRef = useRef<HTMLVideoElement>(null);
+  const reverseAnimationFrameRef = useRef<number | null>(null);
+  const reverseLastTimestampRef = useRef<number | null>(null);
+  const isReversingRef = useRef(false);
 
   useEffect(() => {
     const video = videoRef.current;
@@ -43,17 +48,81 @@ export default function HeroPanel({
       return;
     }
 
+    const stopReverseAnimation = () => {
+      if (reverseAnimationFrameRef.current !== null) {
+        cancelAnimationFrame(reverseAnimationFrameRef.current);
+        reverseAnimationFrameRef.current = null;
+      }
+      reverseLastTimestampRef.current = null;
+      isReversingRef.current = false;
+    };
+
+    const startForwardPlayback = () => {
+      stopReverseAnimation();
+      video.playbackRate = videoPlaybackRate;
+      void video.play();
+    };
+
+    const runReversePlayback = (timestamp: number) => {
+      if (!isReversingRef.current) {
+        return;
+      }
+
+      if (reverseLastTimestampRef.current === null) {
+        reverseLastTimestampRef.current = timestamp;
+      }
+
+      const deltaSeconds = (timestamp - reverseLastTimestampRef.current) / 1000;
+      reverseLastTimestampRef.current = timestamp;
+      const nextTime = video.currentTime - deltaSeconds * Math.abs(videoPlaybackRate);
+
+      if (nextTime <= 0) {
+        video.currentTime = 0;
+        startForwardPlayback();
+        return;
+      }
+
+      video.currentTime = nextTime;
+      reverseAnimationFrameRef.current = requestAnimationFrame(runReversePlayback);
+    };
+
+    const startReversePlayback = () => {
+      if (!videoReverseLoop || isReversingRef.current) {
+        return;
+      }
+
+      video.pause();
+      isReversingRef.current = true;
+      reverseLastTimestampRef.current = null;
+      reverseAnimationFrameRef.current = requestAnimationFrame(runReversePlayback);
+    };
+
     const applyPlaybackRate = () => {
       video.playbackRate = videoPlaybackRate;
     };
 
+    const handleTimeUpdate = () => {
+      if (!videoReverseLoop || !Number.isFinite(video.duration)) {
+        return;
+      }
+
+      if (video.currentTime >= video.duration - 0.05) {
+        startReversePlayback();
+      }
+    };
+
     applyPlaybackRate();
     video.addEventListener("loadedmetadata", applyPlaybackRate);
+    video.addEventListener("timeupdate", handleTimeUpdate);
+    video.addEventListener("ended", startReversePlayback);
 
     return () => {
       video.removeEventListener("loadedmetadata", applyPlaybackRate);
+      video.removeEventListener("timeupdate", handleTimeUpdate);
+      video.removeEventListener("ended", startReversePlayback);
+      stopReverseAnimation();
     };
-  }, [videoUrl, videoPlaybackRate]);
+  }, [videoUrl, videoPlaybackRate, videoReverseLoop]);
 
   const isDisabled = serviceId === "6";
 
@@ -187,7 +256,7 @@ export default function HeroPanel({
             ref={videoRef}
             src={videoUrl}
             autoPlay
-            loop
+            loop={!videoReverseLoop}
             muted
             playsInline
             className="w-full h-full object-cover"

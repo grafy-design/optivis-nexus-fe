@@ -969,7 +969,7 @@ export function RightPanel({
             </div>
 
             {/* Right Area - OPTIVIS NEXUS vs Traditional Design, Reduction View */}
-            <div className="w-[min(34%,460px)] max-[1536px]:w-full flex-shrink-0 flex flex-col gap-4">
+            <div className="w-[min(34%,460px)] flex-shrink-0 flex flex-col gap-4">
               {/* OPTIVIS NEXUS vs Traditional Design Card */}
               <div className="bg-white rounded-[24px] flex flex-col flex-1">
                 {/* Title */}

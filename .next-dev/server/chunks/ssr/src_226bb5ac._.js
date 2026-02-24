@@ -1228,8 +1228,9 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist
 "use client";
 ;
 /** Figma design reference: total viewport width */ const DESIGN_VIEWPORT_WIDTH = 2560;
+const DESIGN_VIEWPORT_HEIGHT = 1314;
 /** Minimum scale factor — prevents content from becoming unreadably small */ const MIN_SCALE = 0.55;
-function useAreaScale() {
+function useAreaScale(mode = "width") {
     const [scale, setScale] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(1);
     (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useEffect"])(()=>{
         let rafId;
@@ -1237,7 +1238,8 @@ function useAreaScale() {
             cancelAnimationFrame(rafId);
             rafId = requestAnimationFrame(()=>{
                 const vw = window.innerWidth;
-                const raw = vw / DESIGN_VIEWPORT_WIDTH;
+                const vh = window.innerHeight;
+                const raw = mode === "height" ? vh / DESIGN_VIEWPORT_HEIGHT : vw / DESIGN_VIEWPORT_WIDTH;
                 setScale(Math.max(MIN_SCALE, Math.min(1, raw)));
             });
         };
@@ -1247,7 +1249,9 @@ function useAreaScale() {
             window.removeEventListener("resize", compute);
             cancelAnimationFrame(rafId);
         };
-    }, []);
+    }, [
+        mode
+    ]);
     return {
         scale
     };
@@ -1279,9 +1283,9 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$hooks$2f$useAreaScale
 ;
 ;
 ;
-const AppLayout = ({ children, headerType = "default" })=>{
+const AppLayout = ({ children, headerType = "default", scaleMode = "width" })=>{
     // --- [TEMP_SCALE_START] proportional scaling ---
-    const { scale } = (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$hooks$2f$useAreaScale$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useAreaScale"])();
+    const { scale } = (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$hooks$2f$useAreaScale$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useAreaScale"])(scaleMode);
     const isScaled = scale < 1;
     // Prevent body scrollbars when zoom compensation makes root wider/taller
     (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useEffect"])(()=>{
@@ -1330,12 +1334,12 @@ const AppLayout = ({ children, headerType = "default" })=>{
                 },
                 children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$layout$2f$Sidebar$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["Sidebar"], {}, void 0, false, {
                     fileName: "[project]/src/components/layout/AppLayout.tsx",
-                    lineNumber: 81,
+                    lineNumber: 83,
                     columnNumber: 9
                 }, ("TURBOPACK compile-time value", void 0))
             }, void 0, false, {
                 fileName: "[project]/src/components/layout/AppLayout.tsx",
-                lineNumber: 69,
+                lineNumber: 71,
                 columnNumber: 7
             }, ("TURBOPACK compile-time value", void 0)),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1350,15 +1354,15 @@ const AppLayout = ({ children, headerType = "default" })=>{
                 children: [
                     headerType === "ats" ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$layout$2f$ATSHeader$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["ATSHeader"], {}, void 0, false, {
                         fileName: "[project]/src/components/layout/AppLayout.tsx",
-                        lineNumber: 97,
+                        lineNumber: 99,
                         columnNumber: 11
                     }, ("TURBOPACK compile-time value", void 0)) : headerType === "tsi" ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$layout$2f$TSIHeader$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["TSIHeader"], {}, void 0, false, {
                         fileName: "[project]/src/components/layout/AppLayout.tsx",
-                        lineNumber: 99,
+                        lineNumber: 101,
                         columnNumber: 11
                     }, ("TURBOPACK compile-time value", void 0)) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$layout$2f$Header$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["Header"], {}, void 0, false, {
                         fileName: "[project]/src/components/layout/AppLayout.tsx",
-                        lineNumber: 101,
+                        lineNumber: 103,
                         columnNumber: 11
                     }, ("TURBOPACK compile-time value", void 0)),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1374,24 +1378,24 @@ const AppLayout = ({ children, headerType = "default" })=>{
                             children: children
                         }, void 0, false, {
                             fileName: "[project]/src/components/layout/AppLayout.tsx",
-                            lineNumber: 114,
+                            lineNumber: 116,
                             columnNumber: 11
                         }, ("TURBOPACK compile-time value", void 0))
                     }, void 0, false, {
                         fileName: "[project]/src/components/layout/AppLayout.tsx",
-                        lineNumber: 104,
+                        lineNumber: 106,
                         columnNumber: 9
                     }, ("TURBOPACK compile-time value", void 0))
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/components/layout/AppLayout.tsx",
-                lineNumber: 86,
+                lineNumber: 88,
                 columnNumber: 7
             }, ("TURBOPACK compile-time value", void 0))
         ]
     }, void 0, true, {
         fileName: "[project]/src/components/layout/AppLayout.tsx",
-        lineNumber: 46,
+        lineNumber: 48,
         columnNumber: 5
     }, ("TURBOPACK compile-time value", void 0)));
 };
@@ -1880,25 +1884,82 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$imag
 ;
 ;
 ;
-function HeroPanel({ title, description, imageUrl, videoUrl, videoPlaybackRate = 1, videoScale = 1, serviceId }) {
+function HeroPanel({ title, description, imageUrl, videoUrl, videoPlaybackRate = 1, videoScale = 1, videoReverseLoop = false, serviceId }) {
     const router = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useRouter"])();
     const videoRef = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useRef"])(null);
+    const reverseAnimationFrameRef = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useRef"])(null);
+    const reverseLastTimestampRef = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useRef"])(null);
+    const isReversingRef = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useRef"])(false);
     (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useEffect"])(()=>{
         const video = videoRef.current;
         if (!video) {
             return;
         }
+        const stopReverseAnimation = ()=>{
+            if (reverseAnimationFrameRef.current !== null) {
+                cancelAnimationFrame(reverseAnimationFrameRef.current);
+                reverseAnimationFrameRef.current = null;
+            }
+            reverseLastTimestampRef.current = null;
+            isReversingRef.current = false;
+        };
+        const startForwardPlayback = ()=>{
+            stopReverseAnimation();
+            video.playbackRate = videoPlaybackRate;
+            void video.play();
+        };
+        const runReversePlayback = (timestamp)=>{
+            if (!isReversingRef.current) {
+                return;
+            }
+            if (reverseLastTimestampRef.current === null) {
+                reverseLastTimestampRef.current = timestamp;
+            }
+            const deltaSeconds = (timestamp - reverseLastTimestampRef.current) / 1000;
+            reverseLastTimestampRef.current = timestamp;
+            const nextTime = video.currentTime - deltaSeconds * Math.abs(videoPlaybackRate);
+            if (nextTime <= 0) {
+                video.currentTime = 0;
+                startForwardPlayback();
+                return;
+            }
+            video.currentTime = nextTime;
+            reverseAnimationFrameRef.current = requestAnimationFrame(runReversePlayback);
+        };
+        const startReversePlayback = ()=>{
+            if (!videoReverseLoop || isReversingRef.current) {
+                return;
+            }
+            video.pause();
+            isReversingRef.current = true;
+            reverseLastTimestampRef.current = null;
+            reverseAnimationFrameRef.current = requestAnimationFrame(runReversePlayback);
+        };
         const applyPlaybackRate = ()=>{
             video.playbackRate = videoPlaybackRate;
         };
+        const handleTimeUpdate = ()=>{
+            if (!videoReverseLoop || !Number.isFinite(video.duration)) {
+                return;
+            }
+            if (video.currentTime >= video.duration - 0.05) {
+                startReversePlayback();
+            }
+        };
         applyPlaybackRate();
         video.addEventListener("loadedmetadata", applyPlaybackRate);
+        video.addEventListener("timeupdate", handleTimeUpdate);
+        video.addEventListener("ended", startReversePlayback);
         return ()=>{
             video.removeEventListener("loadedmetadata", applyPlaybackRate);
+            video.removeEventListener("timeupdate", handleTimeUpdate);
+            video.removeEventListener("ended", startReversePlayback);
+            stopReverseAnimation();
         };
     }, [
         videoUrl,
-        videoPlaybackRate
+        videoPlaybackRate,
+        videoReverseLoop
     ]);
     const isDisabled = serviceId === "6";
     const getSimulationPath = ()=>{
@@ -1947,7 +2008,7 @@ function HeroPanel({ title, description, imageUrl, videoUrl, videoPlaybackRate =
                                 children: title
                             }, void 0, false, {
                                 fileName: "[project]/src/components/home/hero-panel.tsx",
-                                lineNumber: 89,
+                                lineNumber: 158,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1964,13 +2025,13 @@ function HeroPanel({ title, description, imageUrl, videoUrl, videoPlaybackRate =
                                 children: description
                             }, void 0, false, {
                                 fileName: "[project]/src/components/home/hero-panel.tsx",
-                                lineNumber: 104,
+                                lineNumber: 173,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/components/home/hero-panel.tsx",
-                        lineNumber: 87,
+                        lineNumber: 156,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -2006,7 +2067,7 @@ function HeroPanel({ title, description, imageUrl, videoUrl, videoPlaybackRate =
                                 children: "New Simulation"
                             }, void 0, false, {
                                 fileName: "[project]/src/components/home/hero-panel.tsx",
-                                lineNumber: 140,
+                                lineNumber: 209,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("svg", {
@@ -2028,24 +2089,24 @@ function HeroPanel({ title, description, imageUrl, videoUrl, videoPlaybackRate =
                                     className: "jsx-c9554552126e553a"
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/home/hero-panel.tsx",
-                                    lineNumber: 164,
+                                    lineNumber: 233,
                                     columnNumber: 13
                                 }, this)
                             }, void 0, false, {
                                 fileName: "[project]/src/components/home/hero-panel.tsx",
-                                lineNumber: 155,
+                                lineNumber: 224,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/components/home/hero-panel.tsx",
-                        lineNumber: 121,
+                        lineNumber: 190,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/components/home/hero-panel.tsx",
-                lineNumber: 82,
+                lineNumber: 151,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2060,7 +2121,7 @@ function HeroPanel({ title, description, imageUrl, videoUrl, videoPlaybackRate =
                     ref: videoRef,
                     src: videoUrl,
                     autoPlay: true,
-                    loop: true,
+                    loop: !videoReverseLoop,
                     muted: true,
                     playsInline: true,
                     style: {
@@ -2072,7 +2133,7 @@ function HeroPanel({ title, description, imageUrl, videoUrl, videoPlaybackRate =
                     className: "jsx-c9554552126e553a" + " " + "w-full h-full object-cover"
                 }, void 0, false, {
                     fileName: "[project]/src/components/home/hero-panel.tsx",
-                    lineNumber: 186,
+                    lineNumber: 255,
                     columnNumber: 11
                 }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$image$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
                     src: imageUrl,
@@ -2087,12 +2148,12 @@ function HeroPanel({ title, description, imageUrl, videoUrl, videoPlaybackRate =
                     priority: true
                 }, void 0, false, {
                     fileName: "[project]/src/components/home/hero-panel.tsx",
-                    lineNumber: 202,
+                    lineNumber: 271,
                     columnNumber: 11
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/src/components/home/hero-panel.tsx",
-                lineNumber: 176,
+                lineNumber: 245,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$styled$2d$jsx$2f$style$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
@@ -2102,7 +2163,7 @@ function HeroPanel({ title, description, imageUrl, videoUrl, videoPlaybackRate =
         ]
     }, void 0, true, {
         fileName: "[project]/src/components/home/hero-panel.tsx",
-        lineNumber: 73,
+        lineNumber: 142,
         columnNumber: 5
     }, this);
 }
@@ -2578,6 +2639,8 @@ const MOCK_SIMULATIONS = [
 function SimulationTable({ serviceId, searchQuery }) {
     const isATSorTSI = serviceId === "4" || serviceId === "5";
     const [rows, setRows] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(MOCK_SIMULATIONS);
+    const [draggingRowId, setDraggingRowId] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(null);
+    const [dragOverRowId, setDragOverRowId] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(null);
     const columns = isATSorTSI ? [
         {
             label: "",
@@ -2667,6 +2730,52 @@ function SimulationTable({ serviceId, searchQuery }) {
             return next;
         });
     };
+    const swapRows = (sourceId, targetId)=>{
+        if (sourceId === targetId) {
+            return;
+        }
+        setRows((prev)=>{
+            const sourceIndex = prev.findIndex((row)=>row.id === sourceId);
+            const targetIndex = prev.findIndex((row)=>row.id === targetId);
+            if (sourceIndex === -1 || targetIndex === -1) {
+                return prev;
+            }
+            const next = [
+                ...prev
+            ];
+            [next[sourceIndex], next[targetIndex]] = [
+                next[targetIndex],
+                next[sourceIndex]
+            ];
+            return next;
+        });
+    };
+    const handleDragStart = (rowId, event)=>{
+        setDraggingRowId(rowId);
+        setDragOverRowId(null);
+        event.dataTransfer.effectAllowed = "move";
+        event.dataTransfer.setData("text/plain", rowId);
+    };
+    const handleDragOver = (rowId, event)=>{
+        event.preventDefault();
+        event.dataTransfer.dropEffect = "move";
+        if (draggingRowId && draggingRowId !== rowId) {
+            setDragOverRowId(rowId);
+        }
+    };
+    const handleDrop = (targetId, event)=>{
+        event.preventDefault();
+        const sourceId = draggingRowId ?? event.dataTransfer.getData("text/plain");
+        if (sourceId) {
+            swapRows(sourceId, targetId);
+        }
+        setDraggingRowId(null);
+        setDragOverRowId(null);
+    };
+    const handleDragEnd = ()=>{
+        setDraggingRowId(null);
+        setDragOverRowId(null);
+    };
     const deleteRow = (id)=>{
         setRows((prev)=>prev.filter((row)=>row.id !== id));
     };
@@ -2716,17 +2825,17 @@ function SimulationTable({ serviceId, searchQuery }) {
                             children: col.label
                         }, `col-${idx}`, false, {
                             fileName: "[project]/src/components/home/simulation-table.tsx",
-                            lineNumber: 150,
+                            lineNumber: 203,
                             columnNumber: 13
                         }, this))
                 }, void 0, false, {
                     fileName: "[project]/src/components/home/simulation-table.tsx",
-                    lineNumber: 145,
+                    lineNumber: 198,
                     columnNumber: 9
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/src/components/home/simulation-table.tsx",
-                lineNumber: 129,
+                lineNumber: 182,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2754,26 +2863,36 @@ function SimulationTable({ serviceId, searchQuery }) {
                         children: normalizedQuery ? "No matching simulations." : "No saved simulations."
                     }, void 0, false, {
                         fileName: "[project]/src/components/home/simulation-table.tsx",
-                        lineNumber: 187,
+                        lineNumber: 240,
                         columnNumber: 13
                     }, this)
                 }, void 0, false, {
                     fileName: "[project]/src/components/home/simulation-table.tsx",
-                    lineNumber: 186,
+                    lineNumber: 239,
                     columnNumber: 11
                 }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                     style: {
                         gap: "8px"
                     },
                     className: "jsx-7360db7849c3891b" + " " + "flex flex-col",
-                    children: filteredRows.map((row)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                    children: filteredRows.map((row, index)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                            draggable: true,
+                            onDragStart: (event)=>handleDragStart(row.id, event),
+                            onDragOver: (event)=>handleDragOver(row.id, event),
+                            onDrop: (event)=>handleDrop(row.id, event),
+                            onDragEnd: handleDragEnd,
                             style: {
                                 background: "linear-gradient(180deg, rgba(250,250,250,0.95) 0%, rgba(245,245,245,0.92) 100%)",
                                 border: "1px solid rgba(225,225,225,0.9)",
                                 borderRadius: "16px",
                                 minHeight: "52px",
                                 padding: "8px 14px",
-                                gap: "16px"
+                                gap: "16px",
+                                cursor: "grab",
+                                opacity: draggingRowId === row.id ? 0.66 : 1,
+                                boxShadow: draggingRowId === row.id ? "0 10px 24px rgba(17,17,17,0.16)" : dragOverRowId === row.id ? "0 0 0 2px rgba(35,31,82,0.2) inset" : "none",
+                                transform: draggingRowId === row.id ? "scale(1.01)" : "none",
+                                transition: "box-shadow 0.2s ease, transform 0.2s ease, opacity 0.2s ease"
                             },
                             className: "jsx-7360db7849c3891b" + " " + "flex items-center",
                             children: [
@@ -2784,60 +2903,33 @@ function SimulationTable({ serviceId, searchQuery }) {
                                     },
                                     className: "jsx-7360db7849c3891b" + " " + "flex items-center",
                                     children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                        "aria-label": `Drag handle row ${index + 1}`,
                                         style: {
-                                            gap: "2px"
+                                            width: "26px",
+                                            height: "26px",
+                                            borderRadius: "8px",
+                                            background: "linear-gradient(180deg, #FFFFFF 0%, #F2F2F2 100%)",
+                                            border: "1px solid rgba(206,206,206,0.95)",
+                                            color: "#3D3D3D",
+                                            fontFamily: "Inter",
+                                            fontSize: "12px",
+                                            fontWeight: 700,
+                                            display: "flex",
+                                            alignItems: "center",
+                                            justifyContent: "center",
+                                            boxShadow: draggingRowId === row.id ? "0 6px 14px rgba(0,0,0,0.18)" : "none",
+                                            userSelect: "none"
                                         },
-                                        className: "jsx-7360db7849c3891b" + " " + "flex flex-col",
-                                        children: [
-                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                                                type: "button",
-                                                onClick: ()=>moveRow(row.id, "up"),
-                                                "aria-label": "Move up",
-                                                style: {
-                                                    width: "18px",
-                                                    height: "16px",
-                                                    border: "none",
-                                                    background: "transparent",
-                                                    color: "#6F6F6F",
-                                                    cursor: "pointer",
-                                                    lineHeight: 1
-                                                },
-                                                className: "jsx-7360db7849c3891b",
-                                                children: "▲"
-                                            }, void 0, false, {
-                                                fileName: "[project]/src/components/home/simulation-table.tsx",
-                                                lineNumber: 218,
-                                                columnNumber: 21
-                                            }, this),
-                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                                                type: "button",
-                                                onClick: ()=>moveRow(row.id, "down"),
-                                                "aria-label": "Move down",
-                                                style: {
-                                                    width: "18px",
-                                                    height: "16px",
-                                                    border: "none",
-                                                    background: "transparent",
-                                                    color: "#6F6F6F",
-                                                    cursor: "pointer",
-                                                    lineHeight: 1
-                                                },
-                                                className: "jsx-7360db7849c3891b",
-                                                children: "▼"
-                                            }, void 0, false, {
-                                                fileName: "[project]/src/components/home/simulation-table.tsx",
-                                                lineNumber: 234,
-                                                columnNumber: 21
-                                            }, this)
-                                        ]
-                                    }, void 0, true, {
+                                        className: "jsx-7360db7849c3891b",
+                                        children: index + 1
+                                    }, void 0, false, {
                                         fileName: "[project]/src/components/home/simulation-table.tsx",
-                                        lineNumber: 217,
+                                        lineNumber: 285,
                                         columnNumber: 19
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/home/simulation-table.tsx",
-                                    lineNumber: 216,
+                                    lineNumber: 284,
                                     columnNumber: 17
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -2856,7 +2948,7 @@ function SimulationTable({ serviceId, searchQuery }) {
                                     children: row.simulationName
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/home/simulation-table.tsx",
-                                    lineNumber: 253,
+                                    lineNumber: 308,
                                     columnNumber: 17
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -2875,7 +2967,7 @@ function SimulationTable({ serviceId, searchQuery }) {
                                     children: row.disease
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/home/simulation-table.tsx",
-                                    lineNumber: 256,
+                                    lineNumber: 311,
                                     columnNumber: 17
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -2894,7 +2986,7 @@ function SimulationTable({ serviceId, searchQuery }) {
                                     children: row.outcome
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/home/simulation-table.tsx",
-                                    lineNumber: 259,
+                                    lineNumber: 314,
                                     columnNumber: 17
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -2913,7 +3005,7 @@ function SimulationTable({ serviceId, searchQuery }) {
                                     children: row.description
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/home/simulation-table.tsx",
-                                    lineNumber: 262,
+                                    lineNumber: 317,
                                     columnNumber: 17
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -2932,7 +3024,7 @@ function SimulationTable({ serviceId, searchQuery }) {
                                     children: row.lastUpdated
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/home/simulation-table.tsx",
-                                    lineNumber: 265,
+                                    lineNumber: 320,
                                     columnNumber: 17
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2963,28 +3055,28 @@ function SimulationTable({ serviceId, searchQuery }) {
                                         children: "×"
                                     }, void 0, false, {
                                         fileName: "[project]/src/components/home/simulation-table.tsx",
-                                        lineNumber: 270,
+                                        lineNumber: 325,
                                         columnNumber: 19
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/home/simulation-table.tsx",
-                                    lineNumber: 269,
+                                    lineNumber: 324,
                                     columnNumber: 17
                                 }, this)
                             ]
                         }, row.id, true, {
                             fileName: "[project]/src/components/home/simulation-table.tsx",
-                            lineNumber: 204,
+                            lineNumber: 257,
                             columnNumber: 15
                         }, this))
                 }, void 0, false, {
                     fileName: "[project]/src/components/home/simulation-table.tsx",
-                    lineNumber: 202,
+                    lineNumber: 255,
                     columnNumber: 11
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/src/components/home/simulation-table.tsx",
-                lineNumber: 174,
+                lineNumber: 227,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$styled$2d$jsx$2f$style$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
@@ -2994,7 +3086,7 @@ function SimulationTable({ serviceId, searchQuery }) {
         ]
     }, void 0, true, {
         fileName: "[project]/src/components/home/simulation-table.tsx",
-        lineNumber: 124,
+        lineNumber: 177,
         columnNumber: 5
     }, this);
 }
@@ -3138,20 +3230,28 @@ const serviceContentMap = {
         title: "Adaptive Trial\nSimulation",
         description: "Generates optimal clinical trial design strategies through repeated simulations across diverse trial design conditions.",
         imageUrl: "/assets/main/adaptive-trial.png",
-        videoUrl: "https://pub-797907feee5143c4a0f4f34c25916ee8.r2.dev/oprimed_movie/KakaoTalk_20260212_213739053.mp4"
+        videoUrl: "https://pub-3377f1e9ee784694b74b0068ec6e1fa3.r2.dev/oprimed/2-1%20ATS.webm",
+        videoPlaybackRate: 0.8,
+        videoScale: 1.06,
+        videoReverseLoop: true
     },
     "5": {
         title: "Target Subgroup\nIdentification",
         description: "Simulates individual patient outcomes under various treatment conditions. Offers tailored response probabilities and treatment recommendations for clinical decision-making.",
         imageUrl: "/assets/main/target-subgroup-identification.png",
-        videoUrl: "https://pub-797907feee5143c4a0f4f34c25916ee8.r2.dev/oprimed_movie/2-1%20ATS.mp4",
+        videoUrl: "https://pub-3377f1e9ee784694b74b0068ec6e1fa3.r2.dev/oprimed/2-2%20TSI.webm",
         videoPlaybackRate: 0.8,
-        videoScale: 1.06
+        videoScale: 1.06,
+        videoReverseLoop: true
     },
     "6": {
         title: "Conditional Drug\nResponse Prediction",
         description: "Drug level simulation based on patient baseline information and Simulation Settings, with support for multiple conditions per scenario",
-        imageUrl: "/assets/main/conditional-drug.png"
+        imageUrl: "/assets/main/conditional-drug.png",
+        videoUrl: "https://pub-3377f1e9ee784694b74b0068ec6e1fa3.r2.dev/oprimed/2-3%20DRD.webm",
+        videoPlaybackRate: 0.8,
+        videoScale: 1.06,
+        videoReverseLoop: true
     },
     "7": {
         title: "Patient Outcome\nPrediction",
@@ -3248,12 +3348,12 @@ function HomePage() {
                         maxVisibleFeatures: packages.length
                     }, void 0, false, {
                         fileName: "[project]/src/app/page.tsx",
-                        lineNumber: 262,
+                        lineNumber: 270,
                         columnNumber: 11
                     }, this)
                 }, void 0, false, {
                     fileName: "[project]/src/app/page.tsx",
-                    lineNumber: 255,
+                    lineNumber: 263,
                     columnNumber: 9
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3273,12 +3373,12 @@ function HomePage() {
                         maxVisibleFeatures: 3
                     }, void 0, false, {
                         fileName: "[project]/src/app/page.tsx",
-                        lineNumber: 287,
+                        lineNumber: 295,
                         columnNumber: 11
                     }, this)
                 }, void 0, false, {
                     fileName: "[project]/src/app/page.tsx",
-                    lineNumber: 280,
+                    lineNumber: 288,
                     columnNumber: 9
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3311,10 +3411,11 @@ function HomePage() {
                                     videoUrl: rightPanelContent.videoUrl,
                                     videoPlaybackRate: rightPanelContent.videoPlaybackRate,
                                     videoScale: rightPanelContent.videoScale,
+                                    videoReverseLoop: rightPanelContent.videoReverseLoop,
                                     serviceId: selectedServiceId
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/page.tsx",
-                                    lineNumber: 318,
+                                    lineNumber: 326,
                                     columnNumber: 17
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3331,7 +3432,7 @@ function HomePage() {
                                             onChange: setSearchQuery
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/page.tsx",
-                                            lineNumber: 328,
+                                            lineNumber: 337,
                                             columnNumber: 19
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$home$2f$simulation$2d$table$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
@@ -3339,13 +3440,13 @@ function HomePage() {
                                             searchQuery: searchQuery
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/page.tsx",
-                                            lineNumber: 329,
+                                            lineNumber: 338,
                                             columnNumber: 19
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/app/page.tsx",
-                                    lineNumber: 327,
+                                    lineNumber: 336,
                                     columnNumber: 17
                                 }, this)
                             ]
@@ -3365,12 +3466,12 @@ function HomePage() {
                                 videoReverseLoop: packageContentMap[selectedPackageId].videoReverseLoop
                             }, void 0, false, {
                                 fileName: "[project]/src/app/page.tsx",
-                                lineNumber: 335,
+                                lineNumber: 344,
                                 columnNumber: 17
                             }, this)
                         }, void 0, false, {
                             fileName: "[project]/src/app/page.tsx",
-                            lineNumber: 334,
+                            lineNumber: 343,
                             columnNumber: 15
                         }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                             style: {
@@ -3394,7 +3495,7 @@ function HomePage() {
                                     children: selectedPackageId ? "Service를 선택해주세요." : "Package를 선택해주세요."
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/page.tsx",
-                                    lineNumber: 347,
+                                    lineNumber: 356,
                                     columnNumber: 17
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$styled$2d$jsx$2f$style$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
@@ -3404,28 +3505,28 @@ function HomePage() {
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/app/page.tsx",
-                            lineNumber: 346,
+                            lineNumber: 355,
                             columnNumber: 15
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/src/app/page.tsx",
-                        lineNumber: 315,
+                        lineNumber: 323,
                         columnNumber: 11
                     }, this)
                 }, void 0, false, {
                     fileName: "[project]/src/app/page.tsx",
-                    lineNumber: 302,
+                    lineNumber: 310,
                     columnNumber: 9
                 }, this)
             ]
         }, void 0, true, {
             fileName: "[project]/src/app/page.tsx",
-            lineNumber: 244,
+            lineNumber: 252,
             columnNumber: 7
         }, this)
     }, void 0, false, {
         fileName: "[project]/src/app/page.tsx",
-        lineNumber: 243,
+        lineNumber: 251,
         columnNumber: 5
     }, this);
 }

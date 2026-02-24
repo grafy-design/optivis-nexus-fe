@@ -15,14 +15,16 @@ import "simplebar-react/dist/simplebar.min.css";
 interface AppLayoutProps {
   children: React.ReactNode;
   headerType?: "default" | "ats" | "tsi";
+  scaleMode?: "width" | "height";
 }
 
 export const AppLayout: React.FC<AppLayoutProps> = ({
   children,
   headerType = "default",
+  scaleMode = "width",
 }) => {
   // --- [TEMP_SCALE_START] proportional scaling ---
-  const { scale } = useAreaScale();
+  const { scale } = useAreaScale(scaleMode);
   const isScaled = scale < 1;
 
   // Prevent body scrollbars when zoom compensation makes root wider/taller

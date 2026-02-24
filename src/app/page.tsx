@@ -138,22 +138,30 @@ const serviceContentMap: Record<string, RightPanelContent> = {
     description:
       "Generates optimal clinical trial design strategies through repeated simulations across diverse trial design conditions.",
     imageUrl: "/assets/main/adaptive-trial.png",
-    videoUrl: "https://pub-797907feee5143c4a0f4f34c25916ee8.r2.dev/oprimed_movie/KakaoTalk_20260212_213739053.mp4",
+    videoUrl: "https://pub-3377f1e9ee784694b74b0068ec6e1fa3.r2.dev/oprimed/2-1%20ATS.webm",
+    videoPlaybackRate: 0.8,
+    videoScale: 1.06,
+    videoReverseLoop: true,
   },
   "5": {
     title: "Target Subgroup\nIdentification",
     description:
       "Simulates individual patient outcomes under various treatment conditions. Offers tailored response probabilities and treatment recommendations for clinical decision-making.",
     imageUrl: "/assets/main/target-subgroup-identification.png",
-    videoUrl: "https://pub-797907feee5143c4a0f4f34c25916ee8.r2.dev/oprimed_movie/2-1%20ATS.mp4",
+    videoUrl: "https://pub-3377f1e9ee784694b74b0068ec6e1fa3.r2.dev/oprimed/2-2%20TSI.webm",
     videoPlaybackRate: 0.8,
     videoScale: 1.06,
+    videoReverseLoop: true,
   },
   "6": {
     title: "Conditional Drug\nResponse Prediction",
     description:
       "Drug level simulation based on patient baseline information and Simulation Settings, with support for multiple conditions per scenario",
     imageUrl: "/assets/main/conditional-drug.png",
+    videoUrl: "https://pub-3377f1e9ee784694b74b0068ec6e1fa3.r2.dev/oprimed/2-3%20DRD.webm",
+    videoPlaybackRate: 0.8,
+    videoScale: 1.06,
+    videoReverseLoop: true,
   },
   "7": {
     title: "Patient Outcome\nPrediction",
@@ -322,6 +330,7 @@ export default function HomePage() {
                   videoUrl={rightPanelContent.videoUrl}
                   videoPlaybackRate={rightPanelContent.videoPlaybackRate}
                   videoScale={rightPanelContent.videoScale}
+                  videoReverseLoop={rightPanelContent.videoReverseLoop}
                   serviceId={selectedServiceId}
                 />
                 <div style={{ display: "flex", flexDirection: "column", gap: "16px", flex: 1, minHeight: 0 }}>

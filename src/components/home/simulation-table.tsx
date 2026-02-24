@@ -58,6 +58,8 @@ const MOCK_SIMULATIONS: SimulationRow[] = [
 export default function SimulationTable({ serviceId, searchQuery }: SimulationTableProps) {
   const isATSorTSI = serviceId === "4" || serviceId === "5";
   const [rows, setRows] = useState<SimulationRow[]>(MOCK_SIMULATIONS);
+  const [draggingRowId, setDraggingRowId] = useState<string | null>(null);
+  const [dragOverRowId, setDragOverRowId] = useState<string | null>(null);
 
   const columns = isATSorTSI
     ? [
@@ -114,6 +116,57 @@ export default function SimulationTable({ serviceId, searchQuery }: SimulationTa
       [next[index], next[targetIndex]] = [next[targetIndex], next[index]];
       return next;
     });
+  };
+
+  const swapRows = (sourceId: string, targetId: string) => {
+    if (sourceId === targetId) {
+      return;
+    }
+
+    setRows((prev) => {
+      const sourceIndex = prev.findIndex((row) => row.id === sourceId);
+      const targetIndex = prev.findIndex((row) => row.id === targetId);
+
+      if (sourceIndex === -1 || targetIndex === -1) {
+        return prev;
+      }
+
+      const next = [...prev];
+      [next[sourceIndex], next[targetIndex]] = [next[targetIndex], next[sourceIndex]];
+      return next;
+    });
+  };
+
+  const handleDragStart = (rowId: string, event: React.DragEvent<HTMLDivElement>) => {
+    setDraggingRowId(rowId);
+    setDragOverRowId(null);
+    event.dataTransfer.effectAllowed = "move";
+    event.dataTransfer.setData("text/plain", rowId);
+  };
+
+  const handleDragOver = (rowId: string, event: React.DragEvent<HTMLDivElement>) => {
+    event.preventDefault();
+    event.dataTransfer.dropEffect = "move";
+    if (draggingRowId && draggingRowId !== rowId) {
+      setDragOverRowId(rowId);
+    }
+  };
+
+  const handleDrop = (targetId: string, event: React.DragEvent<HTMLDivElement>) => {
+    event.preventDefault();
+    const sourceId = draggingRowId ?? event.dataTransfer.getData("text/plain");
+
+    if (sourceId) {
+      swapRows(sourceId, targetId);
+    }
+
+    setDraggingRowId(null);
+    setDragOverRowId(null);
+  };
+
+  const handleDragEnd = () => {
+    setDraggingRowId(null);
+    setDragOverRowId(null);
   };
 
   const deleteRow = (id: string) => {
@@ -200,10 +253,15 @@ export default function SimulationTable({ serviceId, searchQuery }: SimulationTa
           </div>
         ) : (
           <div className="flex flex-col" style={{ gap: "8px" }}>
-            {filteredRows.map((row) => (
+            {filteredRows.map((row, index) => (
               <div
                 key={row.id}
                 className="flex items-center"
+                draggable
+                onDragStart={(event) => handleDragStart(row.id, event)}
+                onDragOver={(event) => handleDragOver(row.id, event)}
+                onDrop={(event) => handleDrop(row.id, event)}
+                onDragEnd={handleDragEnd}
                 style={{
                   background: "linear-gradient(180deg, rgba(250,250,250,0.95) 0%, rgba(245,245,245,0.92) 100%)",
                   border: "1px solid rgba(225,225,225,0.9)",
@@ -211,42 +269,39 @@ export default function SimulationTable({ serviceId, searchQuery }: SimulationTa
                   minHeight: "52px",
                   padding: "8px 14px",
                   gap: "16px",
+                  cursor: "grab",
+                  opacity: draggingRowId === row.id ? 0.66 : 1,
+                  boxShadow:
+                    draggingRowId === row.id
+                      ? "0 10px 24px rgba(17,17,17,0.16)"
+                      : dragOverRowId === row.id
+                        ? "0 0 0 2px rgba(35,31,82,0.2) inset"
+                        : "none",
+                  transform: draggingRowId === row.id ? "scale(1.01)" : "none",
+                  transition: "box-shadow 0.2s ease, transform 0.2s ease, opacity 0.2s ease",
                 }}
               >
                 <div className="flex items-center" style={{ flex: "54 1 0px", minWidth: 0 }}>
-                  <div className="flex flex-col" style={{ gap: "2px" }}>
-                    <button
-                      type="button"
-                      onClick={() => moveRow(row.id, "up")}
-                      aria-label="Move up"
-                      style={{
-                        width: "18px",
-                        height: "16px",
-                        border: "none",
-                        background: "transparent",
-                        color: "#6F6F6F",
-                        cursor: "pointer",
-                        lineHeight: 1,
-                      }}
-                    >
-                      ▲
-                    </button>
-                    <button
-                      type="button"
-                      onClick={() => moveRow(row.id, "down")}
-                      aria-label="Move down"
-                      style={{
-                        width: "18px",
-                        height: "16px",
-                        border: "none",
-                        background: "transparent",
-                        color: "#6F6F6F",
-                        cursor: "pointer",
-                        lineHeight: 1,
-                      }}
-                    >
-                      ▼
-                    </button>
+                  <div
+                    aria-label={`Drag handle row ${index + 1}`}
+                    style={{
+                      width: "26px",
+                      height: "26px",
+                      borderRadius: "8px",
+                      background: "linear-gradient(180deg, #FFFFFF 0%, #F2F2F2 100%)",
+                      border: "1px solid rgba(206,206,206,0.95)",
+                      color: "#3D3D3D",
+                      fontFamily: "Inter",
+                      fontSize: "12px",
+                      fontWeight: 700,
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      boxShadow: draggingRowId === row.id ? "0 6px 14px rgba(0,0,0,0.18)" : "none",
+                      userSelect: "none",
+                    }}
+                  >
+                    {index + 1}
                   </div>
                 </div>
 

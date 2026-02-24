@@ -14,11 +14,14 @@ import { useState, useEffect } from "react";
 
 /** Figma design reference: total viewport width */
 const DESIGN_VIEWPORT_WIDTH = 2560;
+const DESIGN_VIEWPORT_HEIGHT = 1314;
 
 /** Minimum scale factor — prevents content from becoming unreadably small */
 const MIN_SCALE = 0.55;
 
-export function useAreaScale() {
+type ScaleMode = "width" | "height";
+
+export function useAreaScale(mode: ScaleMode = "width") {
   const [scale, setScale] = useState(1);
 
   useEffect(() => {
@@ -28,7 +31,11 @@ export function useAreaScale() {
       cancelAnimationFrame(rafId);
       rafId = requestAnimationFrame(() => {
         const vw = window.innerWidth;
-        const raw = vw / DESIGN_VIEWPORT_WIDTH;
+        const vh = window.innerHeight;
+        const raw =
+          mode === "height"
+            ? vh / DESIGN_VIEWPORT_HEIGHT
+            : vw / DESIGN_VIEWPORT_WIDTH;
         setScale(Math.max(MIN_SCALE, Math.min(1, raw)));
       });
     };
@@ -39,7 +46,7 @@ export function useAreaScale() {
       window.removeEventListener("resize", compute);
       cancelAnimationFrame(rafId);
     };
-  }, []);
+  }, [mode]);
 
   return { scale };
 }

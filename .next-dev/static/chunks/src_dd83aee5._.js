@@ -1309,8 +1309,10 @@ var _s = __turbopack_context__.k.signature();
 "use client";
 ;
 /** Figma design reference: total viewport width */ const DESIGN_VIEWPORT_WIDTH = 2560;
+const DESIGN_VIEWPORT_HEIGHT = 1314;
 /** Minimum scale factor — prevents content from becoming unreadably small */ const MIN_SCALE = 0.55;
 function useAreaScale() {
+    let mode = arguments.length > 0 && arguments[0] !== void 0 ? arguments[0] : "width";
     _s();
     const [scale, setScale] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(1);
     (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useEffect"])({
@@ -1322,7 +1324,8 @@ function useAreaScale() {
                     rafId = requestAnimationFrame({
                         "useAreaScale.useEffect.compute": ()=>{
                             const vw = window.innerWidth;
-                            const raw = vw / DESIGN_VIEWPORT_WIDTH;
+                            const vh = window.innerHeight;
+                            const raw = mode === "height" ? vh / DESIGN_VIEWPORT_HEIGHT : vw / DESIGN_VIEWPORT_WIDTH;
                             setScale(Math.max(MIN_SCALE, Math.min(1, raw)));
                         }
                     }["useAreaScale.useEffect.compute"]);
@@ -1337,7 +1340,9 @@ function useAreaScale() {
                 }
             })["useAreaScale.useEffect"];
         }
-    }["useAreaScale.useEffect"], []);
+    }["useAreaScale.useEffect"], [
+        mode
+    ]);
     return {
         scale
     };
@@ -1375,10 +1380,10 @@ var _s = __turbopack_context__.k.signature();
 ;
 ;
 const AppLayout = (param)=>{
-    let { children, headerType = "default" } = param;
+    let { children, headerType = "default", scaleMode = "width" } = param;
     _s();
     // --- [TEMP_SCALE_START] proportional scaling ---
-    const { scale } = (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$hooks$2f$useAreaScale$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useAreaScale"])();
+    const { scale } = (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$hooks$2f$useAreaScale$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useAreaScale"])(scaleMode);
     const isScaled = scale < 1;
     // Prevent body scrollbars when zoom compensation makes root wider/taller
     (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useEffect"])({
@@ -1431,12 +1436,12 @@ const AppLayout = (param)=>{
                 },
                 children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$layout$2f$Sidebar$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Sidebar"], {}, void 0, false, {
                     fileName: "[project]/src/components/layout/AppLayout.tsx",
-                    lineNumber: 81,
+                    lineNumber: 83,
                     columnNumber: 9
                 }, ("TURBOPACK compile-time value", void 0))
             }, void 0, false, {
                 fileName: "[project]/src/components/layout/AppLayout.tsx",
-                lineNumber: 69,
+                lineNumber: 71,
                 columnNumber: 7
             }, ("TURBOPACK compile-time value", void 0)),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1451,15 +1456,15 @@ const AppLayout = (param)=>{
                 children: [
                     headerType === "ats" ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$layout$2f$ATSHeader$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["ATSHeader"], {}, void 0, false, {
                         fileName: "[project]/src/components/layout/AppLayout.tsx",
-                        lineNumber: 97,
+                        lineNumber: 99,
                         columnNumber: 11
                     }, ("TURBOPACK compile-time value", void 0)) : headerType === "tsi" ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$layout$2f$TSIHeader$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["TSIHeader"], {}, void 0, false, {
                         fileName: "[project]/src/components/layout/AppLayout.tsx",
-                        lineNumber: 99,
+                        lineNumber: 101,
                         columnNumber: 11
                     }, ("TURBOPACK compile-time value", void 0)) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$layout$2f$Header$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Header"], {}, void 0, false, {
                         fileName: "[project]/src/components/layout/AppLayout.tsx",
-                        lineNumber: 101,
+                        lineNumber: 103,
                         columnNumber: 11
                     }, ("TURBOPACK compile-time value", void 0)),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1475,24 +1480,24 @@ const AppLayout = (param)=>{
                             children: children
                         }, void 0, false, {
                             fileName: "[project]/src/components/layout/AppLayout.tsx",
-                            lineNumber: 114,
+                            lineNumber: 116,
                             columnNumber: 11
                         }, ("TURBOPACK compile-time value", void 0))
                     }, void 0, false, {
                         fileName: "[project]/src/components/layout/AppLayout.tsx",
-                        lineNumber: 104,
+                        lineNumber: 106,
                         columnNumber: 9
                     }, ("TURBOPACK compile-time value", void 0))
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/components/layout/AppLayout.tsx",
-                lineNumber: 86,
+                lineNumber: 88,
                 columnNumber: 7
             }, ("TURBOPACK compile-time value", void 0))
         ]
     }, void 0, true, {
         fileName: "[project]/src/components/layout/AppLayout.tsx",
-        lineNumber: 46,
+        lineNumber: 48,
         columnNumber: 5
     }, ("TURBOPACK compile-time value", void 0)));
 };
@@ -4083,6 +4088,7 @@ __turbopack_context__.s([
     ()=>ReportPage
 ]);
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/compiled/react/jsx-dev-runtime.js [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$styled$2d$jsx$2f$style$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/styled-jsx/style.js [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/navigation.js [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$store$2f$simulationStore$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/store/simulationStore.ts [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$layout$2f$AppLayout$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/components/layout/AppLayout.tsx [app-client] (ecmascript)");
@@ -4105,6 +4111,7 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$common$
 ;
 var _s = __turbopack_context__.k.signature();
 "use client";
+;
 ;
 ;
 ;
@@ -4504,1624 +4511,1649 @@ function ReportPage() {
         children: [
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$layout$2f$AppLayout$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["AppLayout"], {
                 headerType: "ats",
-                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                    className: "w-full h-full min-h-0 overflow-hidden flex flex-col",
-                    children: [
-                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                            className: "flex items-start justify-between mb-4 flex-shrink-0",
-                            children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                id: "report-header",
-                                className: "flex flex-col gap-1 flex-shrink-0 items-start",
+                children: [
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                        id: "report-page-root",
+                        className: "jsx-20ca2f99cd134e45" + " " + "w-full h-full min-h-0 overflow-hidden flex flex-col",
+                        children: [
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                className: "jsx-20ca2f99cd134e45" + " " + "flex items-start justify-between mb-4 flex-shrink-0",
+                                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                    id: "report-header",
+                                    className: "jsx-20ca2f99cd134e45" + " " + "flex flex-col gap-1 flex-shrink-0 items-start",
+                                    children: [
+                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                            className: "jsx-20ca2f99cd134e45" + " " + "text-title text-neutral-5 text-left mb-2",
+                                            children: "Adaptive Trial Simulation"
+                                        }, void 0, false, {
+                                            fileName: "[project]/src/app/ats/simulation/report/page.tsx",
+                                            lineNumber: 475,
+                                            columnNumber: 15
+                                        }, this),
+                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                                            className: "jsx-20ca2f99cd134e45" + " " + "text-body2m text-neutral-50 text-left",
+                                            children: currentDate
+                                        }, void 0, false, {
+                                            fileName: "[project]/src/app/ats/simulation/report/page.tsx",
+                                            lineNumber: 478,
+                                            columnNumber: 15
+                                        }, this)
+                                    ]
+                                }, void 0, true, {
+                                    fileName: "[project]/src/app/ats/simulation/report/page.tsx",
+                                    lineNumber: 471,
+                                    columnNumber: 13
+                                }, this)
+                            }, void 0, false, {
+                                fileName: "[project]/src/app/ats/simulation/report/page.tsx",
+                                lineNumber: 470,
+                                columnNumber: 11
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                id: "report-content",
+                                style: {
+                                    gap: "0px"
+                                },
+                                className: "jsx-20ca2f99cd134e45" + " " + "flex flex-1 min-h-0",
                                 children: [
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                        className: "text-title text-neutral-5 text-left mb-2",
-                                        children: "Adaptive Trial Simulation"
-                                    }, void 0, false, {
-                                        fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                        lineNumber: 475,
-                                        columnNumber: 15
-                                    }, this),
-                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                        className: "text-body2m text-neutral-50 text-left",
-                                        children: currentDate
-                                    }, void 0, false, {
-                                        fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                        lineNumber: 478,
-                                        columnNumber: 15
-                                    }, this)
-                                ]
-                            }, void 0, true, {
-                                fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                lineNumber: 471,
-                                columnNumber: 13
-                            }, this)
-                        }, void 0, false, {
-                            fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                            lineNumber: 470,
-                            columnNumber: 11
-                        }, this),
-                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                            className: "flex gap-[11px] flex-1 min-h-0",
-                            children: [
-                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                    className: "w-[700px] flex-shrink-0 h-full flex flex-col",
-                                    children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                        className: "figma-nine-slice figma-home-panel-middle relative px-[42px] py-9 flex-1 flex flex-col",
+                                        className: "jsx-20ca2f99cd134e45" + " " + "w-[700px] flex-shrink-0 h-full flex flex-col",
                                         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                            id: "results-overview",
-                                            className: "flex flex-col flex-1",
-                                            children: [
-                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
-                                                    className: "text-h2 text-[#2d1067] mb-8",
-                                                    children: "Results Overview"
-                                                }, void 0, false, {
-                                                    fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                    lineNumber: 490,
-                                                    columnNumber: 19
-                                                }, this),
-                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                    className: "flex flex-col gap-6 flex-1",
-                                                    children: [
-                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                            className: "flex-1 flex flex-col",
-                                                            children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                                className: "flex flex-col items-center bg-[#231f52] rounded-[16px] w-full flex-1",
-                                                                style: {
-                                                                    padding: "24px",
-                                                                    gap: "24px"
-                                                                },
-                                                                children: [
-                                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
-                                                                        className: "text-h3 text-white text-left w-full",
-                                                                        children: "Insight Summary"
-                                                                    }, void 0, false, {
-                                                                        fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                        lineNumber: 503,
-                                                                        columnNumber: 25
-                                                                    }, this),
-                                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                                        className: "space-y-4 w-full",
-                                                                        style: {
-                                                                            marginTop: "24px"
-                                                                        },
-                                                                        children: [
-                                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                                                className: "flex items-center gap-8",
-                                                                                children: [
-                                                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$image$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
-                                                                                        src: "/assets/simulation/insight-summary-sample.svg",
-                                                                                        alt: "Sample Size",
-                                                                                        width: 20,
-                                                                                        height: 18,
-                                                                                        className: "flex-shrink-0"
-                                                                                    }, void 0, false, {
-                                                                                        fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                        lineNumber: 511,
-                                                                                        columnNumber: 29
-                                                                                    }, this),
-                                                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                                                        className: "text-body2 text-white",
-                                                                                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                                                            className: "font-semibold",
-                                                                                            children: (apiData === null || apiData === void 0 ? void 0 : (_apiData_result_resultsoverview = apiData.result_resultsoverview) === null || _apiData_result_resultsoverview === void 0 ? void 0 : (_apiData_result_resultsoverview_OPTIVIS = _apiData_result_resultsoverview.OPTIVIS) === null || _apiData_result_resultsoverview_OPTIVIS === void 0 ? void 0 : (_apiData_result_resultsoverview_OPTIVIS_ = _apiData_result_resultsoverview_OPTIVIS[0]) === null || _apiData_result_resultsoverview_OPTIVIS_ === void 0 ? void 0 : _apiData_result_resultsoverview_OPTIVIS_.sample_size_text) || ""
-                                                                                        }, void 0, false, {
-                                                                                            fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                            lineNumber: 519,
-                                                                                            columnNumber: 31
-                                                                                        }, this)
-                                                                                    }, void 0, false, {
-                                                                                        fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                        lineNumber: 518,
-                                                                                        columnNumber: 29
-                                                                                    }, this)
-                                                                                ]
-                                                                            }, void 0, true, {
-                                                                                fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                lineNumber: 510,
-                                                                                columnNumber: 27
-                                                                            }, this),
-                                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                                                className: "h-[1px] bg-[#adaaaa]"
-                                                                            }, void 0, false, {
-                                                                                fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                lineNumber: 525,
-                                                                                columnNumber: 27
-                                                                            }, this),
-                                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                                                className: "flex items-center gap-8",
-                                                                                children: [
-                                                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$image$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
-                                                                                        src: "/assets/simulation/insight-summary-enrollment.svg",
-                                                                                        alt: "Enrollment",
-                                                                                        width: 20,
-                                                                                        height: 18,
-                                                                                        className: "flex-shrink-0"
-                                                                                    }, void 0, false, {
-                                                                                        fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                        lineNumber: 527,
-                                                                                        columnNumber: 29
-                                                                                    }, this),
-                                                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                                                        className: "text-body2 text-white",
-                                                                                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                                                            className: "font-semibold",
-                                                                                            children: (apiData === null || apiData === void 0 ? void 0 : (_apiData_result_resultsoverview1 = apiData.result_resultsoverview) === null || _apiData_result_resultsoverview1 === void 0 ? void 0 : (_apiData_result_resultsoverview_OPTIVIS1 = _apiData_result_resultsoverview1.OPTIVIS) === null || _apiData_result_resultsoverview_OPTIVIS1 === void 0 ? void 0 : (_apiData_result_resultsoverview_OPTIVIS_1 = _apiData_result_resultsoverview_OPTIVIS1[0]) === null || _apiData_result_resultsoverview_OPTIVIS_1 === void 0 ? void 0 : _apiData_result_resultsoverview_OPTIVIS_1.enrollment_text) || ""
-                                                                                        }, void 0, false, {
-                                                                                            fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                            lineNumber: 535,
-                                                                                            columnNumber: 31
-                                                                                        }, this)
-                                                                                    }, void 0, false, {
-                                                                                        fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                        lineNumber: 534,
-                                                                                        columnNumber: 29
-                                                                                    }, this)
-                                                                                ]
-                                                                            }, void 0, true, {
-                                                                                fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                lineNumber: 526,
-                                                                                columnNumber: 27
-                                                                            }, this),
-                                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                                                className: "h-[1px] bg-[#adaaaa]"
-                                                                            }, void 0, false, {
-                                                                                fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                lineNumber: 541,
-                                                                                columnNumber: 27
-                                                                            }, this),
-                                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                                                className: "flex items-center gap-8",
-                                                                                children: [
-                                                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$image$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
-                                                                                        src: "/assets/simulation/insight-summary-cost.svg",
-                                                                                        alt: "Cost",
-                                                                                        width: 20,
-                                                                                        height: 18,
-                                                                                        className: "flex-shrink-0"
-                                                                                    }, void 0, false, {
-                                                                                        fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                        lineNumber: 543,
-                                                                                        columnNumber: 29
-                                                                                    }, this),
-                                                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                                                        className: "text-body2 text-white",
-                                                                                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                                                            className: "font-semibold",
-                                                                                            children: (apiData === null || apiData === void 0 ? void 0 : (_apiData_result_resultsoverview2 = apiData.result_resultsoverview) === null || _apiData_result_resultsoverview2 === void 0 ? void 0 : (_apiData_result_resultsoverview_OPTIVIS2 = _apiData_result_resultsoverview2.OPTIVIS) === null || _apiData_result_resultsoverview_OPTIVIS2 === void 0 ? void 0 : (_apiData_result_resultsoverview_OPTIVIS_2 = _apiData_result_resultsoverview_OPTIVIS2[0]) === null || _apiData_result_resultsoverview_OPTIVIS_2 === void 0 ? void 0 : _apiData_result_resultsoverview_OPTIVIS_2.cost_text) || ""
-                                                                                        }, void 0, false, {
-                                                                                            fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                            lineNumber: 551,
-                                                                                            columnNumber: 31
-                                                                                        }, this)
-                                                                                    }, void 0, false, {
-                                                                                        fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                        lineNumber: 550,
-                                                                                        columnNumber: 29
-                                                                                    }, this)
-                                                                                ]
-                                                                            }, void 0, true, {
-                                                                                fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                lineNumber: 542,
-                                                                                columnNumber: 27
-                                                                            }, this),
-                                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                                                className: "h-[1px] bg-[#adaaaa]"
-                                                                            }, void 0, false, {
-                                                                                fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                lineNumber: 557,
-                                                                                columnNumber: 27
-                                                                            }, this),
-                                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                                                className: "flex items-center gap-8",
-                                                                                children: [
-                                                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$image$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
-                                                                                        src: "/assets/simulation/insight-summary-loss.svg",
-                                                                                        alt: "Power Loss",
-                                                                                        width: 20,
-                                                                                        height: 18,
-                                                                                        className: "flex-shrink-0"
-                                                                                    }, void 0, false, {
-                                                                                        fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                        lineNumber: 559,
-                                                                                        columnNumber: 29
-                                                                                    }, this),
-                                                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                                                        className: "text-body2 text-white",
-                                                                                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                                                            className: "font-semibold",
-                                                                                            children: (apiData === null || apiData === void 0 ? void 0 : (_apiData_result_resultsoverview3 = apiData.result_resultsoverview) === null || _apiData_result_resultsoverview3 === void 0 ? void 0 : (_apiData_result_resultsoverview_OPTIVIS3 = _apiData_result_resultsoverview3.OPTIVIS) === null || _apiData_result_resultsoverview_OPTIVIS3 === void 0 ? void 0 : (_apiData_result_resultsoverview_OPTIVIS_3 = _apiData_result_resultsoverview_OPTIVIS3[0]) === null || _apiData_result_resultsoverview_OPTIVIS_3 === void 0 ? void 0 : _apiData_result_resultsoverview_OPTIVIS_3.power_text) || ""
-                                                                                        }, void 0, false, {
-                                                                                            fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                            lineNumber: 567,
-                                                                                            columnNumber: 31
-                                                                                        }, this)
-                                                                                    }, void 0, false, {
-                                                                                        fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                        lineNumber: 566,
-                                                                                        columnNumber: 29
-                                                                                    }, this)
-                                                                                ]
-                                                                            }, void 0, true, {
-                                                                                fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                lineNumber: 558,
-                                                                                columnNumber: 27
-                                                                            }, this)
-                                                                        ]
-                                                                    }, void 0, true, {
-                                                                        fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                        lineNumber: 506,
-                                                                        columnNumber: 25
-                                                                    }, this),
-                                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                                        className: "bg-white rounded-[16px] p-4 w-full flex-1 flex flex-col",
-                                                                        children: [
-                                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
-                                                                                className: "text-h3 text-[#231f52]",
-                                                                                children: (apiData === null || apiData === void 0 ? void 0 : (_apiData_sample_size_evaluation = apiData.sample_size_evaluation) === null || _apiData_sample_size_evaluation === void 0 ? void 0 : _apiData_sample_size_evaluation.title) || ""
-                                                                            }, void 0, false, {
-                                                                                fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                lineNumber: 575,
-                                                                                columnNumber: 27
-                                                                            }, this),
-                                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                                                                className: "text-body4m text-neutral-5 whitespace-pre-line mt-auto",
-                                                                                children: (apiData === null || apiData === void 0 ? void 0 : (_apiData_sample_size_evaluation1 = apiData.sample_size_evaluation) === null || _apiData_sample_size_evaluation1 === void 0 ? void 0 : _apiData_sample_size_evaluation1.content) || ""
-                                                                            }, void 0, false, {
-                                                                                fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                lineNumber: 578,
-                                                                                columnNumber: 27
-                                                                            }, this)
-                                                                        ]
-                                                                    }, void 0, true, {
-                                                                        fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                        lineNumber: 574,
-                                                                        columnNumber: 25
-                                                                    }, this)
-                                                                ]
-                                                            }, void 0, true, {
-                                                                fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                lineNumber: 496,
-                                                                columnNumber: 23
-                                                            }, this)
-                                                        }, void 0, false, {
-                                                            fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                            lineNumber: 495,
-                                                            columnNumber: 21
-                                                        }, this),
-                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                            className: "grid grid-cols-2 gap-4",
-                                                            children: reportData.reductionView.charts.map((chart, index)=>{
-                                                                const formatter = chart.label === "Cost" ? (val)=>"".concat(val, "M") : chart.label === "Enrollment Time" ? (val)=>val.toFixed(2) : chart.label === "Power" ? (val)=>"".concat(val, "%") : undefined;
-                                                                return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                                    className: "flex flex-col items-center bg-white rounded-[16px] p-3",
+                                            className: "jsx-20ca2f99cd134e45" + " " + "figma-nine-slice figma-home-panel-middle relative px-[42px] py-9 flex-1 flex flex-col",
+                                            children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                id: "results-overview",
+                                                className: "jsx-20ca2f99cd134e45" + " " + "flex flex-col flex-1",
+                                                children: [
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
+                                                        className: "jsx-20ca2f99cd134e45" + " " + "text-h2 text-[#2d1067] mb-8",
+                                                        children: "Results Overview"
+                                                    }, void 0, false, {
+                                                        fileName: "[project]/src/app/ats/simulation/report/page.tsx",
+                                                        lineNumber: 490,
+                                                        columnNumber: 19
+                                                    }, this),
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                        className: "jsx-20ca2f99cd134e45" + " " + "flex flex-col gap-6 flex-1",
+                                                        children: [
+                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                                className: "jsx-20ca2f99cd134e45" + " " + "flex-1 flex flex-col",
+                                                                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                                     style: {
-                                                                        gap: "12px"
+                                                                        padding: "24px",
+                                                                        gap: "24px"
                                                                     },
+                                                                    className: "jsx-20ca2f99cd134e45" + " " + "flex flex-col items-center bg-[#231f52] rounded-[16px] w-full flex-1",
                                                                     children: [
-                                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                                            className: "flex items-start justify-between w-full",
-                                                                            children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                                                className: "flex flex-col gap-1",
-                                                                                children: [
-                                                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h4", {
-                                                                                        className: "text-body2 text-[#262255]",
-                                                                                        children: chart.label
-                                                                                    }, void 0, false, {
-                                                                                        fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                        lineNumber: 608,
-                                                                                        columnNumber: 35
-                                                                                    }, this),
-                                                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                                                        className: "flex items-center gap-1 mt-1",
-                                                                                        children: [
-                                                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$arrow$2d$icon$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
-                                                                                                direction: chart.isNegative ? "up" : "down",
-                                                                                                color: "#231F52"
-                                                                                            }, void 0, false, {
-                                                                                                fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                                lineNumber: 612,
-                                                                                                columnNumber: 37
-                                                                                            }, this),
-                                                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                                                                className: "text-h4 text-neutral-15",
-                                                                                                children: chart.change
-                                                                                            }, void 0, false, {
-                                                                                                fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                                lineNumber: 618,
-                                                                                                columnNumber: 37
-                                                                                            }, this)
-                                                                                        ]
-                                                                                    }, void 0, true, {
-                                                                                        fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                        lineNumber: 611,
-                                                                                        columnNumber: 35
-                                                                                    }, this)
-                                                                                ]
-                                                                            }, void 0, true, {
-                                                                                fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                lineNumber: 607,
-                                                                                columnNumber: 33
-                                                                            }, this)
+                                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
+                                                                            className: "jsx-20ca2f99cd134e45" + " " + "text-h3 text-white text-left w-full",
+                                                                            children: "Insight Summary"
                                                                         }, void 0, false, {
                                                                             fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                            lineNumber: 606,
-                                                                            columnNumber: 31
+                                                                            lineNumber: 503,
+                                                                            columnNumber: 25
                                                                         }, this),
                                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                                            className: "grid grid-cols-2 gap-2 w-full",
+                                                                            style: {
+                                                                                marginTop: "24px"
+                                                                            },
+                                                                            className: "jsx-20ca2f99cd134e45" + " " + "space-y-4 w-full",
                                                                             children: [
                                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                                                    className: "flex flex-col gap-1",
-                                                                                    children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                                                        style: {
-                                                                                            height: "150px",
-                                                                                            width: "100%"
-                                                                                        },
-                                                                                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$charts$2f$SingleBarChart$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["SingleBarChart"], {
-                                                                                            value: chart.optivis,
-                                                                                            maxValue: Math.max(chart.optivis, chart.traditional),
-                                                                                            color: "#f06600",
-                                                                                            height: "100%",
-                                                                                            formatter: formatter
+                                                                                    className: "jsx-20ca2f99cd134e45" + " " + "flex items-center gap-8",
+                                                                                    children: [
+                                                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$image$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
+                                                                                            src: "/assets/simulation/insight-summary-sample.svg",
+                                                                                            alt: "Sample Size",
+                                                                                            width: 20,
+                                                                                            height: 18,
+                                                                                            className: "flex-shrink-0"
                                                                                         }, void 0, false, {
                                                                                             fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                            lineNumber: 633,
-                                                                                            columnNumber: 37
+                                                                                            lineNumber: 511,
+                                                                                            columnNumber: 29
+                                                                                        }, this),
+                                                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                                                            className: "jsx-20ca2f99cd134e45" + " " + "text-body2 text-white",
+                                                                                            children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                                                                className: "jsx-20ca2f99cd134e45" + " " + "font-semibold",
+                                                                                                children: (apiData === null || apiData === void 0 ? void 0 : (_apiData_result_resultsoverview = apiData.result_resultsoverview) === null || _apiData_result_resultsoverview === void 0 ? void 0 : (_apiData_result_resultsoverview_OPTIVIS = _apiData_result_resultsoverview.OPTIVIS) === null || _apiData_result_resultsoverview_OPTIVIS === void 0 ? void 0 : (_apiData_result_resultsoverview_OPTIVIS_ = _apiData_result_resultsoverview_OPTIVIS[0]) === null || _apiData_result_resultsoverview_OPTIVIS_ === void 0 ? void 0 : _apiData_result_resultsoverview_OPTIVIS_.sample_size_text) || ""
+                                                                                            }, void 0, false, {
+                                                                                                fileName: "[project]/src/app/ats/simulation/report/page.tsx",
+                                                                                                lineNumber: 519,
+                                                                                                columnNumber: 31
+                                                                                            }, this)
+                                                                                        }, void 0, false, {
+                                                                                            fileName: "[project]/src/app/ats/simulation/report/page.tsx",
+                                                                                            lineNumber: 518,
+                                                                                            columnNumber: 29
                                                                                         }, this)
-                                                                                    }, void 0, false, {
-                                                                                        fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                        lineNumber: 627,
-                                                                                        columnNumber: 35
-                                                                                    }, this)
-                                                                                }, void 0, false, {
+                                                                                    ]
+                                                                                }, void 0, true, {
                                                                                     fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                    lineNumber: 626,
-                                                                                    columnNumber: 33
+                                                                                    lineNumber: 510,
+                                                                                    columnNumber: 27
                                                                                 }, this),
                                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                                                    className: "flex flex-col gap-1",
-                                                                                    children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                                                        style: {
-                                                                                            height: "150px",
-                                                                                            width: "100%"
-                                                                                        },
-                                                                                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$charts$2f$SingleBarChart$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["SingleBarChart"], {
-                                                                                            value: chart.traditional,
-                                                                                            maxValue: Math.max(chart.optivis, chart.traditional),
-                                                                                            color: "#231f52",
-                                                                                            height: "100%",
-                                                                                            formatter: formatter
-                                                                                        }, void 0, false, {
-                                                                                            fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                            lineNumber: 653,
-                                                                                            columnNumber: 37
-                                                                                        }, this)
-                                                                                    }, void 0, false, {
-                                                                                        fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                        lineNumber: 647,
-                                                                                        columnNumber: 35
-                                                                                    }, this)
+                                                                                    className: "jsx-20ca2f99cd134e45" + " " + "h-[1px] bg-[#adaaaa]"
                                                                                 }, void 0, false, {
                                                                                     fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                    lineNumber: 646,
-                                                                                    columnNumber: 33
+                                                                                    lineNumber: 525,
+                                                                                    columnNumber: 27
+                                                                                }, this),
+                                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                                                    className: "jsx-20ca2f99cd134e45" + " " + "flex items-center gap-8",
+                                                                                    children: [
+                                                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$image$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
+                                                                                            src: "/assets/simulation/insight-summary-enrollment.svg",
+                                                                                            alt: "Enrollment",
+                                                                                            width: 20,
+                                                                                            height: 18,
+                                                                                            className: "flex-shrink-0"
+                                                                                        }, void 0, false, {
+                                                                                            fileName: "[project]/src/app/ats/simulation/report/page.tsx",
+                                                                                            lineNumber: 527,
+                                                                                            columnNumber: 29
+                                                                                        }, this),
+                                                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                                                            className: "jsx-20ca2f99cd134e45" + " " + "text-body2 text-white",
+                                                                                            children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                                                                className: "jsx-20ca2f99cd134e45" + " " + "font-semibold",
+                                                                                                children: (apiData === null || apiData === void 0 ? void 0 : (_apiData_result_resultsoverview1 = apiData.result_resultsoverview) === null || _apiData_result_resultsoverview1 === void 0 ? void 0 : (_apiData_result_resultsoverview_OPTIVIS1 = _apiData_result_resultsoverview1.OPTIVIS) === null || _apiData_result_resultsoverview_OPTIVIS1 === void 0 ? void 0 : (_apiData_result_resultsoverview_OPTIVIS_1 = _apiData_result_resultsoverview_OPTIVIS1[0]) === null || _apiData_result_resultsoverview_OPTIVIS_1 === void 0 ? void 0 : _apiData_result_resultsoverview_OPTIVIS_1.enrollment_text) || ""
+                                                                                            }, void 0, false, {
+                                                                                                fileName: "[project]/src/app/ats/simulation/report/page.tsx",
+                                                                                                lineNumber: 535,
+                                                                                                columnNumber: 31
+                                                                                            }, this)
+                                                                                        }, void 0, false, {
+                                                                                            fileName: "[project]/src/app/ats/simulation/report/page.tsx",
+                                                                                            lineNumber: 534,
+                                                                                            columnNumber: 29
+                                                                                        }, this)
+                                                                                    ]
+                                                                                }, void 0, true, {
+                                                                                    fileName: "[project]/src/app/ats/simulation/report/page.tsx",
+                                                                                    lineNumber: 526,
+                                                                                    columnNumber: 27
+                                                                                }, this),
+                                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                                                    className: "jsx-20ca2f99cd134e45" + " " + "h-[1px] bg-[#adaaaa]"
+                                                                                }, void 0, false, {
+                                                                                    fileName: "[project]/src/app/ats/simulation/report/page.tsx",
+                                                                                    lineNumber: 541,
+                                                                                    columnNumber: 27
+                                                                                }, this),
+                                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                                                    className: "jsx-20ca2f99cd134e45" + " " + "flex items-center gap-8",
+                                                                                    children: [
+                                                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$image$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
+                                                                                            src: "/assets/simulation/insight-summary-cost.svg",
+                                                                                            alt: "Cost",
+                                                                                            width: 20,
+                                                                                            height: 18,
+                                                                                            className: "flex-shrink-0"
+                                                                                        }, void 0, false, {
+                                                                                            fileName: "[project]/src/app/ats/simulation/report/page.tsx",
+                                                                                            lineNumber: 543,
+                                                                                            columnNumber: 29
+                                                                                        }, this),
+                                                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                                                            className: "jsx-20ca2f99cd134e45" + " " + "text-body2 text-white",
+                                                                                            children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                                                                className: "jsx-20ca2f99cd134e45" + " " + "font-semibold",
+                                                                                                children: (apiData === null || apiData === void 0 ? void 0 : (_apiData_result_resultsoverview2 = apiData.result_resultsoverview) === null || _apiData_result_resultsoverview2 === void 0 ? void 0 : (_apiData_result_resultsoverview_OPTIVIS2 = _apiData_result_resultsoverview2.OPTIVIS) === null || _apiData_result_resultsoverview_OPTIVIS2 === void 0 ? void 0 : (_apiData_result_resultsoverview_OPTIVIS_2 = _apiData_result_resultsoverview_OPTIVIS2[0]) === null || _apiData_result_resultsoverview_OPTIVIS_2 === void 0 ? void 0 : _apiData_result_resultsoverview_OPTIVIS_2.cost_text) || ""
+                                                                                            }, void 0, false, {
+                                                                                                fileName: "[project]/src/app/ats/simulation/report/page.tsx",
+                                                                                                lineNumber: 551,
+                                                                                                columnNumber: 31
+                                                                                            }, this)
+                                                                                        }, void 0, false, {
+                                                                                            fileName: "[project]/src/app/ats/simulation/report/page.tsx",
+                                                                                            lineNumber: 550,
+                                                                                            columnNumber: 29
+                                                                                        }, this)
+                                                                                    ]
+                                                                                }, void 0, true, {
+                                                                                    fileName: "[project]/src/app/ats/simulation/report/page.tsx",
+                                                                                    lineNumber: 542,
+                                                                                    columnNumber: 27
+                                                                                }, this),
+                                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                                                    className: "jsx-20ca2f99cd134e45" + " " + "h-[1px] bg-[#adaaaa]"
+                                                                                }, void 0, false, {
+                                                                                    fileName: "[project]/src/app/ats/simulation/report/page.tsx",
+                                                                                    lineNumber: 557,
+                                                                                    columnNumber: 27
+                                                                                }, this),
+                                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                                                    className: "jsx-20ca2f99cd134e45" + " " + "flex items-center gap-8",
+                                                                                    children: [
+                                                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$image$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
+                                                                                            src: "/assets/simulation/insight-summary-loss.svg",
+                                                                                            alt: "Power Loss",
+                                                                                            width: 20,
+                                                                                            height: 18,
+                                                                                            className: "flex-shrink-0"
+                                                                                        }, void 0, false, {
+                                                                                            fileName: "[project]/src/app/ats/simulation/report/page.tsx",
+                                                                                            lineNumber: 559,
+                                                                                            columnNumber: 29
+                                                                                        }, this),
+                                                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                                                            className: "jsx-20ca2f99cd134e45" + " " + "text-body2 text-white",
+                                                                                            children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                                                                className: "jsx-20ca2f99cd134e45" + " " + "font-semibold",
+                                                                                                children: (apiData === null || apiData === void 0 ? void 0 : (_apiData_result_resultsoverview3 = apiData.result_resultsoverview) === null || _apiData_result_resultsoverview3 === void 0 ? void 0 : (_apiData_result_resultsoverview_OPTIVIS3 = _apiData_result_resultsoverview3.OPTIVIS) === null || _apiData_result_resultsoverview_OPTIVIS3 === void 0 ? void 0 : (_apiData_result_resultsoverview_OPTIVIS_3 = _apiData_result_resultsoverview_OPTIVIS3[0]) === null || _apiData_result_resultsoverview_OPTIVIS_3 === void 0 ? void 0 : _apiData_result_resultsoverview_OPTIVIS_3.power_text) || ""
+                                                                                            }, void 0, false, {
+                                                                                                fileName: "[project]/src/app/ats/simulation/report/page.tsx",
+                                                                                                lineNumber: 567,
+                                                                                                columnNumber: 31
+                                                                                            }, this)
+                                                                                        }, void 0, false, {
+                                                                                            fileName: "[project]/src/app/ats/simulation/report/page.tsx",
+                                                                                            lineNumber: 566,
+                                                                                            columnNumber: 29
+                                                                                        }, this)
+                                                                                    ]
+                                                                                }, void 0, true, {
+                                                                                    fileName: "[project]/src/app/ats/simulation/report/page.tsx",
+                                                                                    lineNumber: 558,
+                                                                                    columnNumber: 27
                                                                                 }, this)
                                                                             ]
                                                                         }, void 0, true, {
                                                                             fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                            lineNumber: 624,
-                                                                            columnNumber: 31
-                                                                        }, this)
-                                                                    ]
-                                                                }, index, true, {
-                                                                    fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                    lineNumber: 599,
-                                                                    columnNumber: 29
-                                                                }, this);
-                                                            })
-                                                        }, void 0, false, {
-                                                            fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                            lineNumber: 586,
-                                                            columnNumber: 21
-                                                        }, this)
-                                                    ]
-                                                }, void 0, true, {
-                                                    fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                    lineNumber: 493,
-                                                    columnNumber: 19
-                                                }, this)
-                                            ]
-                                        }, void 0, true, {
-                                            fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                            lineNumber: 489,
-                                            columnNumber: 17
-                                        }, this)
-                                    }, void 0, false, {
-                                        fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                        lineNumber: 488,
-                                        columnNumber: 15
-                                    }, this)
-                                }, void 0, false, {
-                                    fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                    lineNumber: 487,
-                                    columnNumber: 13
-                                }, this),
-                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                    className: "flex-1 min-w-0 h-full flex flex-col",
-                                    children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                        className: "figma-nine-slice figma-home-panel-middle relative px-[42px] py-9 flex-1 flex flex-col overflow-hidden",
-                                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                            className: "w-full overflow-y-auto flex-1 min-h-0",
-                                            children: [
-                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                    id: "trial-design-summary",
-                                                    className: "mb-[100px]",
-                                                    children: [
-                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
-                                                            className: "text-h2 text-[#2d1067] mb-[44px]",
-                                                            children: "Trial Design Conditions Summary"
-                                                        }, void 0, false, {
-                                                            fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                            lineNumber: 682,
-                                                            columnNumber: 21
-                                                        }, this),
-                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                            className: "flex gap-4",
-                                                            children: [
-                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                                    className: "flex-1 bg-white rounded-[16px] p-6",
-                                                                    children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                                        className: "mb-4",
-                                                                        children: [
-                                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                                                className: "flex justify-left mb-4",
-                                                                                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                                                    className: "bg-[#ededed] flex items-center justify-center",
-                                                                                    style: {
-                                                                                        width: "175px",
-                                                                                        height: "24px",
-                                                                                        borderRadius: "100px"
-                                                                                    },
-                                                                                    children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                                                        className: "text-[17px] font-semibold leading-[18.02px] tracking-[-0.51px] text-[#231f52]",
-                                                                                        children: "Endpoints Design"
-                                                                                    }, void 0, false, {
-                                                                                        fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                        lineNumber: 698,
-                                                                                        columnNumber: 31
-                                                                                    }, this)
+                                                                            lineNumber: 506,
+                                                                            columnNumber: 25
+                                                                        }, this),
+                                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                                            className: "jsx-20ca2f99cd134e45" + " " + "bg-white rounded-[16px] p-4 w-full mt-auto flex flex-col",
+                                                                            children: [
+                                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
+                                                                                    className: "jsx-20ca2f99cd134e45" + " " + "text-h3 text-[#231f52]",
+                                                                                    children: (apiData === null || apiData === void 0 ? void 0 : (_apiData_sample_size_evaluation = apiData.sample_size_evaluation) === null || _apiData_sample_size_evaluation === void 0 ? void 0 : _apiData_sample_size_evaluation.title) || ""
                                                                                 }, void 0, false, {
                                                                                     fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                    lineNumber: 690,
-                                                                                    columnNumber: 29
+                                                                                    lineNumber: 575,
+                                                                                    columnNumber: 27
+                                                                                }, this),
+                                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                                                                                    className: "jsx-20ca2f99cd134e45" + " " + "text-body4m text-neutral-5 whitespace-pre-line mt-auto",
+                                                                                    children: (apiData === null || apiData === void 0 ? void 0 : (_apiData_sample_size_evaluation1 = apiData.sample_size_evaluation) === null || _apiData_sample_size_evaluation1 === void 0 ? void 0 : _apiData_sample_size_evaluation1.content) || ""
+                                                                                }, void 0, false, {
+                                                                                    fileName: "[project]/src/app/ats/simulation/report/page.tsx",
+                                                                                    lineNumber: 578,
+                                                                                    columnNumber: 27
+                                                                                }, this)
+                                                                            ]
+                                                                        }, void 0, true, {
+                                                                            fileName: "[project]/src/app/ats/simulation/report/page.tsx",
+                                                                            lineNumber: 574,
+                                                                            columnNumber: 25
+                                                                        }, this)
+                                                                    ]
+                                                                }, void 0, true, {
+                                                                    fileName: "[project]/src/app/ats/simulation/report/page.tsx",
+                                                                    lineNumber: 496,
+                                                                    columnNumber: 23
+                                                                }, this)
+                                                            }, void 0, false, {
+                                                                fileName: "[project]/src/app/ats/simulation/report/page.tsx",
+                                                                lineNumber: 495,
+                                                                columnNumber: 21
+                                                            }, this),
+                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                                className: "jsx-20ca2f99cd134e45" + " " + "grid grid-cols-2 gap-4",
+                                                                children: reportData.reductionView.charts.map((chart, index)=>{
+                                                                    const formatter = chart.label === "Cost" ? (val)=>"".concat(val, "M") : chart.label === "Enrollment Time" ? (val)=>val.toFixed(2) : chart.label === "Power" ? (val)=>"".concat(val, "%") : undefined;
+                                                                    return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                                        style: {
+                                                                            gap: "12px"
+                                                                        },
+                                                                        className: "jsx-20ca2f99cd134e45" + " " + "flex flex-col items-center bg-white rounded-[16px] p-3",
+                                                                        children: [
+                                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                                                className: "jsx-20ca2f99cd134e45" + " " + "flex items-start justify-between w-full",
+                                                                                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                                                    className: "jsx-20ca2f99cd134e45" + " " + "flex flex-col gap-1",
+                                                                                    children: [
+                                                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h4", {
+                                                                                            className: "jsx-20ca2f99cd134e45" + " " + "text-body2 text-[#262255]",
+                                                                                            children: chart.label
+                                                                                        }, void 0, false, {
+                                                                                            fileName: "[project]/src/app/ats/simulation/report/page.tsx",
+                                                                                            lineNumber: 608,
+                                                                                            columnNumber: 35
+                                                                                        }, this),
+                                                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                                                            className: "jsx-20ca2f99cd134e45" + " " + "flex items-center gap-1 mt-1",
+                                                                                            children: [
+                                                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$arrow$2d$icon$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
+                                                                                                    direction: chart.isNegative ? "up" : "down",
+                                                                                                    color: "#231F52"
+                                                                                                }, void 0, false, {
+                                                                                                    fileName: "[project]/src/app/ats/simulation/report/page.tsx",
+                                                                                                    lineNumber: 612,
+                                                                                                    columnNumber: 37
+                                                                                                }, this),
+                                                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                                                                    className: "jsx-20ca2f99cd134e45" + " " + "text-h4 text-neutral-15",
+                                                                                                    children: chart.change
+                                                                                                }, void 0, false, {
+                                                                                                    fileName: "[project]/src/app/ats/simulation/report/page.tsx",
+                                                                                                    lineNumber: 618,
+                                                                                                    columnNumber: 37
+                                                                                                }, this)
+                                                                                            ]
+                                                                                        }, void 0, true, {
+                                                                                            fileName: "[project]/src/app/ats/simulation/report/page.tsx",
+                                                                                            lineNumber: 611,
+                                                                                            columnNumber: 35
+                                                                                        }, this)
+                                                                                    ]
+                                                                                }, void 0, true, {
+                                                                                    fileName: "[project]/src/app/ats/simulation/report/page.tsx",
+                                                                                    lineNumber: 607,
+                                                                                    columnNumber: 33
                                                                                 }, this)
                                                                             }, void 0, false, {
                                                                                 fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                lineNumber: 689,
-                                                                                columnNumber: 27
+                                                                                lineNumber: 606,
+                                                                                columnNumber: 31
                                                                             }, this),
                                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                                                className: "min-h-[200px]",
-                                                                                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("table", {
-                                                                                    className: "w-full",
-                                                                                    children: [
-                                                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("thead", {
-                                                                                            children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("tr", {
-                                                                                                children: [
-                                                                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
-                                                                                                        className: "text-left py-3 px-4 text-[17px] font-medium leading-[17.85px] tracking-[-0.51px] text-[#1c1b1c]",
-                                                                                                        children: "Endpoint Type"
-                                                                                                    }, void 0, false, {
-                                                                                                        fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                                        lineNumber: 708,
-                                                                                                        columnNumber: 35
-                                                                                                    }, this),
-                                                                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
-                                                                                                        className: "text-left py-3 px-4 text-[17px] font-medium leading-[17.85px] tracking-[-0.51px] text-[#1c1b1c]",
-                                                                                                        children: "No"
-                                                                                                    }, void 0, false, {
-                                                                                                        fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                                        lineNumber: 711,
-                                                                                                        columnNumber: 35
-                                                                                                    }, this),
-                                                                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
-                                                                                                        className: "text-left py-3 px-4 text-[17px] font-medium leading-[17.85px] tracking-[-0.51px] text-[#1c1b1c]",
-                                                                                                        children: "Outcome"
-                                                                                                    }, void 0, false, {
-                                                                                                        fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                                        lineNumber: 714,
-                                                                                                        columnNumber: 35
-                                                                                                    }, this),
-                                                                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
-                                                                                                        className: "text-left py-3 px-4 text-[17px] font-medium leading-[17.85px] tracking-[-0.51px] text-[#1c1b1c]",
-                                                                                                        children: "Type"
-                                                                                                    }, void 0, false, {
-                                                                                                        fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                                        lineNumber: 717,
-                                                                                                        columnNumber: 35
-                                                                                                    }, this),
-                                                                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
-                                                                                                        className: "text-left py-3 px-4 text-[17px] font-medium leading-[17.85px] tracking-[-0.51px] text-[#1c1b1c]",
-                                                                                                        children: "Nominal Power"
-                                                                                                    }, void 0, false, {
-                                                                                                        fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                                        lineNumber: 720,
-                                                                                                        columnNumber: 35
-                                                                                                    }, this),
-                                                                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
-                                                                                                        className: "text-left py-3 px-4 text-[17px] font-medium leading-[17.85px] tracking-[-0.51px] text-[#1c1b1c]",
-                                                                                                        children: "Threshold"
-                                                                                                    }, void 0, false, {
-                                                                                                        fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                                        lineNumber: 723,
-                                                                                                        columnNumber: 35
-                                                                                                    }, this),
-                                                                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
-                                                                                                        className: "text-left py-3 px-4 text-[17px] font-medium leading-[17.85px] tracking-[-0.51px] text-[#1c1b1c]",
-                                                                                                        children: "Expected Effect size"
-                                                                                                    }, void 0, false, {
-                                                                                                        fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                                        lineNumber: 726,
-                                                                                                        columnNumber: 35
-                                                                                                    }, this)
-                                                                                                ]
-                                                                                            }, void 0, true, {
+                                                                                className: "jsx-20ca2f99cd134e45" + " " + "grid grid-cols-2 gap-2 w-full",
+                                                                                children: [
+                                                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                                                        className: "jsx-20ca2f99cd134e45" + " " + "flex flex-col gap-1",
+                                                                                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                                                            style: {
+                                                                                                height: "150px",
+                                                                                                width: "100%"
+                                                                                            },
+                                                                                            className: "jsx-20ca2f99cd134e45",
+                                                                                            children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$charts$2f$SingleBarChart$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["SingleBarChart"], {
+                                                                                                value: chart.optivis,
+                                                                                                maxValue: Math.max(chart.optivis, chart.traditional),
+                                                                                                color: "#f06600",
+                                                                                                height: "100%",
+                                                                                                formatter: formatter
+                                                                                            }, void 0, false, {
                                                                                                 fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                                lineNumber: 707,
-                                                                                                columnNumber: 33
+                                                                                                lineNumber: 633,
+                                                                                                columnNumber: 37
                                                                                             }, this)
                                                                                         }, void 0, false, {
                                                                                             fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                            lineNumber: 706,
+                                                                                            lineNumber: 627,
+                                                                                            columnNumber: 35
+                                                                                        }, this)
+                                                                                    }, void 0, false, {
+                                                                                        fileName: "[project]/src/app/ats/simulation/report/page.tsx",
+                                                                                        lineNumber: 626,
+                                                                                        columnNumber: 33
+                                                                                    }, this),
+                                                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                                                        className: "jsx-20ca2f99cd134e45" + " " + "flex flex-col gap-1",
+                                                                                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                                                            style: {
+                                                                                                height: "150px",
+                                                                                                width: "100%"
+                                                                                            },
+                                                                                            className: "jsx-20ca2f99cd134e45",
+                                                                                            children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$charts$2f$SingleBarChart$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["SingleBarChart"], {
+                                                                                                value: chart.traditional,
+                                                                                                maxValue: Math.max(chart.optivis, chart.traditional),
+                                                                                                color: "#231f52",
+                                                                                                height: "100%",
+                                                                                                formatter: formatter
+                                                                                            }, void 0, false, {
+                                                                                                fileName: "[project]/src/app/ats/simulation/report/page.tsx",
+                                                                                                lineNumber: 653,
+                                                                                                columnNumber: 37
+                                                                                            }, this)
+                                                                                        }, void 0, false, {
+                                                                                            fileName: "[project]/src/app/ats/simulation/report/page.tsx",
+                                                                                            lineNumber: 647,
+                                                                                            columnNumber: 35
+                                                                                        }, this)
+                                                                                    }, void 0, false, {
+                                                                                        fileName: "[project]/src/app/ats/simulation/report/page.tsx",
+                                                                                        lineNumber: 646,
+                                                                                        columnNumber: 33
+                                                                                    }, this)
+                                                                                ]
+                                                                            }, void 0, true, {
+                                                                                fileName: "[project]/src/app/ats/simulation/report/page.tsx",
+                                                                                lineNumber: 624,
+                                                                                columnNumber: 31
+                                                                            }, this)
+                                                                        ]
+                                                                    }, index, true, {
+                                                                        fileName: "[project]/src/app/ats/simulation/report/page.tsx",
+                                                                        lineNumber: 599,
+                                                                        columnNumber: 29
+                                                                    }, this);
+                                                                })
+                                                            }, void 0, false, {
+                                                                fileName: "[project]/src/app/ats/simulation/report/page.tsx",
+                                                                lineNumber: 586,
+                                                                columnNumber: 21
+                                                            }, this)
+                                                        ]
+                                                    }, void 0, true, {
+                                                        fileName: "[project]/src/app/ats/simulation/report/page.tsx",
+                                                        lineNumber: 493,
+                                                        columnNumber: 19
+                                                    }, this)
+                                                ]
+                                            }, void 0, true, {
+                                                fileName: "[project]/src/app/ats/simulation/report/page.tsx",
+                                                lineNumber: 489,
+                                                columnNumber: 17
+                                            }, this)
+                                        }, void 0, false, {
+                                            fileName: "[project]/src/app/ats/simulation/report/page.tsx",
+                                            lineNumber: 488,
+                                            columnNumber: 15
+                                        }, this)
+                                    }, void 0, false, {
+                                        fileName: "[project]/src/app/ats/simulation/report/page.tsx",
+                                        lineNumber: 487,
+                                        columnNumber: 13
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                        className: "jsx-20ca2f99cd134e45" + " " + "flex-1 min-w-0 h-full flex flex-col",
+                                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                            className: "jsx-20ca2f99cd134e45" + " " + "figma-nine-slice figma-home-panel-middle relative px-[42px] py-9 flex-1 flex flex-col overflow-hidden",
+                                            children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                className: "jsx-20ca2f99cd134e45" + " " + "w-full overflow-y-auto flex-1 min-h-0",
+                                                children: [
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                        id: "trial-design-summary",
+                                                        className: "jsx-20ca2f99cd134e45" + " " + "mb-[100px]",
+                                                        children: [
+                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
+                                                                className: "jsx-20ca2f99cd134e45" + " " + "text-h2 text-[#2d1067] mb-[44px]",
+                                                                children: "Trial Design Conditions Summary"
+                                                            }, void 0, false, {
+                                                                fileName: "[project]/src/app/ats/simulation/report/page.tsx",
+                                                                lineNumber: 682,
+                                                                columnNumber: 21
+                                                            }, this),
+                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                                className: "jsx-20ca2f99cd134e45" + " " + "flex gap-4",
+                                                                children: [
+                                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                                        className: "jsx-20ca2f99cd134e45" + " " + "flex-1 bg-white rounded-[16px] p-6",
+                                                                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                                            className: "jsx-20ca2f99cd134e45" + " " + "mb-4",
+                                                                            children: [
+                                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                                                    className: "jsx-20ca2f99cd134e45" + " " + "flex justify-left mb-4",
+                                                                                    children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                                                        style: {
+                                                                                            width: "175px",
+                                                                                            height: "24px",
+                                                                                            borderRadius: "100px"
+                                                                                        },
+                                                                                        className: "jsx-20ca2f99cd134e45" + " " + "bg-[#ededed] flex items-center justify-center",
+                                                                                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                                                            className: "jsx-20ca2f99cd134e45" + " " + "text-[12px] font-semibold leading-[18.02px] tracking-[-0.51px] text-[#231f52]",
+                                                                                            children: "Endpoints Design"
+                                                                                        }, void 0, false, {
+                                                                                            fileName: "[project]/src/app/ats/simulation/report/page.tsx",
+                                                                                            lineNumber: 698,
                                                                                             columnNumber: 31
-                                                                                        }, this),
-                                                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("tbody", {
-                                                                                            children: [
-                                                                                                primaryEndpoints.map((endpoint, index)=>{
-                                                                                                    const isFirstPrimary = index === 0;
-                                                                                                    const effectSize = endpoint.effectSize;
-                                                                                                    // 색상 결정: High (7.0~10.0 초록), Moderate (4.0~6.9 파랑), Low (0.1~3.9 빨강)
-                                                                                                    let barColor = "#f06600"; // 기본값
-                                                                                                    if (effectSize >= 7.0 && effectSize <= 10.0) {
-                                                                                                        barColor = "#22c55e"; // 초록색
-                                                                                                    } else if (effectSize >= 4.0 && effectSize <= 6.9) {
-                                                                                                        barColor = "#3b82f6"; // 파랑색
-                                                                                                    } else if (effectSize >= 0.1 && effectSize <= 3.9) {
-                                                                                                        barColor = "#ef4444"; // 빨강색
-                                                                                                    }
-                                                                                                    const barWidth = Math.min((effectSize - 0.1) / (10.0 - 0.1) * 100, 100);
-                                                                                                    return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Fragment"], {
-                                                                                                        children: [
-                                                                                                            isFirstPrimary && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("tr", {
-                                                                                                                children: [
-                                                                                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
-                                                                                                                        className: "pl-4 py-0",
-                                                                                                                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                                                                                            className: "h-[1px] bg-[#AEA9B1]"
-                                                                                                                        }, void 0, false, {
-                                                                                                                            fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                                                            lineNumber: 762,
-                                                                                                                            columnNumber: 45
-                                                                                                                        }, this)
-                                                                                                                    }, void 0, false, {
-                                                                                                                        fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                                                        lineNumber: 761,
-                                                                                                                        columnNumber: 43
-                                                                                                                    }, this),
-                                                                                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
-                                                                                                                        colSpan: 5,
-                                                                                                                        className: "p-0",
-                                                                                                                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                                                                                            className: "h-[1px] bg-[#AEA9B1]"
-                                                                                                                        }, void 0, false, {
-                                                                                                                            fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                                                            lineNumber: 765,
-                                                                                                                            columnNumber: 45
-                                                                                                                        }, this)
-                                                                                                                    }, void 0, false, {
-                                                                                                                        fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                                                        lineNumber: 764,
-                                                                                                                        columnNumber: 43
-                                                                                                                    }, this),
-                                                                                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
-                                                                                                                        className: "pr-4 py-0",
-                                                                                                                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                                                                                            className: "h-[1px] bg-[#AEA9B1]"
-                                                                                                                        }, void 0, false, {
-                                                                                                                            fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                                                            lineNumber: 768,
-                                                                                                                            columnNumber: 45
-                                                                                                                        }, this)
-                                                                                                                    }, void 0, false, {
-                                                                                                                        fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                                                        lineNumber: 767,
-                                                                                                                        columnNumber: 43
-                                                                                                                    }, this)
-                                                                                                                ]
-                                                                                                            }, void 0, true, {
-                                                                                                                fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                                                lineNumber: 760,
-                                                                                                                columnNumber: 41
-                                                                                                            }, this),
-                                                                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("tr", {
-                                                                                                                children: [
-                                                                                                                    index === 0 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
-                                                                                                                        rowSpan: primaryEndpoints.length,
-                                                                                                                        className: "py-3 px-4 text-[17px] font-medium leading-[17.85px] tracking-[-0.51px] text-[#1c1b1c] align-top",
-                                                                                                                        children: "Primary"
-                                                                                                                    }, void 0, false, {
-                                                                                                                        fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                                                        lineNumber: 774,
-                                                                                                                        columnNumber: 43
-                                                                                                                    }, this),
-                                                                                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
-                                                                                                                        className: "py-3 px-4 text-[17px] font-medium leading-[17.85px] tracking-[-0.51px] text-[#1c1b1c]",
-                                                                                                                        children: [
-                                                                                                                            "#",
-                                                                                                                            index + 1
-                                                                                                                        ]
-                                                                                                                    }, void 0, true, {
-                                                                                                                        fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                                                        lineNumber: 781,
-                                                                                                                        columnNumber: 41
-                                                                                                                    }, this),
-                                                                                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
-                                                                                                                        className: "py-3 px-4 text-[17px] font-medium leading-[17.85px] tracking-[-0.51px] text-[#1c1b1c]",
-                                                                                                                        children: endpoint.name
-                                                                                                                    }, void 0, false, {
-                                                                                                                        fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                                                        lineNumber: 784,
-                                                                                                                        columnNumber: 41
-                                                                                                                    }, this),
-                                                                                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
-                                                                                                                        className: "py-3 px-4 text-[17px] font-medium leading-[17.85px] tracking-[-0.51px] text-[#1c1b1c]",
-                                                                                                                        children: endpoint.type || "Continuous"
-                                                                                                                    }, void 0, false, {
-                                                                                                                        fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                                                        lineNumber: 787,
-                                                                                                                        columnNumber: 41
-                                                                                                                    }, this),
-                                                                                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
-                                                                                                                        className: "py-3 px-4 text-[17px] font-medium leading-[17.85px] tracking-[-0.51px] text-[#1c1b1c]",
-                                                                                                                        children: index === 0 ? "".concat(Math.round(nominalPower * 100), "%") : "-"
-                                                                                                                    }, void 0, false, {
-                                                                                                                        fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                                                        lineNumber: 790,
-                                                                                                                        columnNumber: 41
-                                                                                                                    }, this),
-                                                                                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
-                                                                                                                        className: "py-3 px-4 text-[17px] font-medium leading-[17.85px] tracking-[-0.51px] text-[#1c1b1c]",
-                                                                                                                        children: endpoint.type === "Binary" && endpoint.threshold !== null && endpoint.threshold !== undefined ? endpoint.threshold.toFixed(1) : "-"
-                                                                                                                    }, void 0, false, {
-                                                                                                                        fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                                                        lineNumber: 797,
-                                                                                                                        columnNumber: 41
-                                                                                                                    }, this),
-                                                                                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
-                                                                                                                        className: "py-3 px-4",
-                                                                                                                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                                                                                            className: "flex items-center gap-2",
-                                                                                                                            children: [
-                                                                                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                                                                                                    className: "text-[17px] font-medium leading-[17px] text-[#1c1b1c] whitespace-nowrap",
-                                                                                                                                    children: effectSize.toFixed(1)
-                                                                                                                                }, void 0, false, {
-                                                                                                                                    fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                                                                    lineNumber: 806,
-                                                                                                                                    columnNumber: 45
-                                                                                                                                }, this),
-                                                                                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                                                                                                    className: "flex items-center gap-1 flex-1",
-                                                                                                                                    children: [
-                                                                                                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                                                                                                            className: "text-[14px] text-[#666b73] whitespace-nowrap",
-                                                                                                                                            children: "Low"
-                                                                                                                                        }, void 0, false, {
-                                                                                                                                            fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                                                                            lineNumber: 810,
-                                                                                                                                            columnNumber: 47
-                                                                                                                                        }, this),
-                                                                                                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                                                                                                            className: "flex-1 h-2 bg-[#787878]/20 rounded-[3px] relative max-w-[200px]",
-                                                                                                                                            children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                                                                                                                className: "h-2 rounded-[3px]",
-                                                                                                                                                style: {
-                                                                                                                                                    width: "".concat(barWidth, "%"),
-                                                                                                                                                    backgroundColor: barColor
-                                                                                                                                                }
-                                                                                                                                            }, void 0, false, {
-                                                                                                                                                fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                                                                                lineNumber: 814,
-                                                                                                                                                columnNumber: 49
-                                                                                                                                            }, this)
-                                                                                                                                        }, void 0, false, {
-                                                                                                                                            fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                                                                            lineNumber: 813,
-                                                                                                                                            columnNumber: 47
-                                                                                                                                        }, this),
-                                                                                                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                                                                                                            className: "text-[14px] text-[#666b73] whitespace-nowrap",
-                                                                                                                                            children: "High"
-                                                                                                                                        }, void 0, false, {
-                                                                                                                                            fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                                                                            lineNumber: 822,
-                                                                                                                                            columnNumber: 47
-                                                                                                                                        }, this)
-                                                                                                                                    ]
-                                                                                                                                }, void 0, true, {
-                                                                                                                                    fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                                                                    lineNumber: 809,
-                                                                                                                                    columnNumber: 45
-                                                                                                                                }, this)
-                                                                                                                            ]
-                                                                                                                        }, void 0, true, {
-                                                                                                                            fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                                                            lineNumber: 805,
-                                                                                                                            columnNumber: 43
-                                                                                                                        }, this)
-                                                                                                                    }, void 0, false, {
-                                                                                                                        fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                                                        lineNumber: 804,
-                                                                                                                        columnNumber: 41
-                                                                                                                    }, this)
-                                                                                                                ]
-                                                                                                            }, void 0, true, {
-                                                                                                                fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                                                lineNumber: 772,
-                                                                                                                columnNumber: 39
-                                                                                                            }, this)
-                                                                                                        ]
-                                                                                                    }, "primary-".concat(index), true, {
-                                                                                                        fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                                        lineNumber: 757,
-                                                                                                        columnNumber: 37
-                                                                                                    }, this);
-                                                                                                }),
-                                                                                                primaryEndpoints.length > 0 && secondaryEndpoints.length > 0 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("tr", {
+                                                                                        }, this)
+                                                                                    }, void 0, false, {
+                                                                                        fileName: "[project]/src/app/ats/simulation/report/page.tsx",
+                                                                                        lineNumber: 690,
+                                                                                        columnNumber: 29
+                                                                                    }, this)
+                                                                                }, void 0, false, {
+                                                                                    fileName: "[project]/src/app/ats/simulation/report/page.tsx",
+                                                                                    lineNumber: 689,
+                                                                                    columnNumber: 27
+                                                                                }, this),
+                                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                                                    className: "jsx-20ca2f99cd134e45" + " " + "min-h-[200px]",
+                                                                                    children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("table", {
+                                                                                        className: "jsx-20ca2f99cd134e45" + " " + "w-full",
+                                                                                        children: [
+                                                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("thead", {
+                                                                                                className: "jsx-20ca2f99cd134e45",
+                                                                                                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("tr", {
+                                                                                                    className: "jsx-20ca2f99cd134e45",
                                                                                                     children: [
-                                                                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
-                                                                                                            className: "pl-4 py-0",
-                                                                                                            children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                                                                                className: "h-[1px] bg-[#AEA9B1]"
-                                                                                                            }, void 0, false, {
-                                                                                                                fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                                                lineNumber: 838,
-                                                                                                                columnNumber: 41
-                                                                                                            }, this)
+                                                                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
+                                                                                                            className: "jsx-20ca2f99cd134e45" + " " + "text-left py-3 px-4 text-[12px] font-medium leading-[17.85px] tracking-[-0.51px] text-[#1c1b1c]",
+                                                                                                            children: "Endpoint Type"
                                                                                                         }, void 0, false, {
                                                                                                             fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                                            lineNumber: 837,
-                                                                                                            columnNumber: 39
+                                                                                                            lineNumber: 708,
+                                                                                                            columnNumber: 35
                                                                                                         }, this),
-                                                                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
-                                                                                                            colSpan: 5,
-                                                                                                            className: "p-0",
-                                                                                                            children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                                                                                className: "h-[1px] bg-[#AEA9B1]"
-                                                                                                            }, void 0, false, {
-                                                                                                                fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                                                lineNumber: 841,
-                                                                                                                columnNumber: 41
-                                                                                                            }, this)
+                                                                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
+                                                                                                            className: "jsx-20ca2f99cd134e45" + " " + "text-left py-3 px-4 text-[12px] font-medium leading-[17.85px] tracking-[-0.51px] text-[#1c1b1c]",
+                                                                                                            children: "No"
                                                                                                         }, void 0, false, {
                                                                                                             fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                                            lineNumber: 840,
-                                                                                                            columnNumber: 39
+                                                                                                            lineNumber: 711,
+                                                                                                            columnNumber: 35
                                                                                                         }, this),
-                                                                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
-                                                                                                            className: "pr-4 py-0",
-                                                                                                            children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                                                                                className: "h-[1px] bg-[#AEA9B1]"
-                                                                                                            }, void 0, false, {
-                                                                                                                fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                                                lineNumber: 844,
-                                                                                                                columnNumber: 41
-                                                                                                            }, this)
+                                                                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
+                                                                                                            className: "jsx-20ca2f99cd134e45" + " " + "text-left py-3 px-4 text-[12px] font-medium leading-[17.85px] tracking-[-0.51px] text-[#1c1b1c]",
+                                                                                                            children: "Outcome"
                                                                                                         }, void 0, false, {
                                                                                                             fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                                            lineNumber: 843,
-                                                                                                            columnNumber: 39
+                                                                                                            lineNumber: 714,
+                                                                                                            columnNumber: 35
+                                                                                                        }, this),
+                                                                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
+                                                                                                            className: "jsx-20ca2f99cd134e45" + " " + "text-left py-3 px-4 text-[12px] font-medium leading-[17.85px] tracking-[-0.51px] text-[#1c1b1c]",
+                                                                                                            children: "Type"
+                                                                                                        }, void 0, false, {
+                                                                                                            fileName: "[project]/src/app/ats/simulation/report/page.tsx",
+                                                                                                            lineNumber: 717,
+                                                                                                            columnNumber: 35
+                                                                                                        }, this),
+                                                                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
+                                                                                                            className: "jsx-20ca2f99cd134e45" + " " + "text-left py-3 px-4 text-[12px] font-medium leading-[17.85px] tracking-[-0.51px] text-[#1c1b1c]",
+                                                                                                            children: "Nominal Power"
+                                                                                                        }, void 0, false, {
+                                                                                                            fileName: "[project]/src/app/ats/simulation/report/page.tsx",
+                                                                                                            lineNumber: 720,
+                                                                                                            columnNumber: 35
+                                                                                                        }, this),
+                                                                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
+                                                                                                            className: "jsx-20ca2f99cd134e45" + " " + "text-left py-3 px-4 text-[12px] font-medium leading-[17.85px] tracking-[-0.51px] text-[#1c1b1c]",
+                                                                                                            children: "Threshold"
+                                                                                                        }, void 0, false, {
+                                                                                                            fileName: "[project]/src/app/ats/simulation/report/page.tsx",
+                                                                                                            lineNumber: 723,
+                                                                                                            columnNumber: 35
+                                                                                                        }, this),
+                                                                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
+                                                                                                            className: "jsx-20ca2f99cd134e45" + " " + "text-left py-3 px-4 text-[12px] font-medium leading-[17.85px] tracking-[-0.51px] text-[#1c1b1c]",
+                                                                                                            children: "Expected Effect size"
+                                                                                                        }, void 0, false, {
+                                                                                                            fileName: "[project]/src/app/ats/simulation/report/page.tsx",
+                                                                                                            lineNumber: 726,
+                                                                                                            columnNumber: 35
                                                                                                         }, this)
                                                                                                     ]
                                                                                                 }, void 0, true, {
                                                                                                     fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                                    lineNumber: 836,
-                                                                                                    columnNumber: 37
-                                                                                                }, this),
-                                                                                                secondaryEndpoints.map((endpoint, index)=>{
-                                                                                                    const effectSize = endpoint.effectSize;
-                                                                                                    // 색상 결정: High (7.0~10.0 초록), Moderate (4.0~6.9 파랑), Low (0.1~3.9 빨강)
-                                                                                                    let barColor = "#f06600"; // 기본값
-                                                                                                    if (effectSize >= 7.0 && effectSize <= 10.0) {
-                                                                                                        barColor = "#22c55e"; // 초록색
-                                                                                                    } else if (effectSize >= 4.0 && effectSize <= 6.9) {
-                                                                                                        barColor = "#3b82f6"; // 파랑색
-                                                                                                    } else if (effectSize >= 0.1 && effectSize <= 3.9) {
-                                                                                                        barColor = "#ef4444"; // 빨강색
-                                                                                                    }
-                                                                                                    const barWidth = Math.min((effectSize - 0.1) / (10.0 - 0.1) * 100, 100);
-                                                                                                    return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("tr", {
-                                                                                                        children: [
-                                                                                                            index === 0 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
-                                                                                                                rowSpan: secondaryEndpoints.length,
-                                                                                                                className: "py-3 px-4 text-[17px] font-medium leading-[17.85px] tracking-[-0.51px] text-[#1c1b1c] align-top",
-                                                                                                                children: "Secondary"
-                                                                                                            }, void 0, false, {
-                                                                                                                fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                                                lineNumber: 875,
-                                                                                                                columnNumber: 41
-                                                                                                            }, this),
-                                                                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
-                                                                                                                className: "py-3 px-4 text-[17px] font-medium leading-[17.85px] tracking-[-0.51px] text-[#1c1b1c]",
-                                                                                                                children: [
-                                                                                                                    "#",
-                                                                                                                    index + 1
-                                                                                                                ]
-                                                                                                            }, void 0, true, {
-                                                                                                                fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                                                lineNumber: 882,
-                                                                                                                columnNumber: 39
-                                                                                                            }, this),
-                                                                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
-                                                                                                                className: "py-3 px-4 text-[17px] font-medium leading-[17.85px] tracking-[-0.51px] text-[#1c1b1c]",
-                                                                                                                children: endpoint.name
-                                                                                                            }, void 0, false, {
-                                                                                                                fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                                                lineNumber: 885,
-                                                                                                                columnNumber: 39
-                                                                                                            }, this),
-                                                                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
-                                                                                                                className: "py-3 px-4 text-[17px] font-medium leading-[17.85px] tracking-[-0.51px] text-[#1c1b1c]",
-                                                                                                                children: endpoint.type || "Continuous"
-                                                                                                            }, void 0, false, {
-                                                                                                                fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                                                lineNumber: 888,
-                                                                                                                columnNumber: 39
-                                                                                                            }, this),
-                                                                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
-                                                                                                                className: "py-3 px-4 text-[17px] font-medium leading-[17.85px] tracking-[-0.51px] text-[#1c1b1c]",
-                                                                                                                children: "-"
-                                                                                                            }, void 0, false, {
-                                                                                                                fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                                                lineNumber: 891,
-                                                                                                                columnNumber: 39
-                                                                                                            }, this),
-                                                                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
-                                                                                                                className: "py-3 px-4 text-[17px] font-medium leading-[17.85px] tracking-[-0.51px] text-[#1c1b1c]",
-                                                                                                                children: endpoint.type === "Binary" && endpoint.threshold !== null && endpoint.threshold !== undefined ? endpoint.threshold.toFixed(1) : "-"
-                                                                                                            }, void 0, false, {
-                                                                                                                fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                                                lineNumber: 894,
-                                                                                                                columnNumber: 39
-                                                                                                            }, this),
-                                                                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
-                                                                                                                className: "py-3 px-4",
-                                                                                                                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                                                                                    className: "flex items-center gap-2",
+                                                                                                    lineNumber: 707,
+                                                                                                    columnNumber: 33
+                                                                                                }, this)
+                                                                                            }, void 0, false, {
+                                                                                                fileName: "[project]/src/app/ats/simulation/report/page.tsx",
+                                                                                                lineNumber: 706,
+                                                                                                columnNumber: 31
+                                                                                            }, this),
+                                                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("tbody", {
+                                                                                                className: "jsx-20ca2f99cd134e45",
+                                                                                                children: [
+                                                                                                    primaryEndpoints.map((endpoint, index)=>{
+                                                                                                        const isFirstPrimary = index === 0;
+                                                                                                        const effectSize = endpoint.effectSize;
+                                                                                                        // 색상 결정: High (7.0~10.0 초록), Moderate (4.0~6.9 파랑), Low (0.1~3.9 빨강)
+                                                                                                        let barColor = "#f06600"; // 기본값
+                                                                                                        if (effectSize >= 7.0 && effectSize <= 10.0) {
+                                                                                                            barColor = "#22c55e"; // 초록색
+                                                                                                        } else if (effectSize >= 4.0 && effectSize <= 6.9) {
+                                                                                                            barColor = "#3b82f6"; // 파랑색
+                                                                                                        } else if (effectSize >= 0.1 && effectSize <= 3.9) {
+                                                                                                            barColor = "#ef4444"; // 빨강색
+                                                                                                        }
+                                                                                                        const barWidth = Math.min((effectSize - 0.1) / (10.0 - 0.1) * 100, 100);
+                                                                                                        return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Fragment"], {
+                                                                                                            children: [
+                                                                                                                isFirstPrimary && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("tr", {
+                                                                                                                    className: "jsx-20ca2f99cd134e45",
                                                                                                                     children: [
-                                                                                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                                                                                            className: "text-[17px] font-medium leading-[17px] text-[#1c1b1c] whitespace-nowrap",
-                                                                                                                            children: effectSize.toFixed(1)
+                                                                                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
+                                                                                                                            className: "jsx-20ca2f99cd134e45" + " " + "pl-4 py-0",
+                                                                                                                            children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                                                                                                className: "jsx-20ca2f99cd134e45" + " " + "h-[1px] bg-[#AEA9B1]"
+                                                                                                                            }, void 0, false, {
+                                                                                                                                fileName: "[project]/src/app/ats/simulation/report/page.tsx",
+                                                                                                                                lineNumber: 762,
+                                                                                                                                columnNumber: 45
+                                                                                                                            }, this)
                                                                                                                         }, void 0, false, {
                                                                                                                             fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                                                            lineNumber: 903,
+                                                                                                                            lineNumber: 761,
                                                                                                                             columnNumber: 43
                                                                                                                         }, this),
-                                                                                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                                                                                            className: "flex items-center gap-1 flex-1",
-                                                                                                                            children: [
-                                                                                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                                                                                                    className: "text-[14px] text-[#666b73] whitespace-nowrap",
-                                                                                                                                    children: "Low"
-                                                                                                                                }, void 0, false, {
-                                                                                                                                    fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                                                                    lineNumber: 907,
-                                                                                                                                    columnNumber: 45
-                                                                                                                                }, this),
-                                                                                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                                                                                                    className: "flex-1 h-2 bg-[#787878]/20 rounded-[3px] relative max-w-[200px]",
-                                                                                                                                    children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                                                                                                        className: "h-2 rounded-[3px]",
-                                                                                                                                        style: {
-                                                                                                                                            width: "".concat(barWidth, "%"),
-                                                                                                                                            backgroundColor: barColor
-                                                                                                                                        }
-                                                                                                                                    }, void 0, false, {
-                                                                                                                                        fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                                                                        lineNumber: 911,
-                                                                                                                                        columnNumber: 47
-                                                                                                                                    }, this)
-                                                                                                                                }, void 0, false, {
-                                                                                                                                    fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                                                                    lineNumber: 910,
-                                                                                                                                    columnNumber: 45
-                                                                                                                                }, this),
-                                                                                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                                                                                                    className: "text-[14px] text-[#666b73] whitespace-nowrap",
-                                                                                                                                    children: "High"
-                                                                                                                                }, void 0, false, {
-                                                                                                                                    fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                                                                    lineNumber: 919,
-                                                                                                                                    columnNumber: 45
-                                                                                                                                }, this)
-                                                                                                                            ]
-                                                                                                                        }, void 0, true, {
+                                                                                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
+                                                                                                                            colSpan: 5,
+                                                                                                                            className: "jsx-20ca2f99cd134e45" + " " + "p-0",
+                                                                                                                            children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                                                                                                className: "jsx-20ca2f99cd134e45" + " " + "h-[1px] bg-[#AEA9B1]"
+                                                                                                                            }, void 0, false, {
+                                                                                                                                fileName: "[project]/src/app/ats/simulation/report/page.tsx",
+                                                                                                                                lineNumber: 765,
+                                                                                                                                columnNumber: 45
+                                                                                                                            }, this)
+                                                                                                                        }, void 0, false, {
                                                                                                                             fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                                                            lineNumber: 906,
+                                                                                                                            lineNumber: 764,
+                                                                                                                            columnNumber: 43
+                                                                                                                        }, this),
+                                                                                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
+                                                                                                                            className: "jsx-20ca2f99cd134e45" + " " + "pr-4 py-0",
+                                                                                                                            children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                                                                                                className: "jsx-20ca2f99cd134e45" + " " + "h-[1px] bg-[#AEA9B1]"
+                                                                                                                            }, void 0, false, {
+                                                                                                                                fileName: "[project]/src/app/ats/simulation/report/page.tsx",
+                                                                                                                                lineNumber: 768,
+                                                                                                                                columnNumber: 45
+                                                                                                                            }, this)
+                                                                                                                        }, void 0, false, {
+                                                                                                                            fileName: "[project]/src/app/ats/simulation/report/page.tsx",
+                                                                                                                            lineNumber: 767,
                                                                                                                             columnNumber: 43
                                                                                                                         }, this)
                                                                                                                     ]
                                                                                                                 }, void 0, true, {
                                                                                                                     fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                                                    lineNumber: 902,
+                                                                                                                    lineNumber: 760,
+                                                                                                                    columnNumber: 41
+                                                                                                                }, this),
+                                                                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("tr", {
+                                                                                                                    className: "jsx-20ca2f99cd134e45",
+                                                                                                                    children: [
+                                                                                                                        index === 0 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
+                                                                                                                            rowSpan: primaryEndpoints.length,
+                                                                                                                            className: "jsx-20ca2f99cd134e45" + " " + "py-3 px-4 text-[12px] font-medium leading-[17.85px] tracking-[-0.51px] text-[#1c1b1c] align-top",
+                                                                                                                            children: "Primary"
+                                                                                                                        }, void 0, false, {
+                                                                                                                            fileName: "[project]/src/app/ats/simulation/report/page.tsx",
+                                                                                                                            lineNumber: 774,
+                                                                                                                            columnNumber: 43
+                                                                                                                        }, this),
+                                                                                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
+                                                                                                                            className: "jsx-20ca2f99cd134e45" + " " + "py-3 px-4 text-[12px] font-medium leading-[17.85px] tracking-[-0.51px] text-[#1c1b1c]",
+                                                                                                                            children: [
+                                                                                                                                "#",
+                                                                                                                                index + 1
+                                                                                                                            ]
+                                                                                                                        }, void 0, true, {
+                                                                                                                            fileName: "[project]/src/app/ats/simulation/report/page.tsx",
+                                                                                                                            lineNumber: 781,
+                                                                                                                            columnNumber: 41
+                                                                                                                        }, this),
+                                                                                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
+                                                                                                                            className: "jsx-20ca2f99cd134e45" + " " + "py-3 px-4 text-[12px] font-medium leading-[17.85px] tracking-[-0.51px] text-[#1c1b1c]",
+                                                                                                                            children: endpoint.name
+                                                                                                                        }, void 0, false, {
+                                                                                                                            fileName: "[project]/src/app/ats/simulation/report/page.tsx",
+                                                                                                                            lineNumber: 784,
+                                                                                                                            columnNumber: 41
+                                                                                                                        }, this),
+                                                                                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
+                                                                                                                            className: "jsx-20ca2f99cd134e45" + " " + "py-3 px-4 text-[12px] font-medium leading-[17.85px] tracking-[-0.51px] text-[#1c1b1c]",
+                                                                                                                            children: endpoint.type || "Continuous"
+                                                                                                                        }, void 0, false, {
+                                                                                                                            fileName: "[project]/src/app/ats/simulation/report/page.tsx",
+                                                                                                                            lineNumber: 787,
+                                                                                                                            columnNumber: 41
+                                                                                                                        }, this),
+                                                                                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
+                                                                                                                            className: "jsx-20ca2f99cd134e45" + " " + "py-3 px-4 text-[12px] font-medium leading-[17.85px] tracking-[-0.51px] text-[#1c1b1c]",
+                                                                                                                            children: index === 0 ? "".concat(Math.round(nominalPower * 100), "%") : "-"
+                                                                                                                        }, void 0, false, {
+                                                                                                                            fileName: "[project]/src/app/ats/simulation/report/page.tsx",
+                                                                                                                            lineNumber: 790,
+                                                                                                                            columnNumber: 41
+                                                                                                                        }, this),
+                                                                                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
+                                                                                                                            className: "jsx-20ca2f99cd134e45" + " " + "py-3 px-4 text-[12px] font-medium leading-[17.85px] tracking-[-0.51px] text-[#1c1b1c]",
+                                                                                                                            children: endpoint.type === "Binary" && endpoint.threshold !== null && endpoint.threshold !== undefined ? endpoint.threshold.toFixed(1) : "-"
+                                                                                                                        }, void 0, false, {
+                                                                                                                            fileName: "[project]/src/app/ats/simulation/report/page.tsx",
+                                                                                                                            lineNumber: 797,
+                                                                                                                            columnNumber: 41
+                                                                                                                        }, this),
+                                                                                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
+                                                                                                                            className: "jsx-20ca2f99cd134e45" + " " + "py-3 px-4",
+                                                                                                                            children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                                                                                                className: "jsx-20ca2f99cd134e45" + " " + "flex items-center gap-2",
+                                                                                                                                children: [
+                                                                                                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                                                                                                        className: "jsx-20ca2f99cd134e45" + " " + "text-[12px] font-medium leading-[17px] text-[#1c1b1c] whitespace-nowrap",
+                                                                                                                                        children: effectSize.toFixed(1)
+                                                                                                                                    }, void 0, false, {
+                                                                                                                                        fileName: "[project]/src/app/ats/simulation/report/page.tsx",
+                                                                                                                                        lineNumber: 806,
+                                                                                                                                        columnNumber: 45
+                                                                                                                                    }, this),
+                                                                                                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                                                                                                        className: "jsx-20ca2f99cd134e45" + " " + "flex items-center gap-1 flex-1",
+                                                                                                                                        children: [
+                                                                                                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                                                                                                                className: "jsx-20ca2f99cd134e45" + " " + "text-[14px] text-[#666b73] whitespace-nowrap",
+                                                                                                                                                children: "Low"
+                                                                                                                                            }, void 0, false, {
+                                                                                                                                                fileName: "[project]/src/app/ats/simulation/report/page.tsx",
+                                                                                                                                                lineNumber: 810,
+                                                                                                                                                columnNumber: 47
+                                                                                                                                            }, this),
+                                                                                                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                                                                                                                className: "jsx-20ca2f99cd134e45" + " " + "flex-1 h-2 bg-[#787878]/20 rounded-[3px] relative max-w-[200px]",
+                                                                                                                                                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                                                                                                                    style: {
+                                                                                                                                                        width: "".concat(barWidth, "%"),
+                                                                                                                                                        backgroundColor: barColor
+                                                                                                                                                    },
+                                                                                                                                                    className: "jsx-20ca2f99cd134e45" + " " + "h-2 rounded-[3px]"
+                                                                                                                                                }, void 0, false, {
+                                                                                                                                                    fileName: "[project]/src/app/ats/simulation/report/page.tsx",
+                                                                                                                                                    lineNumber: 814,
+                                                                                                                                                    columnNumber: 49
+                                                                                                                                                }, this)
+                                                                                                                                            }, void 0, false, {
+                                                                                                                                                fileName: "[project]/src/app/ats/simulation/report/page.tsx",
+                                                                                                                                                lineNumber: 813,
+                                                                                                                                                columnNumber: 47
+                                                                                                                                            }, this),
+                                                                                                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                                                                                                                className: "jsx-20ca2f99cd134e45" + " " + "text-[14px] text-[#666b73] whitespace-nowrap",
+                                                                                                                                                children: "High"
+                                                                                                                                            }, void 0, false, {
+                                                                                                                                                fileName: "[project]/src/app/ats/simulation/report/page.tsx",
+                                                                                                                                                lineNumber: 822,
+                                                                                                                                                columnNumber: 47
+                                                                                                                                            }, this)
+                                                                                                                                        ]
+                                                                                                                                    }, void 0, true, {
+                                                                                                                                        fileName: "[project]/src/app/ats/simulation/report/page.tsx",
+                                                                                                                                        lineNumber: 809,
+                                                                                                                                        columnNumber: 45
+                                                                                                                                    }, this)
+                                                                                                                                ]
+                                                                                                                            }, void 0, true, {
+                                                                                                                                fileName: "[project]/src/app/ats/simulation/report/page.tsx",
+                                                                                                                                lineNumber: 805,
+                                                                                                                                columnNumber: 43
+                                                                                                                            }, this)
+                                                                                                                        }, void 0, false, {
+                                                                                                                            fileName: "[project]/src/app/ats/simulation/report/page.tsx",
+                                                                                                                            lineNumber: 804,
+                                                                                                                            columnNumber: 41
+                                                                                                                        }, this)
+                                                                                                                    ]
+                                                                                                                }, void 0, true, {
+                                                                                                                    fileName: "[project]/src/app/ats/simulation/report/page.tsx",
+                                                                                                                    lineNumber: 772,
+                                                                                                                    columnNumber: 39
+                                                                                                                }, this)
+                                                                                                            ]
+                                                                                                        }, "primary-".concat(index), true, {
+                                                                                                            fileName: "[project]/src/app/ats/simulation/report/page.tsx",
+                                                                                                            lineNumber: 757,
+                                                                                                            columnNumber: 37
+                                                                                                        }, this);
+                                                                                                    }),
+                                                                                                    primaryEndpoints.length > 0 && secondaryEndpoints.length > 0 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("tr", {
+                                                                                                        className: "jsx-20ca2f99cd134e45",
+                                                                                                        children: [
+                                                                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
+                                                                                                                className: "jsx-20ca2f99cd134e45" + " " + "pl-4 py-0",
+                                                                                                                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                                                                                    className: "jsx-20ca2f99cd134e45" + " " + "h-[1px] bg-[#AEA9B1]"
+                                                                                                                }, void 0, false, {
+                                                                                                                    fileName: "[project]/src/app/ats/simulation/report/page.tsx",
+                                                                                                                    lineNumber: 838,
                                                                                                                     columnNumber: 41
                                                                                                                 }, this)
                                                                                                             }, void 0, false, {
                                                                                                                 fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                                                lineNumber: 901,
+                                                                                                                lineNumber: 837,
+                                                                                                                columnNumber: 39
+                                                                                                            }, this),
+                                                                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
+                                                                                                                colSpan: 5,
+                                                                                                                className: "jsx-20ca2f99cd134e45" + " " + "p-0",
+                                                                                                                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                                                                                    className: "jsx-20ca2f99cd134e45" + " " + "h-[1px] bg-[#AEA9B1]"
+                                                                                                                }, void 0, false, {
+                                                                                                                    fileName: "[project]/src/app/ats/simulation/report/page.tsx",
+                                                                                                                    lineNumber: 841,
+                                                                                                                    columnNumber: 41
+                                                                                                                }, this)
+                                                                                                            }, void 0, false, {
+                                                                                                                fileName: "[project]/src/app/ats/simulation/report/page.tsx",
+                                                                                                                lineNumber: 840,
+                                                                                                                columnNumber: 39
+                                                                                                            }, this),
+                                                                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
+                                                                                                                className: "jsx-20ca2f99cd134e45" + " " + "pr-4 py-0",
+                                                                                                                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                                                                                    className: "jsx-20ca2f99cd134e45" + " " + "h-[1px] bg-[#AEA9B1]"
+                                                                                                                }, void 0, false, {
+                                                                                                                    fileName: "[project]/src/app/ats/simulation/report/page.tsx",
+                                                                                                                    lineNumber: 844,
+                                                                                                                    columnNumber: 41
+                                                                                                                }, this)
+                                                                                                            }, void 0, false, {
+                                                                                                                fileName: "[project]/src/app/ats/simulation/report/page.tsx",
+                                                                                                                lineNumber: 843,
                                                                                                                 columnNumber: 39
                                                                                                             }, this)
                                                                                                         ]
-                                                                                                    }, "secondary-".concat(index), true, {
-                                                                                                        fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                                        lineNumber: 873,
-                                                                                                        columnNumber: 37
-                                                                                                    }, this);
-                                                                                                })
-                                                                                            ]
-                                                                                        }, void 0, true, {
-                                                                                            fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                            lineNumber: 731,
-                                                                                            columnNumber: 31
-                                                                                        }, this)
-                                                                                    ]
-                                                                                }, void 0, true, {
-                                                                                    fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                    lineNumber: 705,
-                                                                                    columnNumber: 29
-                                                                                }, this)
-                                                                            }, void 0, false, {
-                                                                                fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                lineNumber: 704,
-                                                                                columnNumber: 27
-                                                                            }, this)
-                                                                        ]
-                                                                    }, void 0, true, {
-                                                                        fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                        lineNumber: 688,
-                                                                        columnNumber: 25
-                                                                    }, this)
-                                                                }, void 0, false, {
-                                                                    fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                    lineNumber: 687,
-                                                                    columnNumber: 23
-                                                                }, this),
-                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                                    className: "w-[556px] bg-white rounded-[16px] p-6",
-                                                                    children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                                        className: "mb-4",
-                                                                        children: [
-                                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                                                className: "inline-block px-4 py-1.5 bg-[#ededed] rounded-[100px] mb-4",
-                                                                                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                                                    className: "text-[17px] font-semibold leading-[18.02px] tracking-[-0.51px] text-[#231f52]",
-                                                                                    children: "Trial Design"
-                                                                                }, void 0, false, {
-                                                                                    fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                    lineNumber: 938,
-                                                                                    columnNumber: 29
-                                                                                }, this)
-                                                                            }, void 0, false, {
-                                                                                fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                lineNumber: 937,
-                                                                                columnNumber: 27
-                                                                            }, this),
-                                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                                                className: "px-[18px]",
-                                                                                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                                                    className: "flex gap-14",
-                                                                                    children: [
-                                                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                                                            className: "space-y-2.5 flex-shrink-0",
-                                                                                            children: [
-                                                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                                                                                    className: "text-[17px] font-medium leading-[17.85px] tracking-[-0.51px] text-[#1c1b1c]",
-                                                                                                    children: "Primary Endpoint"
-                                                                                                }, void 0, false, {
-                                                                                                    fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                                    lineNumber: 946,
-                                                                                                    columnNumber: 33
-                                                                                                }, this),
-                                                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                                                                                    className: "text-[17px] font-medium leading-[17.85px] tracking-[-0.51px] text-[#1c1b1c]",
-                                                                                                    children: "Hypothesis Type"
-                                                                                                }, void 0, false, {
-                                                                                                    fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                                    lineNumber: 949,
-                                                                                                    columnNumber: 33
-                                                                                                }, this),
-                                                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                                                                                    className: "text-[17px] font-medium leading-[17.85px] tracking-[-0.51px] text-[#1c1b1c]",
-                                                                                                    children: "Treatment Arms"
-                                                                                                }, void 0, false, {
-                                                                                                    fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                                    lineNumber: 952,
-                                                                                                    columnNumber: 33
-                                                                                                }, this),
-                                                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                                                                                    className: "text-[17px] font-medium leading-[17.85px] tracking-[-0.51px] text-[#1c1b1c]",
-                                                                                                    children: "Randomization Ratio"
-                                                                                                }, void 0, false, {
-                                                                                                    fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                                    lineNumber: 955,
-                                                                                                    columnNumber: 33
-                                                                                                }, this)
-                                                                                            ]
-                                                                                        }, void 0, true, {
-                                                                                            fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                            lineNumber: 945,
-                                                                                            columnNumber: 31
-                                                                                        }, this),
-                                                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                                                            className: "space-y-2.5",
-                                                                                            children: [
-                                                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                                                                                    className: "text-[17px] font-medium leading-[17.85px] tracking-[-0.51px] text-[#4f378a]",
-                                                                                                    children: treatmentDuration
-                                                                                                }, void 0, false, {
-                                                                                                    fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                                    lineNumber: 961,
-                                                                                                    columnNumber: 33
-                                                                                                }, this),
-                                                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                                                                                    className: "text-[17px] font-medium leading-[17.85px] tracking-[-0.51px] text-[#4f378a]",
-                                                                                                    children: hypothesisType
-                                                                                                }, void 0, false, {
-                                                                                                    fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                                    lineNumber: 964,
-                                                                                                    columnNumber: 33
-                                                                                                }, this),
-                                                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                                                                                    className: "text-[17px] font-medium leading-[17.85px] tracking-[-0.51px] text-[#4f378a]",
-                                                                                                    children: [
-                                                                                                        treatmentArms,
-                                                                                                        "-arm"
-                                                                                                    ]
-                                                                                                }, void 0, true, {
-                                                                                                    fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                                    lineNumber: 967,
-                                                                                                    columnNumber: 33
-                                                                                                }, this),
-                                                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                                                                                    className: "text-[17px] font-medium leading-[17.85px] tracking-[-0.51px] text-[#4f378a]",
-                                                                                                    children: randomizationRatio
-                                                                                                }, void 0, false, {
-                                                                                                    fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                                    lineNumber: 970,
-                                                                                                    columnNumber: 33
-                                                                                                }, this)
-                                                                                            ]
-                                                                                        }, void 0, true, {
-                                                                                            fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                            lineNumber: 960,
-                                                                                            columnNumber: 31
-                                                                                        }, this)
-                                                                                    ]
-                                                                                }, void 0, true, {
-                                                                                    fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                    lineNumber: 943,
-                                                                                    columnNumber: 29
-                                                                                }, this)
-                                                                            }, void 0, false, {
-                                                                                fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                lineNumber: 942,
-                                                                                columnNumber: 27
-                                                                            }, this)
-                                                                        ]
-                                                                    }, void 0, true, {
-                                                                        fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                        lineNumber: 936,
-                                                                        columnNumber: 25
-                                                                    }, this)
-                                                                }, void 0, false, {
-                                                                    fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                    lineNumber: 935,
-                                                                    columnNumber: 23
-                                                                }, this)
-                                                            ]
-                                                        }, void 0, true, {
-                                                            fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                            lineNumber: 685,
-                                                            columnNumber: 21
-                                                        }, this)
-                                                    ]
-                                                }, void 0, true, {
-                                                    fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                    lineNumber: 681,
-                                                    columnNumber: 19
-                                                }, this),
-                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                    id: "prediction-accuracy",
-                                                    className: "mb-[100px]",
-                                                    children: [
-                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
-                                                            className: "text-h2 text-[#2d1067] mb-[44px]",
-                                                            children: "Prediction Accuracy by Model"
-                                                        }, void 0, false, {
-                                                            fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                            lineNumber: 983,
-                                                            columnNumber: 21
-                                                        }, this),
-                                                        ((_this = apiData) === null || _this === void 0 ? void 0 : _this.graph_acc_model) && apiData.graph_acc_model.length > 0 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                            className: "flex gap-4 mb-6",
-                                                            children: apiData.graph_acc_model.slice(0, 3).map((graphItem, index)=>{
-                                                                return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                                    className: "flex-1 bg-white rounded-[16px] p-2",
-                                                                    style: {
-                                                                        height: "378px"
-                                                                    },
-                                                                    children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                                        className: "h-full flex items-center justify-center overflow-hidden",
-                                                                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("img", {
-                                                                            src: graphItem.model_svg,
-                                                                            alt: "".concat(graphItem.model, " graph"),
-                                                                            className: "max-w-full max-h-full object-contain"
-                                                                        }, void 0, false, {
-                                                                            fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                            lineNumber: 1001,
-                                                                            columnNumber: 37
-                                                                        }, this)
-                                                                    }, void 0, false, {
-                                                                        fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                        lineNumber: 999,
-                                                                        columnNumber: 35
-                                                                    }, this)
-                                                                }, graphItem.id, false, {
-                                                                    fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                    lineNumber: 994,
-                                                                    columnNumber: 33
-                                                                }, this);
-                                                            })
-                                                        }, void 0, false, {
-                                                            fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                            lineNumber: 989,
-                                                            columnNumber: 25
-                                                        }, this),
-                                                        ((_this1 = apiData) === null || _this1 === void 0 ? void 0 : _this1.result_prec_model) && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Fragment"], {
-                                                            children: [
-                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                                    className: "bg-white rounded-[16px] p-2 mb-5",
-                                                                    children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                                        className: "overflow-x-auto relative",
-                                                                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("table", {
-                                                                            className: "w-full",
-                                                                            children: [
-                                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("thead", {
-                                                                                    children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("tr", {
-                                                                                        children: Object.entries(apiData.result_prec_model.table_head).map((param, index, array)=>{
-                                                                                            let [key, header] = param;
-                                                                                            const isFirstCell = index === 0;
-                                                                                            const isLastCell = index === array.length - 1;
-                                                                                            // description이 있는 항목들만 필터링하여 번호 매기기
-                                                                                            const headersWithDescription = Object.entries(apiData.result_prec_model.table_head).filter((param)=>{
-                                                                                                let [_, h] = param;
-                                                                                                return h.description;
-                                                                                            });
-                                                                                            const descriptionIndex = headersWithDescription.findIndex((param)=>{
-                                                                                                let [k] = param;
-                                                                                                return k === key;
-                                                                                            });
-                                                                                            const hasDescription = descriptionIndex !== -1;
-                                                                                            return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
-                                                                                                className: "text-left py-5 px-4 text-primary-15 font-medium relative",
-                                                                                                children: [
-                                                                                                    hasDescription && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                                                                        className: "absolute top-3 left-1 text-body5 text-primary-15 leading-none",
-                                                                                                        children: [
-                                                                                                            descriptionIndex + 1,
-                                                                                                            ")"
-                                                                                                        ]
                                                                                                     }, void 0, true, {
                                                                                                         fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                                        lineNumber: 1058,
-                                                                                                        columnNumber: 45
+                                                                                                        lineNumber: 836,
+                                                                                                        columnNumber: 37
                                                                                                     }, this),
-                                                                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                                                                        className: "text-body2",
-                                                                                                        children: header.display_value
-                                                                                                    }, void 0, false, {
-                                                                                                        fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                                        lineNumber: 1062,
-                                                                                                        columnNumber: 43
-                                                                                                    }, this),
-                                                                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                                                                        className: "absolute bottom-0 border-b border-[#e2e1e5]",
-                                                                                                        style: {
-                                                                                                            left: isFirstCell ? "16px" : "0",
-                                                                                                            right: isLastCell ? "16px" : "0"
+                                                                                                    secondaryEndpoints.map((endpoint, index)=>{
+                                                                                                        const effectSize = endpoint.effectSize;
+                                                                                                        // 색상 결정: High (7.0~10.0 초록), Moderate (4.0~6.9 파랑), Low (0.1~3.9 빨강)
+                                                                                                        let barColor = "#f06600"; // 기본값
+                                                                                                        if (effectSize >= 7.0 && effectSize <= 10.0) {
+                                                                                                            barColor = "#22c55e"; // 초록색
+                                                                                                        } else if (effectSize >= 4.0 && effectSize <= 6.9) {
+                                                                                                            barColor = "#3b82f6"; // 파랑색
+                                                                                                        } else if (effectSize >= 0.1 && effectSize <= 3.9) {
+                                                                                                            barColor = "#ef4444"; // 빨강색
                                                                                                         }
-                                                                                                    }, void 0, false, {
-                                                                                                        fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                                        lineNumber: 1065,
-                                                                                                        columnNumber: 43
-                                                                                                    }, this)
+                                                                                                        const barWidth = Math.min((effectSize - 0.1) / (10.0 - 0.1) * 100, 100);
+                                                                                                        return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("tr", {
+                                                                                                            className: "jsx-20ca2f99cd134e45",
+                                                                                                            children: [
+                                                                                                                index === 0 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
+                                                                                                                    rowSpan: secondaryEndpoints.length,
+                                                                                                                    className: "jsx-20ca2f99cd134e45" + " " + "py-3 px-4 text-[12px] font-medium leading-[17.85px] tracking-[-0.51px] text-[#1c1b1c] align-top",
+                                                                                                                    children: "Secondary"
+                                                                                                                }, void 0, false, {
+                                                                                                                    fileName: "[project]/src/app/ats/simulation/report/page.tsx",
+                                                                                                                    lineNumber: 875,
+                                                                                                                    columnNumber: 41
+                                                                                                                }, this),
+                                                                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
+                                                                                                                    className: "jsx-20ca2f99cd134e45" + " " + "py-3 px-4 text-[12px] font-medium leading-[17.85px] tracking-[-0.51px] text-[#1c1b1c]",
+                                                                                                                    children: [
+                                                                                                                        "#",
+                                                                                                                        index + 1
+                                                                                                                    ]
+                                                                                                                }, void 0, true, {
+                                                                                                                    fileName: "[project]/src/app/ats/simulation/report/page.tsx",
+                                                                                                                    lineNumber: 882,
+                                                                                                                    columnNumber: 39
+                                                                                                                }, this),
+                                                                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
+                                                                                                                    className: "jsx-20ca2f99cd134e45" + " " + "py-3 px-4 text-[12px] font-medium leading-[17.85px] tracking-[-0.51px] text-[#1c1b1c]",
+                                                                                                                    children: endpoint.name
+                                                                                                                }, void 0, false, {
+                                                                                                                    fileName: "[project]/src/app/ats/simulation/report/page.tsx",
+                                                                                                                    lineNumber: 885,
+                                                                                                                    columnNumber: 39
+                                                                                                                }, this),
+                                                                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
+                                                                                                                    className: "jsx-20ca2f99cd134e45" + " " + "py-3 px-4 text-[12px] font-medium leading-[17.85px] tracking-[-0.51px] text-[#1c1b1c]",
+                                                                                                                    children: endpoint.type || "Continuous"
+                                                                                                                }, void 0, false, {
+                                                                                                                    fileName: "[project]/src/app/ats/simulation/report/page.tsx",
+                                                                                                                    lineNumber: 888,
+                                                                                                                    columnNumber: 39
+                                                                                                                }, this),
+                                                                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
+                                                                                                                    className: "jsx-20ca2f99cd134e45" + " " + "py-3 px-4 text-[12px] font-medium leading-[17.85px] tracking-[-0.51px] text-[#1c1b1c]",
+                                                                                                                    children: "-"
+                                                                                                                }, void 0, false, {
+                                                                                                                    fileName: "[project]/src/app/ats/simulation/report/page.tsx",
+                                                                                                                    lineNumber: 891,
+                                                                                                                    columnNumber: 39
+                                                                                                                }, this),
+                                                                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
+                                                                                                                    className: "jsx-20ca2f99cd134e45" + " " + "py-3 px-4 text-[12px] font-medium leading-[17.85px] tracking-[-0.51px] text-[#1c1b1c]",
+                                                                                                                    children: endpoint.type === "Binary" && endpoint.threshold !== null && endpoint.threshold !== undefined ? endpoint.threshold.toFixed(1) : "-"
+                                                                                                                }, void 0, false, {
+                                                                                                                    fileName: "[project]/src/app/ats/simulation/report/page.tsx",
+                                                                                                                    lineNumber: 894,
+                                                                                                                    columnNumber: 39
+                                                                                                                }, this),
+                                                                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
+                                                                                                                    className: "jsx-20ca2f99cd134e45" + " " + "py-3 px-4",
+                                                                                                                    children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                                                                                        className: "jsx-20ca2f99cd134e45" + " " + "flex items-center gap-2",
+                                                                                                                        children: [
+                                                                                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                                                                                                className: "jsx-20ca2f99cd134e45" + " " + "text-[12px] font-medium leading-[17px] text-[#1c1b1c] whitespace-nowrap",
+                                                                                                                                children: effectSize.toFixed(1)
+                                                                                                                            }, void 0, false, {
+                                                                                                                                fileName: "[project]/src/app/ats/simulation/report/page.tsx",
+                                                                                                                                lineNumber: 903,
+                                                                                                                                columnNumber: 43
+                                                                                                                            }, this),
+                                                                                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                                                                                                className: "jsx-20ca2f99cd134e45" + " " + "flex items-center gap-1 flex-1",
+                                                                                                                                children: [
+                                                                                                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                                                                                                        className: "jsx-20ca2f99cd134e45" + " " + "text-[14px] text-[#666b73] whitespace-nowrap",
+                                                                                                                                        children: "Low"
+                                                                                                                                    }, void 0, false, {
+                                                                                                                                        fileName: "[project]/src/app/ats/simulation/report/page.tsx",
+                                                                                                                                        lineNumber: 907,
+                                                                                                                                        columnNumber: 45
+                                                                                                                                    }, this),
+                                                                                                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                                                                                                        className: "jsx-20ca2f99cd134e45" + " " + "flex-1 h-2 bg-[#787878]/20 rounded-[3px] relative max-w-[200px]",
+                                                                                                                                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                                                                                                            style: {
+                                                                                                                                                width: "".concat(barWidth, "%"),
+                                                                                                                                                backgroundColor: barColor
+                                                                                                                                            },
+                                                                                                                                            className: "jsx-20ca2f99cd134e45" + " " + "h-2 rounded-[3px]"
+                                                                                                                                        }, void 0, false, {
+                                                                                                                                            fileName: "[project]/src/app/ats/simulation/report/page.tsx",
+                                                                                                                                            lineNumber: 911,
+                                                                                                                                            columnNumber: 47
+                                                                                                                                        }, this)
+                                                                                                                                    }, void 0, false, {
+                                                                                                                                        fileName: "[project]/src/app/ats/simulation/report/page.tsx",
+                                                                                                                                        lineNumber: 910,
+                                                                                                                                        columnNumber: 45
+                                                                                                                                    }, this),
+                                                                                                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                                                                                                        className: "jsx-20ca2f99cd134e45" + " " + "text-[14px] text-[#666b73] whitespace-nowrap",
+                                                                                                                                        children: "High"
+                                                                                                                                    }, void 0, false, {
+                                                                                                                                        fileName: "[project]/src/app/ats/simulation/report/page.tsx",
+                                                                                                                                        lineNumber: 919,
+                                                                                                                                        columnNumber: 45
+                                                                                                                                    }, this)
+                                                                                                                                ]
+                                                                                                                            }, void 0, true, {
+                                                                                                                                fileName: "[project]/src/app/ats/simulation/report/page.tsx",
+                                                                                                                                lineNumber: 906,
+                                                                                                                                columnNumber: 43
+                                                                                                                            }, this)
+                                                                                                                        ]
+                                                                                                                    }, void 0, true, {
+                                                                                                                        fileName: "[project]/src/app/ats/simulation/report/page.tsx",
+                                                                                                                        lineNumber: 902,
+                                                                                                                        columnNumber: 41
+                                                                                                                    }, this)
+                                                                                                                }, void 0, false, {
+                                                                                                                    fileName: "[project]/src/app/ats/simulation/report/page.tsx",
+                                                                                                                    lineNumber: 901,
+                                                                                                                    columnNumber: 39
+                                                                                                                }, this)
+                                                                                                            ]
+                                                                                                        }, "secondary-".concat(index), true, {
+                                                                                                            fileName: "[project]/src/app/ats/simulation/report/page.tsx",
+                                                                                                            lineNumber: 873,
+                                                                                                            columnNumber: 37
+                                                                                                        }, this);
+                                                                                                    })
                                                                                                 ]
-                                                                                            }, key, true, {
+                                                                                            }, void 0, true, {
                                                                                                 fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                                lineNumber: 1053,
-                                                                                                columnNumber: 41
-                                                                                            }, this);
-                                                                                        })
-                                                                                    }, void 0, false, {
+                                                                                                lineNumber: 731,
+                                                                                                columnNumber: 31
+                                                                                            }, this)
+                                                                                        ]
+                                                                                    }, void 0, true, {
                                                                                         fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                        lineNumber: 1020,
-                                                                                        columnNumber: 33
+                                                                                        lineNumber: 705,
+                                                                                        columnNumber: 29
                                                                                     }, this)
                                                                                 }, void 0, false, {
                                                                                     fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                    lineNumber: 1019,
-                                                                                    columnNumber: 31
-                                                                                }, this),
-                                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("tbody", {
-                                                                                    children: apiData.result_prec_model.data.map((row, rowIndex)=>{
-                                                                                        const keys = Object.keys(apiData.result_prec_model.table_head);
-                                                                                        const isLastRow = rowIndex === apiData.result_prec_model.data.length - 1;
-                                                                                        return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("tr", {
-                                                                                            children: keys.map((key, cellIndex)=>{
-                                                                                                const value = row[key];
-                                                                                                let displayValue = "";
-                                                                                                if (key === "r_square") {
-                                                                                                    displayValue = value.toFixed(3);
-                                                                                                } else if (key === "mse") {
-                                                                                                    displayValue = value.toFixed(2);
-                                                                                                } else if (key === "rmse") {
-                                                                                                    displayValue = value.toFixed(2);
-                                                                                                } else if (key === "ratio") {
-                                                                                                    displayValue = value.toFixed(3);
-                                                                                                } else {
-                                                                                                    displayValue = String(value);
-                                                                                                }
-                                                                                                const isFirstCell = cellIndex === 0;
-                                                                                                const isLastCell = cellIndex === keys.length - 1;
-                                                                                                const showBorder = rowIndex > 0;
-                                                                                                return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
-                                                                                                    className: "py-3 px-4 text-body2m text-neutral-30 ".concat(showBorder ? "relative" : ""),
-                                                                                                    children: [
-                                                                                                        displayValue,
-                                                                                                        showBorder && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                                                                            className: "absolute top-0 border-t border-[#e2e1e5]",
-                                                                                                            style: {
-                                                                                                                left: isFirstCell ? "16px" : "0",
-                                                                                                                right: isLastCell ? "16px" : "0"
-                                                                                                            }
-                                                                                                        }, void 0, false, {
-                                                                                                            fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                                            lineNumber: 1125,
-                                                                                                            columnNumber: 49
-                                                                                                        }, this)
-                                                                                                    ]
-                                                                                                }, key, true, {
-                                                                                                    fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                                    lineNumber: 1117,
-                                                                                                    columnNumber: 45
-                                                                                                }, this);
-                                                                                            })
-                                                                                        }, row.id, false, {
-                                                                                            fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                            lineNumber: 1092,
-                                                                                            columnNumber: 39
-                                                                                        }, this);
-                                                                                    })
-                                                                                }, void 0, false, {
-                                                                                    fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                    lineNumber: 1078,
-                                                                                    columnNumber: 31
+                                                                                    lineNumber: 704,
+                                                                                    columnNumber: 27
                                                                                 }, this)
                                                                             ]
                                                                         }, void 0, true, {
                                                                             fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                            lineNumber: 1018,
-                                                                            columnNumber: 29
+                                                                            lineNumber: 688,
+                                                                            columnNumber: 25
                                                                         }, this)
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                        lineNumber: 1017,
+                                                                        lineNumber: 687,
+                                                                        columnNumber: 23
+                                                                    }, this),
+                                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                                        className: "jsx-20ca2f99cd134e45" + " " + "w-[556px] bg-white rounded-[16px] p-6",
+                                                                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                                            className: "jsx-20ca2f99cd134e45" + " " + "mb-4",
+                                                                            children: [
+                                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                                                    className: "jsx-20ca2f99cd134e45" + " " + "inline-block px-4 py-1.5 bg-[#ededed] rounded-[100px] mb-4",
+                                                                                    children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                                                        className: "jsx-20ca2f99cd134e45" + " " + "text-[12px] font-semibold leading-[18.02px] tracking-[-0.51px] text-[#231f52]",
+                                                                                        children: "Trial Design"
+                                                                                    }, void 0, false, {
+                                                                                        fileName: "[project]/src/app/ats/simulation/report/page.tsx",
+                                                                                        lineNumber: 938,
+                                                                                        columnNumber: 29
+                                                                                    }, this)
+                                                                                }, void 0, false, {
+                                                                                    fileName: "[project]/src/app/ats/simulation/report/page.tsx",
+                                                                                    lineNumber: 937,
+                                                                                    columnNumber: 27
+                                                                                }, this),
+                                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                                                    className: "jsx-20ca2f99cd134e45" + " " + "px-[18px]",
+                                                                                    children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                                                        className: "jsx-20ca2f99cd134e45" + " " + "flex gap-14",
+                                                                                        children: [
+                                                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                                                                className: "jsx-20ca2f99cd134e45" + " " + "space-y-2.5 flex-shrink-0",
+                                                                                                children: [
+                                                                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                                                                                                        className: "jsx-20ca2f99cd134e45" + " " + "text-[12px] font-medium leading-[17.85px] tracking-[-0.51px] text-[#1c1b1c]",
+                                                                                                        children: "Primary Endpoint"
+                                                                                                    }, void 0, false, {
+                                                                                                        fileName: "[project]/src/app/ats/simulation/report/page.tsx",
+                                                                                                        lineNumber: 946,
+                                                                                                        columnNumber: 33
+                                                                                                    }, this),
+                                                                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                                                                                                        className: "jsx-20ca2f99cd134e45" + " " + "text-[12px] font-medium leading-[17.85px] tracking-[-0.51px] text-[#1c1b1c]",
+                                                                                                        children: "Hypothesis Type"
+                                                                                                    }, void 0, false, {
+                                                                                                        fileName: "[project]/src/app/ats/simulation/report/page.tsx",
+                                                                                                        lineNumber: 949,
+                                                                                                        columnNumber: 33
+                                                                                                    }, this),
+                                                                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                                                                                                        className: "jsx-20ca2f99cd134e45" + " " + "text-[12px] font-medium leading-[17.85px] tracking-[-0.51px] text-[#1c1b1c]",
+                                                                                                        children: "Treatment Arms"
+                                                                                                    }, void 0, false, {
+                                                                                                        fileName: "[project]/src/app/ats/simulation/report/page.tsx",
+                                                                                                        lineNumber: 952,
+                                                                                                        columnNumber: 33
+                                                                                                    }, this),
+                                                                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                                                                                                        className: "jsx-20ca2f99cd134e45" + " " + "text-[12px] font-medium leading-[17.85px] tracking-[-0.51px] text-[#1c1b1c]",
+                                                                                                        children: "Randomization Ratio"
+                                                                                                    }, void 0, false, {
+                                                                                                        fileName: "[project]/src/app/ats/simulation/report/page.tsx",
+                                                                                                        lineNumber: 955,
+                                                                                                        columnNumber: 33
+                                                                                                    }, this)
+                                                                                                ]
+                                                                                            }, void 0, true, {
+                                                                                                fileName: "[project]/src/app/ats/simulation/report/page.tsx",
+                                                                                                lineNumber: 945,
+                                                                                                columnNumber: 31
+                                                                                            }, this),
+                                                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                                                                className: "jsx-20ca2f99cd134e45" + " " + "space-y-2.5",
+                                                                                                children: [
+                                                                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                                                                                                        className: "jsx-20ca2f99cd134e45" + " " + "text-[12px] font-medium leading-[17.85px] tracking-[-0.51px] text-[#4f378a]",
+                                                                                                        children: treatmentDuration
+                                                                                                    }, void 0, false, {
+                                                                                                        fileName: "[project]/src/app/ats/simulation/report/page.tsx",
+                                                                                                        lineNumber: 961,
+                                                                                                        columnNumber: 33
+                                                                                                    }, this),
+                                                                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                                                                                                        className: "jsx-20ca2f99cd134e45" + " " + "text-[12px] font-medium leading-[17.85px] tracking-[-0.51px] text-[#4f378a]",
+                                                                                                        children: hypothesisType
+                                                                                                    }, void 0, false, {
+                                                                                                        fileName: "[project]/src/app/ats/simulation/report/page.tsx",
+                                                                                                        lineNumber: 964,
+                                                                                                        columnNumber: 33
+                                                                                                    }, this),
+                                                                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                                                                                                        className: "jsx-20ca2f99cd134e45" + " " + "text-[12px] font-medium leading-[17.85px] tracking-[-0.51px] text-[#4f378a]",
+                                                                                                        children: [
+                                                                                                            treatmentArms,
+                                                                                                            "-arm"
+                                                                                                        ]
+                                                                                                    }, void 0, true, {
+                                                                                                        fileName: "[project]/src/app/ats/simulation/report/page.tsx",
+                                                                                                        lineNumber: 967,
+                                                                                                        columnNumber: 33
+                                                                                                    }, this),
+                                                                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                                                                                                        className: "jsx-20ca2f99cd134e45" + " " + "text-[12px] font-medium leading-[17.85px] tracking-[-0.51px] text-[#4f378a]",
+                                                                                                        children: randomizationRatio
+                                                                                                    }, void 0, false, {
+                                                                                                        fileName: "[project]/src/app/ats/simulation/report/page.tsx",
+                                                                                                        lineNumber: 970,
+                                                                                                        columnNumber: 33
+                                                                                                    }, this)
+                                                                                                ]
+                                                                                            }, void 0, true, {
+                                                                                                fileName: "[project]/src/app/ats/simulation/report/page.tsx",
+                                                                                                lineNumber: 960,
+                                                                                                columnNumber: 31
+                                                                                            }, this)
+                                                                                        ]
+                                                                                    }, void 0, true, {
+                                                                                        fileName: "[project]/src/app/ats/simulation/report/page.tsx",
+                                                                                        lineNumber: 943,
+                                                                                        columnNumber: 29
+                                                                                    }, this)
+                                                                                }, void 0, false, {
+                                                                                    fileName: "[project]/src/app/ats/simulation/report/page.tsx",
+                                                                                    lineNumber: 942,
+                                                                                    columnNumber: 27
+                                                                                }, this)
+                                                                            ]
+                                                                        }, void 0, true, {
+                                                                            fileName: "[project]/src/app/ats/simulation/report/page.tsx",
+                                                                            lineNumber: 936,
+                                                                            columnNumber: 25
+                                                                        }, this)
+                                                                    }, void 0, false, {
+                                                                        fileName: "[project]/src/app/ats/simulation/report/page.tsx",
+                                                                        lineNumber: 935,
+                                                                        columnNumber: 23
+                                                                    }, this)
+                                                                ]
+                                                            }, void 0, true, {
+                                                                fileName: "[project]/src/app/ats/simulation/report/page.tsx",
+                                                                lineNumber: 685,
+                                                                columnNumber: 21
+                                                            }, this)
+                                                        ]
+                                                    }, void 0, true, {
+                                                        fileName: "[project]/src/app/ats/simulation/report/page.tsx",
+                                                        lineNumber: 681,
+                                                        columnNumber: 19
+                                                    }, this),
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                        id: "prediction-accuracy",
+                                                        className: "jsx-20ca2f99cd134e45" + " " + "mb-[100px]",
+                                                        children: [
+                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
+                                                                className: "jsx-20ca2f99cd134e45" + " " + "text-h2 text-[#2d1067] mb-[44px]",
+                                                                children: "Prediction Accuracy by Model"
+                                                            }, void 0, false, {
+                                                                fileName: "[project]/src/app/ats/simulation/report/page.tsx",
+                                                                lineNumber: 983,
+                                                                columnNumber: 21
+                                                            }, this),
+                                                            ((_this = apiData) === null || _this === void 0 ? void 0 : _this.graph_acc_model) && apiData.graph_acc_model.length > 0 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                                className: "jsx-20ca2f99cd134e45" + " " + "flex gap-4 mb-6",
+                                                                children: apiData.graph_acc_model.slice(0, 3).map((graphItem, index)=>{
+                                                                    return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                                        style: {
+                                                                            height: "378px"
+                                                                        },
+                                                                        className: "jsx-20ca2f99cd134e45" + " " + "flex-1 bg-white rounded-[16px] p-2",
+                                                                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                                            className: "jsx-20ca2f99cd134e45" + " " + "h-full flex items-center justify-center overflow-hidden",
+                                                                            children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("img", {
+                                                                                src: graphItem.model_svg,
+                                                                                alt: "".concat(graphItem.model, " graph"),
+                                                                                className: "jsx-20ca2f99cd134e45" + " " + "max-w-full max-h-full object-contain"
+                                                                            }, void 0, false, {
+                                                                                fileName: "[project]/src/app/ats/simulation/report/page.tsx",
+                                                                                lineNumber: 1001,
+                                                                                columnNumber: 37
+                                                                            }, this)
+                                                                        }, void 0, false, {
+                                                                            fileName: "[project]/src/app/ats/simulation/report/page.tsx",
+                                                                            lineNumber: 999,
+                                                                            columnNumber: 35
+                                                                        }, this)
+                                                                    }, graphItem.id, false, {
+                                                                        fileName: "[project]/src/app/ats/simulation/report/page.tsx",
+                                                                        lineNumber: 994,
+                                                                        columnNumber: 33
+                                                                    }, this);
+                                                                })
+                                                            }, void 0, false, {
+                                                                fileName: "[project]/src/app/ats/simulation/report/page.tsx",
+                                                                lineNumber: 989,
+                                                                columnNumber: 25
+                                                            }, this),
+                                                            ((_this1 = apiData) === null || _this1 === void 0 ? void 0 : _this1.result_prec_model) && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Fragment"], {
+                                                                children: [
+                                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                                        className: "jsx-20ca2f99cd134e45" + " " + "bg-white rounded-[16px] p-2 mb-5",
+                                                                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                                            className: "jsx-20ca2f99cd134e45" + " " + "overflow-x-auto relative",
+                                                                            children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("table", {
+                                                                                className: "jsx-20ca2f99cd134e45" + " " + "w-full",
+                                                                                children: [
+                                                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("thead", {
+                                                                                        className: "jsx-20ca2f99cd134e45",
+                                                                                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("tr", {
+                                                                                            className: "jsx-20ca2f99cd134e45",
+                                                                                            children: Object.entries(apiData.result_prec_model.table_head).map((param, index, array)=>{
+                                                                                                let [key, header] = param;
+                                                                                                const isFirstCell = index === 0;
+                                                                                                const isLastCell = index === array.length - 1;
+                                                                                                // description이 있는 항목들만 필터링하여 번호 매기기
+                                                                                                const headersWithDescription = Object.entries(apiData.result_prec_model.table_head).filter((param)=>{
+                                                                                                    let [_, h] = param;
+                                                                                                    return h.description;
+                                                                                                });
+                                                                                                const descriptionIndex = headersWithDescription.findIndex((param)=>{
+                                                                                                    let [k] = param;
+                                                                                                    return k === key;
+                                                                                                });
+                                                                                                const hasDescription = descriptionIndex !== -1;
+                                                                                                return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
+                                                                                                    className: "jsx-20ca2f99cd134e45" + " " + "text-left py-5 px-4 text-primary-15 font-medium relative",
+                                                                                                    children: [
+                                                                                                        hasDescription && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                                                                            className: "jsx-20ca2f99cd134e45" + " " + "absolute top-3 left-1 text-body5 text-primary-15 leading-none",
+                                                                                                            children: [
+                                                                                                                descriptionIndex + 1,
+                                                                                                                ")"
+                                                                                                            ]
+                                                                                                        }, void 0, true, {
+                                                                                                            fileName: "[project]/src/app/ats/simulation/report/page.tsx",
+                                                                                                            lineNumber: 1058,
+                                                                                                            columnNumber: 45
+                                                                                                        }, this),
+                                                                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                                                                            className: "jsx-20ca2f99cd134e45" + " " + "text-body2",
+                                                                                                            children: header.display_value
+                                                                                                        }, void 0, false, {
+                                                                                                            fileName: "[project]/src/app/ats/simulation/report/page.tsx",
+                                                                                                            lineNumber: 1062,
+                                                                                                            columnNumber: 43
+                                                                                                        }, this),
+                                                                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                                                                            style: {
+                                                                                                                left: isFirstCell ? "16px" : "0",
+                                                                                                                right: isLastCell ? "16px" : "0"
+                                                                                                            },
+                                                                                                            className: "jsx-20ca2f99cd134e45" + " " + "absolute bottom-0 border-b border-[#e2e1e5]"
+                                                                                                        }, void 0, false, {
+                                                                                                            fileName: "[project]/src/app/ats/simulation/report/page.tsx",
+                                                                                                            lineNumber: 1065,
+                                                                                                            columnNumber: 43
+                                                                                                        }, this)
+                                                                                                    ]
+                                                                                                }, key, true, {
+                                                                                                    fileName: "[project]/src/app/ats/simulation/report/page.tsx",
+                                                                                                    lineNumber: 1053,
+                                                                                                    columnNumber: 41
+                                                                                                }, this);
+                                                                                            })
+                                                                                        }, void 0, false, {
+                                                                                            fileName: "[project]/src/app/ats/simulation/report/page.tsx",
+                                                                                            lineNumber: 1020,
+                                                                                            columnNumber: 33
+                                                                                        }, this)
+                                                                                    }, void 0, false, {
+                                                                                        fileName: "[project]/src/app/ats/simulation/report/page.tsx",
+                                                                                        lineNumber: 1019,
+                                                                                        columnNumber: 31
+                                                                                    }, this),
+                                                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("tbody", {
+                                                                                        className: "jsx-20ca2f99cd134e45",
+                                                                                        children: apiData.result_prec_model.data.map((row, rowIndex)=>{
+                                                                                            const keys = Object.keys(apiData.result_prec_model.table_head);
+                                                                                            const isLastRow = rowIndex === apiData.result_prec_model.data.length - 1;
+                                                                                            return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("tr", {
+                                                                                                className: "jsx-20ca2f99cd134e45",
+                                                                                                children: keys.map((key, cellIndex)=>{
+                                                                                                    const value = row[key];
+                                                                                                    let displayValue = "";
+                                                                                                    if (key === "r_square") {
+                                                                                                        displayValue = value.toFixed(3);
+                                                                                                    } else if (key === "mse") {
+                                                                                                        displayValue = value.toFixed(2);
+                                                                                                    } else if (key === "rmse") {
+                                                                                                        displayValue = value.toFixed(2);
+                                                                                                    } else if (key === "ratio") {
+                                                                                                        displayValue = value.toFixed(3);
+                                                                                                    } else {
+                                                                                                        displayValue = String(value);
+                                                                                                    }
+                                                                                                    const isFirstCell = cellIndex === 0;
+                                                                                                    const isLastCell = cellIndex === keys.length - 1;
+                                                                                                    const showBorder = rowIndex > 0;
+                                                                                                    return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
+                                                                                                        className: "jsx-20ca2f99cd134e45" + " " + "py-3 px-4 text-body2m text-neutral-30 ".concat(showBorder ? "relative" : ""),
+                                                                                                        children: [
+                                                                                                            displayValue,
+                                                                                                            showBorder && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                                                                                style: {
+                                                                                                                    left: isFirstCell ? "16px" : "0",
+                                                                                                                    right: isLastCell ? "16px" : "0"
+                                                                                                                },
+                                                                                                                className: "jsx-20ca2f99cd134e45" + " " + "absolute top-0 border-t border-[#e2e1e5]"
+                                                                                                            }, void 0, false, {
+                                                                                                                fileName: "[project]/src/app/ats/simulation/report/page.tsx",
+                                                                                                                lineNumber: 1125,
+                                                                                                                columnNumber: 49
+                                                                                                            }, this)
+                                                                                                        ]
+                                                                                                    }, key, true, {
+                                                                                                        fileName: "[project]/src/app/ats/simulation/report/page.tsx",
+                                                                                                        lineNumber: 1117,
+                                                                                                        columnNumber: 45
+                                                                                                    }, this);
+                                                                                                })
+                                                                                            }, row.id, false, {
+                                                                                                fileName: "[project]/src/app/ats/simulation/report/page.tsx",
+                                                                                                lineNumber: 1092,
+                                                                                                columnNumber: 39
+                                                                                            }, this);
+                                                                                        })
+                                                                                    }, void 0, false, {
+                                                                                        fileName: "[project]/src/app/ats/simulation/report/page.tsx",
+                                                                                        lineNumber: 1078,
+                                                                                        columnNumber: 31
+                                                                                    }, this)
+                                                                                ]
+                                                                            }, void 0, true, {
+                                                                                fileName: "[project]/src/app/ats/simulation/report/page.tsx",
+                                                                                lineNumber: 1018,
+                                                                                columnNumber: 29
+                                                                            }, this)
+                                                                        }, void 0, false, {
+                                                                            fileName: "[project]/src/app/ats/simulation/report/page.tsx",
+                                                                            lineNumber: 1017,
+                                                                            columnNumber: 27
+                                                                        }, this)
+                                                                    }, void 0, false, {
+                                                                        fileName: "[project]/src/app/ats/simulation/report/page.tsx",
+                                                                        lineNumber: 1016,
+                                                                        columnNumber: 25
+                                                                    }, this),
+                                                                    (()=>{
+                                                                        const descriptions = Object.entries(apiData.result_prec_model.table_head).filter((param)=>{
+                                                                            let [_, header] = param;
+                                                                            return header.description && header.description.trim() !== "";
+                                                                        }).map((param)=>{
+                                                                            let [_, header] = param;
+                                                                            return header.description;
+                                                                        });
+                                                                        if (descriptions.length === 0) return null;
+                                                                        return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                                            className: "jsx-20ca2f99cd134e45" + " " + "flex gap-6",
+                                                                            children: descriptions.map((description, index)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                                                    className: "jsx-20ca2f99cd134e45" + " " + "flex-1",
+                                                                                    children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                                                                                        className: "jsx-20ca2f99cd134e45" + " " + "text-body4m text-[#666b73]",
+                                                                                        children: [
+                                                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                                                                className: "jsx-20ca2f99cd134e45" + " " + "text-body4m text-[#666b73]",
+                                                                                                children: [
+                                                                                                    index + 1,
+                                                                                                    ")"
+                                                                                                ]
+                                                                                            }, void 0, true, {
+                                                                                                fileName: "[project]/src/app/ats/simulation/report/page.tsx",
+                                                                                                lineNumber: 1171,
+                                                                                                columnNumber: 37
+                                                                                            }, this),
+                                                                                            " ",
+                                                                                            description
+                                                                                        ]
+                                                                                    }, void 0, true, {
+                                                                                        fileName: "[project]/src/app/ats/simulation/report/page.tsx",
+                                                                                        lineNumber: 1170,
+                                                                                        columnNumber: 35
+                                                                                    }, this)
+                                                                                }, index, false, {
+                                                                                    fileName: "[project]/src/app/ats/simulation/report/page.tsx",
+                                                                                    lineNumber: 1169,
+                                                                                    columnNumber: 33
+                                                                                }, this))
+                                                                        }, void 0, false, {
+                                                                            fileName: "[project]/src/app/ats/simulation/report/page.tsx",
+                                                                            lineNumber: 1167,
+                                                                            columnNumber: 29
+                                                                        }, this);
+                                                                    })()
+                                                                ]
+                                                            }, void 0, true)
+                                                        ]
+                                                    }, void 0, true, {
+                                                        fileName: "[project]/src/app/ats/simulation/report/page.tsx",
+                                                        lineNumber: 982,
+                                                        columnNumber: 19
+                                                    }, this),
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                        id: "demonstration-robustness",
+                                                        className: "jsx-20ca2f99cd134e45" + " " + "mb-[100px]",
+                                                        children: [
+                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
+                                                                className: "jsx-20ca2f99cd134e45" + " " + "text-h2 text-[#2d1067] mb-[44px]",
+                                                                children: "Demonstration of Robustness"
+                                                            }, void 0, false, {
+                                                                fileName: "[project]/src/app/ats/simulation/report/page.tsx",
+                                                                lineNumber: 1187,
+                                                                columnNumber: 21
+                                                            }, this),
+                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                                className: "jsx-20ca2f99cd134e45" + " " + "grid grid-cols-2 gap-4",
+                                                                children: [
+                                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(StepCard, {
+                                                                        stepNumber: 1,
+                                                                        title: "Type I safety",
+                                                                        description: "Demonstrate appropriate control of the Type I error under the null treatment effect.",
+                                                                        chartContent: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$ats$2f$simulation$2f$report$2f$charts$2f$Step1TypeISafetyChart$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Step1TypeISafetyChart"], {
+                                                                            apiData: apiData
+                                                                        }, void 0, false, {
+                                                                            fileName: "[project]/src/app/ats/simulation/report/page.tsx",
+                                                                            lineNumber: 1198,
+                                                                            columnNumber: 27
+                                                                        }, void 0)
+                                                                    }, void 0, false, {
+                                                                        fileName: "[project]/src/app/ats/simulation/report/page.tsx",
+                                                                        lineNumber: 1193,
+                                                                        columnNumber: 23
+                                                                    }, this),
+                                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(StepCard, {
+                                                                        stepNumber: 2,
+                                                                        title: "Sample size reduction",
+                                                                        description: "Demonstrate that efficiency gains from prognostic adjustment scale smoothly with model performance and remain stable under degradation of predictive accuracy.",
+                                                                        chartContent: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                                            className: "jsx-20ca2f99cd134e45" + " " + "w-full h-full flex gap-4",
+                                                                            children: [
+                                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$ats$2f$simulation$2f$report$2f$charts$2f$Step2VarianceDeclineChart$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Step2VarianceDeclineChart"], {
+                                                                                    apiData: apiData
+                                                                                }, void 0, false, {
+                                                                                    fileName: "[project]/src/app/ats/simulation/report/page.tsx",
+                                                                                    lineNumber: 1209,
+                                                                                    columnNumber: 29
+                                                                                }, void 0),
+                                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$ats$2f$simulation$2f$report$2f$charts$2f$Step2BoxplotChart$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Step2BoxplotChart"], {
+                                                                                    apiData: apiData
+                                                                                }, void 0, false, {
+                                                                                    fileName: "[project]/src/app/ats/simulation/report/page.tsx",
+                                                                                    lineNumber: 1210,
+                                                                                    columnNumber: 29
+                                                                                }, void 0)
+                                                                            ]
+                                                                        }, void 0, true, {
+                                                                            fileName: "[project]/src/app/ats/simulation/report/page.tsx",
+                                                                            lineNumber: 1208,
+                                                                            columnNumber: 27
+                                                                        }, void 0)
+                                                                    }, void 0, false, {
+                                                                        fileName: "[project]/src/app/ats/simulation/report/page.tsx",
+                                                                        lineNumber: 1203,
+                                                                        columnNumber: 23
+                                                                    }, this),
+                                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(StepCard, {
+                                                                        stepNumber: 3,
+                                                                        title: "Data robustness",
+                                                                        description: "Demonstrate the robustness of statistical conclusions under realistic data complexities, including missingness and outcome non linearity.",
+                                                                        chartContent: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                                            className: "jsx-20ca2f99cd134e45" + " " + "w-full h-full flex gap-4",
+                                                                            children: [
+                                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$ats$2f$simulation$2f$report$2f$charts$2f$Step3AbsolutePerformanceChart$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Step3AbsolutePerformanceChart"], {
+                                                                                    apiData: apiData
+                                                                                }, void 0, false, {
+                                                                                    fileName: "[project]/src/app/ats/simulation/report/page.tsx",
+                                                                                    lineNumber: 1222,
+                                                                                    columnNumber: 29
+                                                                                }, void 0),
+                                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$ats$2f$simulation$2f$report$2f$charts$2f$Step3PerformanceGainChart$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Step3PerformanceGainChart"], {
+                                                                                    apiData: apiData
+                                                                                }, void 0, false, {
+                                                                                    fileName: "[project]/src/app/ats/simulation/report/page.tsx",
+                                                                                    lineNumber: 1223,
+                                                                                    columnNumber: 29
+                                                                                }, void 0)
+                                                                            ]
+                                                                        }, void 0, true, {
+                                                                            fileName: "[project]/src/app/ats/simulation/report/page.tsx",
+                                                                            lineNumber: 1221,
+                                                                            columnNumber: 27
+                                                                        }, void 0)
+                                                                    }, void 0, false, {
+                                                                        fileName: "[project]/src/app/ats/simulation/report/page.tsx",
+                                                                        lineNumber: 1216,
+                                                                        columnNumber: 23
+                                                                    }, this),
+                                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(StepCard, {
+                                                                        stepNumber: 4,
+                                                                        title: "Decision stability size reduction",
+                                                                        description: "Demonstrate the stability of key trial decisions (e.g., go/no go conclusions) across plausible perturbations in design assumptions and data generating processes.",
+                                                                        chartContent: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$ats$2f$simulation$2f$report$2f$charts$2f$Step4DecisionStabilityChart$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Step4DecisionStabilityChart"], {
+                                                                            apiData: apiData
+                                                                        }, void 0, false, {
+                                                                            fileName: "[project]/src/app/ats/simulation/report/page.tsx",
+                                                                            lineNumber: 1234,
+                                                                            columnNumber: 27
+                                                                        }, void 0)
+                                                                    }, void 0, false, {
+                                                                        fileName: "[project]/src/app/ats/simulation/report/page.tsx",
+                                                                        lineNumber: 1229,
+                                                                        columnNumber: 23
+                                                                    }, this)
+                                                                ]
+                                                            }, void 0, true, {
+                                                                fileName: "[project]/src/app/ats/simulation/report/page.tsx",
+                                                                lineNumber: 1191,
+                                                                columnNumber: 21
+                                                            }, this)
+                                                        ]
+                                                    }, void 0, true, {
+                                                        fileName: "[project]/src/app/ats/simulation/report/page.tsx",
+                                                        lineNumber: 1186,
+                                                        columnNumber: 19
+                                                    }, this),
+                                                    ((_this2 = apiData) === null || _this2 === void 0 ? void 0 : _this2.appendix) && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                        className: "jsx-20ca2f99cd134e45",
+                                                        children: [
+                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                                className: "jsx-20ca2f99cd134e45" + " " + "flex items-center justify-between mb-[44px]",
+                                                                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
+                                                                    className: "jsx-20ca2f99cd134e45" + " " + "text-h2 text-[#2d1067]",
+                                                                    children: apiData.appendix.title
+                                                                }, void 0, false, {
+                                                                    fileName: "[project]/src/app/ats/simulation/report/page.tsx",
+                                                                    lineNumber: 1244,
+                                                                    columnNumber: 25
+                                                                }, this)
+                                                            }, void 0, false, {
+                                                                fileName: "[project]/src/app/ats/simulation/report/page.tsx",
+                                                                lineNumber: 1243,
+                                                                columnNumber: 23
+                                                            }, this),
+                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                                style: {
+                                                                    height: "132px"
+                                                                },
+                                                                className: "jsx-20ca2f99cd134e45" + " " + "bg-white rounded-[16px] p-6",
+                                                                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                                    className: "jsx-20ca2f99cd134e45" + " " + "h-full flex items-center",
+                                                                    children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                                                                        className: "jsx-20ca2f99cd134e45" + " " + "text-body3m text-neutral-20 max-w-[1000px]",
+                                                                        children: apiData.appendix.content
+                                                                    }, void 0, false, {
+                                                                        fileName: "[project]/src/app/ats/simulation/report/page.tsx",
+                                                                        lineNumber: 1255,
                                                                         columnNumber: 27
                                                                     }, this)
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                    lineNumber: 1016,
+                                                                    lineNumber: 1254,
                                                                     columnNumber: 25
-                                                                }, this),
-                                                                (()=>{
-                                                                    const descriptions = Object.entries(apiData.result_prec_model.table_head).filter((param)=>{
-                                                                        let [_, header] = param;
-                                                                        return header.description && header.description.trim() !== "";
-                                                                    }).map((param)=>{
-                                                                        let [_, header] = param;
-                                                                        return header.description;
-                                                                    });
-                                                                    if (descriptions.length === 0) return null;
-                                                                    return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                                        className: "flex gap-6",
-                                                                        children: descriptions.map((description, index)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                                                className: "flex-1",
-                                                                                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                                                                    className: "text-body4m text-[#666b73]",
-                                                                                    children: [
-                                                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                                                            className: "text-body4m text-[#666b73]",
-                                                                                            children: [
-                                                                                                index + 1,
-                                                                                                ")"
-                                                                                            ]
-                                                                                        }, void 0, true, {
-                                                                                            fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                            lineNumber: 1171,
-                                                                                            columnNumber: 37
-                                                                                        }, this),
-                                                                                        " ",
-                                                                                        description
-                                                                                    ]
-                                                                                }, void 0, true, {
-                                                                                    fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                    lineNumber: 1170,
-                                                                                    columnNumber: 35
-                                                                                }, this)
-                                                                            }, index, false, {
-                                                                                fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                lineNumber: 1169,
-                                                                                columnNumber: 33
-                                                                            }, this))
-                                                                    }, void 0, false, {
-                                                                        fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                        lineNumber: 1167,
-                                                                        columnNumber: 29
-                                                                    }, this);
-                                                                })()
-                                                            ]
-                                                        }, void 0, true)
-                                                    ]
-                                                }, void 0, true, {
-                                                    fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                    lineNumber: 982,
-                                                    columnNumber: 19
-                                                }, this),
-                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                    id: "demonstration-robustness",
-                                                    className: "mb-[100px]",
-                                                    children: [
-                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
-                                                            className: "text-h2 text-[#2d1067] mb-[44px]",
-                                                            children: "Demonstration of Robustness"
-                                                        }, void 0, false, {
-                                                            fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                            lineNumber: 1187,
-                                                            columnNumber: 21
-                                                        }, this),
-                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                            className: "grid grid-cols-2 gap-4",
-                                                            children: [
-                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(StepCard, {
-                                                                    stepNumber: 1,
-                                                                    title: "Type I safety",
-                                                                    description: "Demonstrate appropriate control of the Type I error under the null treatment effect.",
-                                                                    chartContent: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$ats$2f$simulation$2f$report$2f$charts$2f$Step1TypeISafetyChart$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Step1TypeISafetyChart"], {
-                                                                        apiData: apiData
-                                                                    }, void 0, false, {
-                                                                        fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                        lineNumber: 1198,
-                                                                        columnNumber: 27
-                                                                    }, void 0)
-                                                                }, void 0, false, {
-                                                                    fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                    lineNumber: 1193,
-                                                                    columnNumber: 23
-                                                                }, this),
-                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(StepCard, {
-                                                                    stepNumber: 2,
-                                                                    title: "Sample size reduction",
-                                                                    description: "Demonstrate that efficiency gains from prognostic adjustment scale smoothly with model performance and remain stable under degradation of predictive accuracy.",
-                                                                    chartContent: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                                        className: "w-full h-full flex gap-4",
-                                                                        children: [
-                                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$ats$2f$simulation$2f$report$2f$charts$2f$Step2VarianceDeclineChart$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Step2VarianceDeclineChart"], {
-                                                                                apiData: apiData
-                                                                            }, void 0, false, {
-                                                                                fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                lineNumber: 1209,
-                                                                                columnNumber: 29
-                                                                            }, void 0),
-                                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$ats$2f$simulation$2f$report$2f$charts$2f$Step2BoxplotChart$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Step2BoxplotChart"], {
-                                                                                apiData: apiData
-                                                                            }, void 0, false, {
-                                                                                fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                lineNumber: 1210,
-                                                                                columnNumber: 29
-                                                                            }, void 0)
-                                                                        ]
-                                                                    }, void 0, true, {
-                                                                        fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                        lineNumber: 1208,
-                                                                        columnNumber: 27
-                                                                    }, void 0)
-                                                                }, void 0, false, {
-                                                                    fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                    lineNumber: 1203,
-                                                                    columnNumber: 23
-                                                                }, this),
-                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(StepCard, {
-                                                                    stepNumber: 3,
-                                                                    title: "Data robustness",
-                                                                    description: "Demonstrate the robustness of statistical conclusions under realistic data complexities, including missingness and outcome non linearity.",
-                                                                    chartContent: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                                        className: "w-full h-full flex gap-4",
-                                                                        children: [
-                                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$ats$2f$simulation$2f$report$2f$charts$2f$Step3AbsolutePerformanceChart$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Step3AbsolutePerformanceChart"], {
-                                                                                apiData: apiData
-                                                                            }, void 0, false, {
-                                                                                fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                lineNumber: 1222,
-                                                                                columnNumber: 29
-                                                                            }, void 0),
-                                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$ats$2f$simulation$2f$report$2f$charts$2f$Step3PerformanceGainChart$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Step3PerformanceGainChart"], {
-                                                                                apiData: apiData
-                                                                            }, void 0, false, {
-                                                                                fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                                lineNumber: 1223,
-                                                                                columnNumber: 29
-                                                                            }, void 0)
-                                                                        ]
-                                                                    }, void 0, true, {
-                                                                        fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                        lineNumber: 1221,
-                                                                        columnNumber: 27
-                                                                    }, void 0)
-                                                                }, void 0, false, {
-                                                                    fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                    lineNumber: 1216,
-                                                                    columnNumber: 23
-                                                                }, this),
-                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(StepCard, {
-                                                                    stepNumber: 4,
-                                                                    title: "Decision stability size reduction",
-                                                                    description: "Demonstrate the stability of key trial decisions (e.g., go/no go conclusions) across plausible perturbations in design assumptions and data generating processes.",
-                                                                    chartContent: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$ats$2f$simulation$2f$report$2f$charts$2f$Step4DecisionStabilityChart$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Step4DecisionStabilityChart"], {
-                                                                        apiData: apiData
-                                                                    }, void 0, false, {
-                                                                        fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                        lineNumber: 1234,
-                                                                        columnNumber: 27
-                                                                    }, void 0)
-                                                                }, void 0, false, {
-                                                                    fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                    lineNumber: 1229,
-                                                                    columnNumber: 23
-                                                                }, this)
-                                                            ]
-                                                        }, void 0, true, {
-                                                            fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                            lineNumber: 1191,
-                                                            columnNumber: 21
-                                                        }, this)
-                                                    ]
-                                                }, void 0, true, {
-                                                    fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                    lineNumber: 1186,
-                                                    columnNumber: 19
-                                                }, this),
-                                                ((_this2 = apiData) === null || _this2 === void 0 ? void 0 : _this2.appendix) && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                    children: [
-                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                            className: "flex items-center justify-between mb-[44px]",
-                                                            children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
-                                                                className: "text-h2 text-[#2d1067]",
-                                                                children: apiData.appendix.title
-                                                            }, void 0, false, {
-                                                                fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                lineNumber: 1244,
-                                                                columnNumber: 25
-                                                            }, this)
-                                                        }, void 0, false, {
-                                                            fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                            lineNumber: 1243,
-                                                            columnNumber: 23
-                                                        }, this),
-                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                            className: "bg-white rounded-[16px] p-6",
-                                                            style: {
-                                                                height: "132px"
-                                                            },
-                                                            children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                                className: "h-full flex items-center",
-                                                                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                                                    className: "text-body3m text-neutral-20 max-w-[1000px]",
-                                                                    children: apiData.appendix.content
-                                                                }, void 0, false, {
-                                                                    fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                    lineNumber: 1255,
-                                                                    columnNumber: 27
                                                                 }, this)
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                lineNumber: 1254,
-                                                                columnNumber: 25
-                                                            }, this)
-                                                        }, void 0, false, {
-                                                            fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                            lineNumber: 1250,
-                                                            columnNumber: 23
-                                                        }, this)
-                                                    ]
-                                                }, void 0, true, {
-                                                    fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                    lineNumber: 1242,
-                                                    columnNumber: 21
-                                                }, this),
-                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                    className: "flex items-center justify-end py-6 flex-shrink-0",
-                                                    children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                        className: "flex gap-4",
-                                                        children: [
-                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                                                                className: "px-5 py-2.5 bg-[#aaaaad] text-white rounded-[100px] text-body3 hover:opacity-90 transition-opacity cursor-pointer flex items-center gap-2",
-                                                                children: "Save Simulation"
-                                                            }, void 0, false, {
-                                                                fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                lineNumber: 1265,
-                                                                columnNumber: 23
-                                                            }, this),
-                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$button$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
-                                                                variant: "orange",
-                                                                size: "md",
-                                                                onClick: ()=>router.push("/"),
-                                                                className: "rounded-[100px]",
-                                                                children: "Go to Main"
-                                                            }, void 0, false, {
-                                                                fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                                lineNumber: 1268,
+                                                                lineNumber: 1250,
                                                                 columnNumber: 23
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                        lineNumber: 1264,
+                                                        lineNumber: 1242,
                                                         columnNumber: 21
+                                                    }, this),
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                        className: "jsx-20ca2f99cd134e45" + " " + "flex items-center justify-end py-6 flex-shrink-0",
+                                                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                            className: "jsx-20ca2f99cd134e45" + " " + "flex gap-4",
+                                                            children: [
+                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                                                    className: "jsx-20ca2f99cd134e45" + " " + "px-5 py-2.5 bg-[#aaaaad] text-white rounded-[100px] text-body3 hover:opacity-90 transition-opacity cursor-pointer flex items-center gap-2",
+                                                                    children: "Save Simulation"
+                                                                }, void 0, false, {
+                                                                    fileName: "[project]/src/app/ats/simulation/report/page.tsx",
+                                                                    lineNumber: 1265,
+                                                                    columnNumber: 23
+                                                                }, this),
+                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$button$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
+                                                                    variant: "orange",
+                                                                    size: "md",
+                                                                    onClick: ()=>router.push("/"),
+                                                                    className: "rounded-[100px]",
+                                                                    children: "Go to Main"
+                                                                }, void 0, false, {
+                                                                    fileName: "[project]/src/app/ats/simulation/report/page.tsx",
+                                                                    lineNumber: 1268,
+                                                                    columnNumber: 23
+                                                                }, this)
+                                                            ]
+                                                        }, void 0, true, {
+                                                            fileName: "[project]/src/app/ats/simulation/report/page.tsx",
+                                                            lineNumber: 1264,
+                                                            columnNumber: 21
+                                                        }, this)
+                                                    }, void 0, false, {
+                                                        fileName: "[project]/src/app/ats/simulation/report/page.tsx",
+                                                        lineNumber: 1263,
+                                                        columnNumber: 19
                                                     }, this)
-                                                }, void 0, false, {
-                                                    fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                                    lineNumber: 1263,
-                                                    columnNumber: 19
-                                                }, this)
-                                            ]
-                                        }, void 0, true, {
+                                                ]
+                                            }, void 0, true, {
+                                                fileName: "[project]/src/app/ats/simulation/report/page.tsx",
+                                                lineNumber: 679,
+                                                columnNumber: 17
+                                            }, this)
+                                        }, void 0, false, {
                                             fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                            lineNumber: 679,
-                                            columnNumber: 17
+                                            lineNumber: 678,
+                                            columnNumber: 15
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                        lineNumber: 678,
-                                        columnNumber: 15
+                                        lineNumber: 677,
+                                        columnNumber: 13
                                     }, this)
-                                }, void 0, false, {
-                                    fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                                    lineNumber: 677,
-                                    columnNumber: 13
-                                }, this)
-                            ]
-                        }, void 0, true, {
-                            fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                            lineNumber: 485,
-                            columnNumber: 11
-                        }, this)
-                    ]
-                }, void 0, true, {
-                    fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                    lineNumber: 468,
-                    columnNumber: 9
-                }, this)
-            }, void 0, false, {
+                                ]
+                            }, void 0, true, {
+                                fileName: "[project]/src/app/ats/simulation/report/page.tsx",
+                                lineNumber: 485,
+                                columnNumber: 11
+                            }, this)
+                        ]
+                    }, void 0, true, {
+                        fileName: "[project]/src/app/ats/simulation/report/page.tsx",
+                        lineNumber: 468,
+                        columnNumber: 9
+                    }, this),
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$styled$2d$jsx$2f$style$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
+                        id: "20ca2f99cd134e45",
+                        children: "#report-content .text-h2{letter-spacing:-.84px!important;font-size:28px!important;line-height:28px!important}#report-content .text-h3{letter-spacing:-.5px!important;font-size:25px!important;line-height:25px!important}#report-content .text-h4{letter-spacing:-.6px!important;font-size:20px!important;line-height:20px!important}#report-content .text-body2{letter-spacing:-.56px!important;font-size:14px!important;line-height:16.8px!important}#report-content .text-body2m{letter-spacing:-.42px!important;font-size:14px!important;line-height:16.8px!important}#report-content .text-body3,#report-content .text-body3m{letter-spacing:-.36px!important;font-size:12px!important;line-height:12.6px!important}"
+                    }, void 0, false, void 0, this)
+                ]
+            }, void 0, true, {
                 fileName: "[project]/src/app/ats/simulation/report/page.tsx",
                 lineNumber: 467,
                 columnNumber: 7
@@ -6130,7 +6162,7 @@ function ReportPage() {
                 isLoading: isDownloadingPDF
             }, void 0, false, {
                 fileName: "[project]/src/app/ats/simulation/report/page.tsx",
-                lineNumber: 1284,
+                lineNumber: 1322,
                 columnNumber: 7
             }, this)
         ]

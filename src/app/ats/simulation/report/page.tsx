@@ -7,7 +7,7 @@ import { AppLayout } from "@/components/layout/AppLayout";
 import ArrowIcon from "@/components/ui/arrow-icon";
 import { ComparisonBarChart } from "@/components/charts/ComparisonBarChart";
 import { SingleBarChart } from "@/components/charts/SingleBarChart";
-import React, { Fragment, useEffect, useMemo, useRef, useState } from "react";
+import React, { Fragment, useEffect, useMemo, useState } from "react";
 import Image from "next/image";
 import Button from "@/components/ui/button";
 import {
@@ -465,7 +465,7 @@ export default function ReportPage() {
   return (
     <>
       <AppLayout headerType="ats">
-        <div className="w-full h-full min-h-0 overflow-hidden flex flex-col">
+        <div id="report-page-root" className="w-full h-full min-h-0 overflow-hidden flex flex-col">
           {/* Title Section (left-aligned) */}
           <div className="flex items-start justify-between mb-4 flex-shrink-0">
             <div
@@ -482,7 +482,7 @@ export default function ReportPage() {
           </div>
 
           {/* Two-column layout */}
-          <div className="flex gap-[11px] flex-1 min-h-0">
+          <div id="report-content" className="flex flex-1 min-h-0" style={{ gap: "0px" }}>
             {/* LEFT: Results Overview (liquid glass frame) - 고정, 풀높이 */}
             <div className="w-[700px] flex-shrink-0 h-full flex flex-col">
               <div className="figma-nine-slice figma-home-panel-middle relative px-[42px] py-9 flex-1 flex flex-col">
@@ -571,7 +571,7 @@ export default function ReportPage() {
                             </span>
                           </div>
                         </div>
-                        <div className="bg-white rounded-[16px] p-4 w-full flex-1 flex flex-col">
+                        <div className="bg-white rounded-[16px] p-4 w-full mt-auto flex flex-col">
                           <h3 className="text-h3 text-[#231f52]">
                             {apiData?.sample_size_evaluation?.title || ""}
                           </h3>
@@ -695,7 +695,7 @@ export default function ReportPage() {
                                 borderRadius: "100px",
                               }}
                             >
-                              <span className="text-[17px] font-semibold leading-[18.02px] tracking-[-0.51px] text-[#231f52]">
+                              <span className="text-[12px] font-semibold leading-[18.02px] tracking-[-0.51px] text-[#231f52]">
                                 Endpoints Design
                               </span>
                             </div>
@@ -705,25 +705,25 @@ export default function ReportPage() {
                             <table className="w-full">
                               <thead>
                                 <tr>
-                                  <th className="text-left py-3 px-4 text-[17px] font-medium leading-[17.85px] tracking-[-0.51px] text-[#1c1b1c]">
+                                  <th className="text-left py-3 px-4 text-[12px] font-medium leading-[17.85px] tracking-[-0.51px] text-[#1c1b1c]">
                                     Endpoint Type
                                   </th>
-                                  <th className="text-left py-3 px-4 text-[17px] font-medium leading-[17.85px] tracking-[-0.51px] text-[#1c1b1c]">
+                                  <th className="text-left py-3 px-4 text-[12px] font-medium leading-[17.85px] tracking-[-0.51px] text-[#1c1b1c]">
                                     No
                                   </th>
-                                  <th className="text-left py-3 px-4 text-[17px] font-medium leading-[17.85px] tracking-[-0.51px] text-[#1c1b1c]">
+                                  <th className="text-left py-3 px-4 text-[12px] font-medium leading-[17.85px] tracking-[-0.51px] text-[#1c1b1c]">
                                     Outcome
                                   </th>
-                                  <th className="text-left py-3 px-4 text-[17px] font-medium leading-[17.85px] tracking-[-0.51px] text-[#1c1b1c]">
+                                  <th className="text-left py-3 px-4 text-[12px] font-medium leading-[17.85px] tracking-[-0.51px] text-[#1c1b1c]">
                                     Type
                                   </th>
-                                  <th className="text-left py-3 px-4 text-[17px] font-medium leading-[17.85px] tracking-[-0.51px] text-[#1c1b1c]">
+                                  <th className="text-left py-3 px-4 text-[12px] font-medium leading-[17.85px] tracking-[-0.51px] text-[#1c1b1c]">
                                     Nominal Power
                                   </th>
-                                  <th className="text-left py-3 px-4 text-[17px] font-medium leading-[17.85px] tracking-[-0.51px] text-[#1c1b1c]">
+                                  <th className="text-left py-3 px-4 text-[12px] font-medium leading-[17.85px] tracking-[-0.51px] text-[#1c1b1c]">
                                     Threshold
                                   </th>
-                                  <th className="text-left py-3 px-4 text-[17px] font-medium leading-[17.85px] tracking-[-0.51px] text-[#1c1b1c]">
+                                  <th className="text-left py-3 px-4 text-[12px] font-medium leading-[17.85px] tracking-[-0.51px] text-[#1c1b1c]">
                                     Expected Effect size
                                   </th>
                                 </tr>
@@ -773,28 +773,28 @@ export default function ReportPage() {
                                         {index === 0 && (
                                           <td
                                             rowSpan={primaryEndpoints.length}
-                                            className="py-3 px-4 text-[17px] font-medium leading-[17.85px] tracking-[-0.51px] text-[#1c1b1c] align-top"
+                                            className="py-3 px-4 text-[12px] font-medium leading-[17.85px] tracking-[-0.51px] text-[#1c1b1c] align-top"
                                           >
                                             Primary
                                           </td>
                                         )}
-                                        <td className="py-3 px-4 text-[17px] font-medium leading-[17.85px] tracking-[-0.51px] text-[#1c1b1c]">
+                                        <td className="py-3 px-4 text-[12px] font-medium leading-[17.85px] tracking-[-0.51px] text-[#1c1b1c]">
                                           #{index + 1}
                                         </td>
-                                        <td className="py-3 px-4 text-[17px] font-medium leading-[17.85px] tracking-[-0.51px] text-[#1c1b1c]">
+                                        <td className="py-3 px-4 text-[12px] font-medium leading-[17.85px] tracking-[-0.51px] text-[#1c1b1c]">
                                           {endpoint.name}
                                         </td>
-                                        <td className="py-3 px-4 text-[17px] font-medium leading-[17.85px] tracking-[-0.51px] text-[#1c1b1c]">
+                                        <td className="py-3 px-4 text-[12px] font-medium leading-[17.85px] tracking-[-0.51px] text-[#1c1b1c]">
                                           {endpoint.type || "Continuous"}
                                         </td>
-                                        <td className="py-3 px-4 text-[17px] font-medium leading-[17.85px] tracking-[-0.51px] text-[#1c1b1c]">
+                                        <td className="py-3 px-4 text-[12px] font-medium leading-[17.85px] tracking-[-0.51px] text-[#1c1b1c]">
                                           {index === 0
                                             ? `${Math.round(
                                                 nominalPower * 100,
                                               )}%`
                                             : "-"}
                                         </td>
-                                        <td className="py-3 px-4 text-[17px] font-medium leading-[17.85px] tracking-[-0.51px] text-[#1c1b1c]">
+                                        <td className="py-3 px-4 text-[12px] font-medium leading-[17.85px] tracking-[-0.51px] text-[#1c1b1c]">
                                           {endpoint.type === "Binary" &&
                                           endpoint.threshold !== null &&
                                           endpoint.threshold !== undefined
@@ -803,7 +803,7 @@ export default function ReportPage() {
                                         </td>
                                         <td className="py-3 px-4">
                                           <div className="flex items-center gap-2">
-                                            <span className="text-[17px] font-medium leading-[17px] text-[#1c1b1c] whitespace-nowrap">
+                                            <span className="text-[12px] font-medium leading-[17px] text-[#1c1b1c] whitespace-nowrap">
                                               {effectSize.toFixed(1)}
                                             </span>
                                             <div className="flex items-center gap-1 flex-1">
@@ -874,24 +874,24 @@ export default function ReportPage() {
                                       {index === 0 && (
                                         <td
                                           rowSpan={secondaryEndpoints.length}
-                                          className="py-3 px-4 text-[17px] font-medium leading-[17.85px] tracking-[-0.51px] text-[#1c1b1c] align-top"
+                                          className="py-3 px-4 text-[12px] font-medium leading-[17.85px] tracking-[-0.51px] text-[#1c1b1c] align-top"
                                         >
                                           Secondary
                                         </td>
                                       )}
-                                      <td className="py-3 px-4 text-[17px] font-medium leading-[17.85px] tracking-[-0.51px] text-[#1c1b1c]">
+                                      <td className="py-3 px-4 text-[12px] font-medium leading-[17.85px] tracking-[-0.51px] text-[#1c1b1c]">
                                         #{index + 1}
                                       </td>
-                                      <td className="py-3 px-4 text-[17px] font-medium leading-[17.85px] tracking-[-0.51px] text-[#1c1b1c]">
+                                      <td className="py-3 px-4 text-[12px] font-medium leading-[17.85px] tracking-[-0.51px] text-[#1c1b1c]">
                                         {endpoint.name}
                                       </td>
-                                      <td className="py-3 px-4 text-[17px] font-medium leading-[17.85px] tracking-[-0.51px] text-[#1c1b1c]">
+                                      <td className="py-3 px-4 text-[12px] font-medium leading-[17.85px] tracking-[-0.51px] text-[#1c1b1c]">
                                         {endpoint.type || "Continuous"}
                                       </td>
-                                      <td className="py-3 px-4 text-[17px] font-medium leading-[17.85px] tracking-[-0.51px] text-[#1c1b1c]">
+                                      <td className="py-3 px-4 text-[12px] font-medium leading-[17.85px] tracking-[-0.51px] text-[#1c1b1c]">
                                         -
                                       </td>
-                                      <td className="py-3 px-4 text-[17px] font-medium leading-[17.85px] tracking-[-0.51px] text-[#1c1b1c]">
+                                      <td className="py-3 px-4 text-[12px] font-medium leading-[17.85px] tracking-[-0.51px] text-[#1c1b1c]">
                                         {endpoint.type === "Binary" &&
                                         endpoint.threshold !== null &&
                                         endpoint.threshold !== undefined
@@ -900,7 +900,7 @@ export default function ReportPage() {
                                       </td>
                                       <td className="py-3 px-4">
                                         <div className="flex items-center gap-2">
-                                          <span className="text-[17px] font-medium leading-[17px] text-[#1c1b1c] whitespace-nowrap">
+                                          <span className="text-[12px] font-medium leading-[17px] text-[#1c1b1c] whitespace-nowrap">
                                             {effectSize.toFixed(1)}
                                           </span>
                                           <div className="flex items-center gap-1 flex-1">
@@ -935,7 +935,7 @@ export default function ReportPage() {
                       <div className="w-[556px] bg-white rounded-[16px] p-6">
                         <div className="mb-4">
                           <div className="inline-block px-4 py-1.5 bg-[#ededed] rounded-[100px] mb-4">
-                            <span className="text-[17px] font-semibold leading-[18.02px] tracking-[-0.51px] text-[#231f52]">
+                            <span className="text-[12px] font-semibold leading-[18.02px] tracking-[-0.51px] text-[#231f52]">
                               Trial Design
                             </span>
                           </div>
@@ -943,31 +943,31 @@ export default function ReportPage() {
                             <div className="flex gap-14">
                               {/* 왼쪽 컬럼: 레이블 */}
                               <div className="space-y-2.5 flex-shrink-0">
-                                <p className="text-[17px] font-medium leading-[17.85px] tracking-[-0.51px] text-[#1c1b1c]">
+                                <p className="text-[12px] font-medium leading-[17.85px] tracking-[-0.51px] text-[#1c1b1c]">
                                   Primary Endpoint
                                 </p>
-                                <p className="text-[17px] font-medium leading-[17.85px] tracking-[-0.51px] text-[#1c1b1c]">
+                                <p className="text-[12px] font-medium leading-[17.85px] tracking-[-0.51px] text-[#1c1b1c]">
                                   Hypothesis Type
                                 </p>
-                                <p className="text-[17px] font-medium leading-[17.85px] tracking-[-0.51px] text-[#1c1b1c]">
+                                <p className="text-[12px] font-medium leading-[17.85px] tracking-[-0.51px] text-[#1c1b1c]">
                                   Treatment Arms
                                 </p>
-                                <p className="text-[17px] font-medium leading-[17.85px] tracking-[-0.51px] text-[#1c1b1c]">
+                                <p className="text-[12px] font-medium leading-[17.85px] tracking-[-0.51px] text-[#1c1b1c]">
                                   Randomization Ratio
                                 </p>
                               </div>
                               {/* 오른쪽 컬럼: 값들 */}
                               <div className="space-y-2.5">
-                                <p className="text-[17px] font-medium leading-[17.85px] tracking-[-0.51px] text-[#4f378a]">
+                                <p className="text-[12px] font-medium leading-[17.85px] tracking-[-0.51px] text-[#4f378a]">
                                   {treatmentDuration}
                                 </p>
-                                <p className="text-[17px] font-medium leading-[17.85px] tracking-[-0.51px] text-[#4f378a]">
+                                <p className="text-[12px] font-medium leading-[17.85px] tracking-[-0.51px] text-[#4f378a]">
                                   {hypothesisType}
                                 </p>
-                                <p className="text-[17px] font-medium leading-[17.85px] tracking-[-0.51px] text-[#4f378a]">
+                                <p className="text-[12px] font-medium leading-[17.85px] tracking-[-0.51px] text-[#4f378a]">
                                   {treatmentArms}-arm
                                 </p>
-                                <p className="text-[17px] font-medium leading-[17.85px] tracking-[-0.51px] text-[#4f378a]">
+                                <p className="text-[12px] font-medium leading-[17.85px] tracking-[-0.51px] text-[#4f378a]">
                                   {randomizationRatio}
                                 </p>
                               </div>
@@ -1280,6 +1280,44 @@ export default function ReportPage() {
             </div>
           </div>
         </div>
+        {/* Report page font size overrides: ~30% reduction (제목 제외, 컨텐츠 영역만) */}
+        <style jsx global>{`
+          #report-content .text-h2 {
+            font-size: 28px !important;
+            line-height: 28px !important;
+            letter-spacing: -0.84px !important;
+          }
+          #report-content .text-h3 {
+            font-size: 25px !important;
+            line-height: 25px !important;
+            letter-spacing: -0.5px !important;
+          }
+          #report-content .text-h4 {
+            font-size: 20px !important;
+            line-height: 20px !important;
+            letter-spacing: -0.6px !important;
+          }
+          #report-content .text-body2 {
+            font-size: 14px !important;
+            line-height: 16.8px !important;
+            letter-spacing: -0.56px !important;
+          }
+          #report-content .text-body2m {
+            font-size: 14px !important;
+            line-height: 16.8px !important;
+            letter-spacing: -0.42px !important;
+          }
+          #report-content .text-body3 {
+            font-size: 12px !important;
+            line-height: 12.6px !important;
+            letter-spacing: -0.36px !important;
+          }
+          #report-content .text-body3m {
+            font-size: 12px !important;
+            line-height: 12.6px !important;
+            letter-spacing: -0.36px !important;
+          }
+        `}</style>
       </AppLayout>
       <Loading isLoading={isDownloadingPDF} />
     </>

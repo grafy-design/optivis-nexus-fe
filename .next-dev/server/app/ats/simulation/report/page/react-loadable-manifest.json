@@ -3,7 +3,7 @@
     "id": "[project]/node_modules/echarts-for-react/lib/core.js [app-client] (ecmascript, next/dynamic entry)",
     "files": [
       "static/chunks/node_modules_de54c4f2._.js",
-      "static/chunks/node_modules_echarts-for-react_lib_core_4ae7e660.js"
+      "static/chunks/node_modules_echarts-for-react_lib_core_c4b130ed.js"
     ]
   },
   "[project]/node_modules/echarts/components.js [app-client] (ecmascript, next/dynamic entry)": {
@@ -26,14 +26,14 @@
       "static/chunks/node_modules_echarts_components_8b9bcc9f.js",
       "static/chunks/node_modules_zrender_lib_c05f5f51._.js",
       "static/chunks/node_modules_41865db6._.js",
-      "static/chunks/node_modules_echarts_components_57a09c61.js"
+      "static/chunks/node_modules_echarts_components_372f1419.js"
     ]
   },
   "[project]/node_modules/echarts/renderers.js [app-client] (ecmascript, next/dynamic entry)": {
     "id": "[project]/node_modules/echarts/renderers.js [app-client] (ecmascript, next/dynamic entry)",
     "files": [
       "static/chunks/node_modules_6852f295._.js",
-      "static/chunks/node_modules_echarts_renderers_57a09c61.js"
+      "static/chunks/node_modules_echarts_renderers_372f1419.js"
     ]
   },
   "[project]/node_modules/echarts/charts.js [app-client] (ecmascript, next/dynamic entry)": {
@@ -53,7 +53,7 @@
       "static/chunks/node_modules_echarts_charts_35e9bf3b.js",
       "static/chunks/node_modules_zrender_lib_e844f210._.js",
       "static/chunks/node_modules_41865db6._.js",
-      "static/chunks/node_modules_echarts_charts_57a09c61.js"
+      "static/chunks/node_modules_echarts_charts_372f1419.js"
     ]
   },
   "[project]/node_modules/echarts/core.js [app-client] (ecmascript, next/dynamic entry)": {
@@ -67,7 +67,7 @@
       "static/chunks/node_modules_echarts_core_b6ca90ad.js",
       "static/chunks/node_modules_zrender_lib_3dfe7e15._.js",
       "static/chunks/node_modules_41865db6._.js",
-      "static/chunks/node_modules_echarts_core_57a09c61.js"
+      "static/chunks/node_modules_echarts_core_372f1419.js"
     ]
   }
 }
