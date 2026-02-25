@@ -2,7 +2,6 @@
 
 import { useState, useEffect, useRef, useMemo } from "react";
 import { useRouter } from "next/navigation";
-import Image from "next/image";
 import { AppLayout } from "@/components/layout/AppLayout";
 import Select from "@/components/ui/select";
 import ReactECharts from "@/components/charts/DynamicECharts";
@@ -110,7 +109,7 @@ export default function TSIRefineCutoffsPage() {
   const monthPercentage = ((stratificationMonth - minMonth) / monthRange) * 100;
 
   // Cumulative Proportion 슬라이더 (0~100%)
-  const proportionPercentage = cumulativeProportion;
+  const _proportionPercentage = cumulativeProportion;
 
   // CDF 차트 데이터 생성 (로지스틱 함수 사용)
   const generateCDFData = () => {
@@ -1414,7 +1413,7 @@ export default function TSIRefineCutoffsPage() {
                     const gridLeft = 30;
                     const gridRight = 25;
                     const gridTop = 20;
-                    const gridBottom = 30;
+                    const _gridBottom = 30;
                     const gridHeight = 350; // 400px - 20px - 30px
                     const gridWidth = chartWidth > 0 ? chartWidth - 55 : 400; // chartWidth - gridLeft(30) - gridRight(25)
                     const chartContainerWidth =
@@ -1658,7 +1657,7 @@ export default function TSIRefineCutoffsPage() {
                           const gridLeft = 30;
                           const gridRight = 25;
                           const gridTop = 20;
-                          const gridBottom = 30;
+                          const _gridBottom = 30;
                           const gridHeight = 350; // 400px - 20px - 30px
                           const gridWidth =
                             chartWidth > 0 ? chartWidth - 55 : 400; // chartWidth - gridLeft(30) - gridRight(25)

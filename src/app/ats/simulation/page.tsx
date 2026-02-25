@@ -1,17 +1,7 @@
 "use client";
 
-import { useMemo, useEffect } from "react";
+import { useMemo } from "react";
 import { AppLayout } from "@/components/layout/AppLayout";
-import Image from "next/image";
-import Gauge from "@/components/ui/gauge";
-import Select from "@/components/ui/select";
-import Slider from "@/components/ui/slider";
-import InfoIcon from "@/components/ui/info-icon";
-import ArrowIcon from "@/components/ui/arrow-icon";
-import FullscreenIcon from "@/components/ui/fullscreen-icon";
-import Button from "@/components/ui/button";
-import SimpleBar from "simplebar-react";
-import "simplebar-react/dist/simplebar.min.css";
 import {
   callMLStudyDesign,
   type StudyParameters,
@@ -20,11 +10,6 @@ import {
 } from "@/services/studyService";
 import { useProcessedStudyData } from "@/hooks/useProcessedStudyData";
 import { useSimulationStore } from "@/store/simulationStore";
-import { SmallerSampleChart } from "@/components/charts/SmallerSampleChart";
-import { SmallerNToScreenChart } from "@/components/charts/SmallerNToScreenChart";
-import { LowerCostChart } from "@/components/charts/LowerCostChart";
-import { FormulaTooltip } from "@/components/math/FormulaTooltip";
-import ReactECharts from "@/components/charts/DynamicECharts";
 import { Loading } from "@/components/common/Loading";
 import { LeftPanel } from "@/components/ats/LeftPanel";
 import { RightPanel } from "@/components/ats/RightPanel";
@@ -39,10 +24,6 @@ export default function SimulationPage() {
     disease,
     primaryEndpoints,
     secondaryEndpoints,
-    primaryEndpoint,
-    primaryEffectSize,
-    secondaryEndpoint,
-    secondaryEffectSize,
     nominalPower,
     alpha,
     multiplicity,
@@ -54,7 +35,6 @@ export default function SimulationPage() {
     activeData,
     apiData,
     isLoading,
-    error,
     setActiveTab,
     setIsApplied,
     setSampleSizeControl,
@@ -74,7 +54,6 @@ export default function SimulationPage() {
     setTaskId,
     setIsLoading,
     setError,
-    reset,
   } = useSimulationStore();
 
   const handleSaveEndpoints = (data: AddEndpointsSaveData) => {
@@ -89,40 +68,11 @@ export default function SimulationPage() {
   // 뒤로가기로 돌아왔을 때 데이터를 유지하기 위해 reset() 호출을 제거
   // 새로고침 시에는 Zustand store가 자동으로 초기화됨
 
-  // Sample Size Control 값을 x축 값으로 변환하는 함수
-  // sampleSizeControl은 power 값을 나타내므로, findHighlightedData에서 찾은 데이터 포인트의 x축 값을 반환
-  // chartType: 'sampleSize' | 'enrollment' | 'cost' - 차트 타입에 따라 다른 x축 값 반환
-  const getHighlightXValue = (
-    optivisData: number[][],
-    chartType: "sampleSize" | "enrollment" | "cost" = "sampleSize"
-  ) => {
-    if (!findHighlightedData || !findHighlightedData.optivis) {
-      return undefined;
-    }
-
-    const highlightedPoint = findHighlightedData.optivis;
-
-    // 차트 타입에 따라 다른 x축 값 반환
-    switch (chartType) {
-      case "sampleSize":
-        // Chart 1: Sample Size vs CI Width (x축 = total_patient)
-        return highlightedPoint.total_patient;
-      case "enrollment":
-        // Chart 2: Enrollment Time vs Power (x축 = enrollment)
-        return highlightedPoint.enrollment;
-      case "cost":
-        // Chart 3: Sample Size vs Cost (x축 = total_patient)
-        return highlightedPoint.total_patient;
-      default:
-        return highlightedPoint.total_patient;
-    }
-  };
-
   // API 데이터 처리
   const optivisData = apiData?.OPTIVIS || [];
   const traditionalData = apiData?.Traditional || [];
 
-  const { filteredData, chartData, defaultPowerIndex } = useProcessedStudyData(
+  const { filteredData, chartData, defaultPowerIndex: _defaultPowerIndex } = useProcessedStudyData(
     optivisData,
     traditionalData,
     nominalPower
@@ -199,6 +149,22 @@ export default function SimulationPage() {
       traditional: traditionalPoint,
     };
   }, [apiData, sampleSizeControl, filteredData, optivisData, traditionalData]);
+
+  const getHighlightXValue = (
+    _optivisData: number[][],
+    chartType: "sampleSize" | "enrollment" | "cost" = "sampleSize"
+  ) => {
+    if (!findHighlightedData || !findHighlightedData.optivis) {
+      return undefined;
+    }
+    const highlightedPoint = findHighlightedData.optivis;
+    switch (chartType) {
+      case "sampleSize": return highlightedPoint.total_patient;
+      case "enrollment": return highlightedPoint.enrollment;
+      case "cost": return highlightedPoint.total_patient;
+      default: return highlightedPoint.total_patient;
+    }
+  };
 
   // 슬라이더 값에 따라 동적으로 계산된 데이터
   const dynamicSimulationData = useMemo(() => {

@@ -65,6 +65,105 @@ type RouteHandlerConfig<Route extends AppRouteHandlerRoutes = AppRouteHandlerRou
   type __Unused = __Check
 }
 
+// Validate ../../src/app/drd/datasetting/page.tsx
+{
+  type __IsExpected<Specific extends AppPageConfig<"/drd/datasetting">> = Specific
+  const handler = {} as typeof import("../../src/app/drd/datasetting/page.js")
+  type __Check = __IsExpected<typeof handler>
+  // @ts-ignore
+  type __Unused = __Check
+}
+
+// Validate ../../src/app/drd/default-setting/page.tsx
+{
+  type __IsExpected<Specific extends AppPageConfig<"/drd/default-setting">> = Specific
+  const handler = {} as typeof import("../../src/app/drd/default-setting/page.js")
+  type __Check = __IsExpected<typeof handler>
+  // @ts-ignore
+  type __Unused = __Check
+}
+
+// Validate ../../src/app/drd/filter/page.tsx
+{
+  type __IsExpected<Specific extends AppPageConfig<"/drd/filter">> = Specific
+  const handler = {} as typeof import("../../src/app/drd/filter/page.js")
+  type __Check = __IsExpected<typeof handler>
+  // @ts-ignore
+  type __Unused = __Check
+}
+
+// Validate ../../src/app/drd/high-risk-subgroup/page.tsx
+{
+  type __IsExpected<Specific extends AppPageConfig<"/drd/high-risk-subgroup">> = Specific
+  const handler = {} as typeof import("../../src/app/drd/high-risk-subgroup/page.js")
+  type __Check = __IsExpected<typeof handler>
+  // @ts-ignore
+  type __Unused = __Check
+}
+
+// Validate ../../src/app/drd/medical-history/page.tsx
+{
+  type __IsExpected<Specific extends AppPageConfig<"/drd/medical-history">> = Specific
+  const handler = {} as typeof import("../../src/app/drd/medical-history/page.js")
+  type __Check = __IsExpected<typeof handler>
+  // @ts-ignore
+  type __Unused = __Check
+}
+
+// Validate ../../src/app/drd/page.tsx
+{
+  type __IsExpected<Specific extends AppPageConfig<"/drd">> = Specific
+  const handler = {} as typeof import("../../src/app/drd/page.js")
+  type __Check = __IsExpected<typeof handler>
+  // @ts-ignore
+  type __Unused = __Check
+}
+
+// Validate ../../src/app/drd/patient-disease-info/page.tsx
+{
+  type __IsExpected<Specific extends AppPageConfig<"/drd/patient-disease-info">> = Specific
+  const handler = {} as typeof import("../../src/app/drd/patient-disease-info/page.js")
+  type __Check = __IsExpected<typeof handler>
+  // @ts-ignore
+  type __Unused = __Check
+}
+
+// Validate ../../src/app/drd/simulation-condition/page.tsx
+{
+  type __IsExpected<Specific extends AppPageConfig<"/drd/simulation-condition">> = Specific
+  const handler = {} as typeof import("../../src/app/drd/simulation-condition/page.js")
+  type __Check = __IsExpected<typeof handler>
+  // @ts-ignore
+  type __Unused = __Check
+}
+
+// Validate ../../src/app/drd/simulation-result/page.tsx
+{
+  type __IsExpected<Specific extends AppPageConfig<"/drd/simulation-result">> = Specific
+  const handler = {} as typeof import("../../src/app/drd/simulation-result/page.js")
+  type __Check = __IsExpected<typeof handler>
+  // @ts-ignore
+  type __Unused = __Check
+}
+
+// Validate ../../src/app/drd/simulation-setting/page.tsx
+{
+  type __IsExpected<Specific extends AppPageConfig<"/drd/simulation-setting">> = Specific
+  const handler = {} as typeof import("../../src/app/drd/simulation-setting/page.js")
+  type __Check = __IsExpected<typeof handler>
+  // @ts-ignore
+  type __Unused = __Check
+}
+
+// Validate ../../src/app/drd/smile-setting/page.tsx
+{
+  type __IsExpected<Specific extends AppPageConfig<"/drd/smile-setting">> = Specific
+  const handler = {} as typeof import("../../src/app/drd/smile-setting/page.js")
+  type __Check = __IsExpected<typeof handler>
+  // @ts-ignore
+  type __Unused = __Check
+}
+
 // Validate ../../src/app/page.tsx
 {
   type __IsExpected<Specific extends AppPageConfig<"/">> = Specific

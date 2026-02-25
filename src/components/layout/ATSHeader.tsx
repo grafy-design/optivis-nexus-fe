@@ -4,12 +4,12 @@ import React from "react";
 import { useRouter, usePathname } from "next/navigation";
 import Image from "next/image";
 import IconButton from "@/components/ui/icon-button";
-import { useSimulationStore } from "@/store/simulationStore";
+import { useSimulationStore, type SimulationState } from "@/store/simulationStore";
 
 export const ATSHeader = () => {
   const router = useRouter();
   const pathname = usePathname();
-  const isApplied = useSimulationStore((state) => state.isApplied);
+  const isApplied = useSimulationStore((state: SimulationState) => state.isApplied);
 
   const simulationBasePath = "/ats/simulation";
   const reportPath = `${simulationBasePath}/report`;

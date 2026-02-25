@@ -124,11 +124,12 @@ export default function HeroPanel({
     };
   }, [videoUrl, videoPlaybackRate, videoReverseLoop]);
 
-  const isDisabled = serviceId === "6";
+  const isDisabled = serviceId === "7" || serviceId === "8" || serviceId === "9";
 
   const getSimulationPath = () => {
     if (serviceId === "4") return "/ats/simulation";
     if (serviceId === "5") return "/tsi";
+    if (serviceId === "6") return "/drd";
     return "/simulation";
   };
 

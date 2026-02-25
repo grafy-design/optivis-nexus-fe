@@ -15,8 +15,9 @@ import CustomCheckbox from "@/components/ui/custom-checkbox";
  */
 export default function TSIPage() {
   const router = useRouter();
-  const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
+  const [_selectedFiles, setSelectedFiles] = useState<File[]>([]);
   const [selectedData, setSelectedData] = useState<Set<number>>(new Set());
+  const [searchValue, setSearchValue] = useState("");
 
   // Mock data
   const attachedData = [
@@ -291,7 +292,7 @@ export default function TSIPage() {
                 {/* Section Header */}
                 <div className="flex items-center justify-between">
                   <h2 className="text-h3 text-neutral-10">Attached Data</h2>
-                  <SimulationSearch />
+                  <SimulationSearch value={searchValue} onChange={setSearchValue} />
                 </div>
 
                 {/* Data Table */}

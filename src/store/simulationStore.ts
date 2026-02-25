@@ -1,7 +1,6 @@
 import { create } from "zustand";
 import type {
   StudyResult,
-  StudyParameters,
   FormulaResult,
   ResultOverview,
   SampleSizeEvaluation,
@@ -31,6 +30,8 @@ export interface SimulationState {
   // UI 상태
   activeTab: "compare" | "reduction";
   isApplied: boolean;
+  simCondCompleted: boolean;
+  simSmilesCompleted: boolean;
   sampleSizeControl: number;
 
   // Simulation Setting states
@@ -83,6 +84,8 @@ export interface SimulationState {
   // Actions
   setActiveTab: (tab: "compare" | "reduction") => void;
   setIsApplied: (applied: boolean) => void;
+  setSimCondCompleted: (completed: boolean) => void;
+  setSimSmilesCompleted: (completed: boolean) => void;
   setSampleSizeControl: (value: number) => void;
   setDisease: (disease: string) => void;
   setPrimaryEndpoints: (
@@ -135,6 +138,8 @@ export interface SimulationState {
 const initialState = {
   activeTab: "compare" as const,
   isApplied: false,
+  simCondCompleted: false,
+  simSmilesCompleted: false,
   sampleSizeControl: 0.8, // power 값 (0.6~0.95, 차트 하이라이트용)
   disease: "Alzheimer's disease",
   primaryEndpoints: [{ name: "ADAS Cog 11", effectSize: 3 }] as EndpointItem[],
@@ -163,6 +168,8 @@ export const useSimulationStore = create<SimulationState>()((set) => ({
 
   setActiveTab: (tab) => set({ activeTab: tab }),
   setIsApplied: (applied) => set({ isApplied: applied }),
+  setSimCondCompleted: (completed) => set({ simCondCompleted: completed }),
+  setSimSmilesCompleted: (completed) => set({ simSmilesCompleted: completed }),
   setSampleSizeControl: (value) => set({ sampleSizeControl: value }),
   setDisease: (disease) => set({ disease }),
   setPrimaryEndpoints: (arg) =>

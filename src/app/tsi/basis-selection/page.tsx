@@ -116,7 +116,7 @@ export default function TSIBasisSelectionPage() {
                     boxShadow: "0px 0px 2px 0px rgba(0, 0, 0, 0.1)",
                   }}
                 >
-                  {BASIS_OPTIONS.map((opt, index) => {
+                  {BASIS_OPTIONS.map((opt, _index) => {
                     const isSelected = selectedBasis === opt.id;
                     const isDisabled = opt.disabled === true;
                     return (

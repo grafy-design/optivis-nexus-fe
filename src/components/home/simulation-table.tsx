@@ -100,24 +100,6 @@ export default function SimulationTable({ serviceId, searchQuery }: SimulationTa
     [rows, normalizedQuery],
   );
 
-  const moveRow = (id: string, direction: "up" | "down") => {
-    setRows((prev) => {
-      const index = prev.findIndex((row) => row.id === id);
-      if (index === -1) {
-        return prev;
-      }
-
-      const targetIndex = direction === "up" ? index - 1 : index + 1;
-      if (targetIndex < 0 || targetIndex >= prev.length) {
-        return prev;
-      }
-
-      const next = [...prev];
-      [next[index], next[targetIndex]] = [next[targetIndex], next[index]];
-      return next;
-    });
-  };
-
   const swapRows = (sourceId: string, targetId: string) => {
     if (sourceId === targetId) {
       return;

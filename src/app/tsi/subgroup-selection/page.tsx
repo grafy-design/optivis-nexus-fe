@@ -82,7 +82,6 @@ const TABLE_INNER_DIV_LEFT =
   "w-full h-[28px] flex items-center border-l border-neutral-80 pl-2";
 const TABLE_INNER_DIV_CENTER_NO_BORDER =
   "w-full h-[28px] flex items-center justify-center";
-const TABLE_INNER_DIV_LEFT_NO_BORDER = "w-full h-[28px] flex items-center";
 
 export default function TSISubgroupSelectionPage() {
   const router = useRouter();

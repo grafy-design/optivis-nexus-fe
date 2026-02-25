@@ -9,16 +9,11 @@ import Image from "next/image";
 const MULTIPLICITY_OPTIONS = ["Bonferroni", "Holm", "Hochberg"] as const;
 const OUTCOME_OPTIONS = ["ADAS Cog 11", "MMSE", "CDR"];
 const TYPE_OPTIONS = ["Continuous", "Binary"];
-const ALPHA_OPTIONS = ["0.05", "0.025", "0.01"];
 const TARGET_POWER_OPTIONS = ["80%", "85%", "90%"];
 
 /** Primary + Secondary 합계 최대 개수 */
 const MAX_TOTAL_ENDPOINTS = 5;
 
-// Effect size 0.1 ~ 10 step 0.1
-const EFFECT_SIZE_OPTIONS = Array.from({ length: 100 }, (_, i) =>
-  ((i + 1) * 0.1).toFixed(1),
-);
 
 interface PrimaryRow {
   id: string;
@@ -106,7 +101,7 @@ function targetPowerToNumber(s: string): number {
 export default function AddEndpointsModal({
   open,
   onOpenChange,
-  isSaveDisabled = false,
+  isSaveDisabled: _isSaveDisabled = false,
   primaryEndpoints,
   secondaryEndpoints,
   nominalPower,
@@ -147,7 +142,7 @@ export default function AddEndpointsModal({
         t === "Binary" ? "Binary" : "Continuous";
       const newPrimary: PrimaryRow[] =
         primaryEndpoints.length > 0
-          ? primaryEndpoints.map((ep, i) => ({
+          ? primaryEndpoints.map((ep) => ({
               id: generateId(),
               outcome: ep.name || OUTCOME_OPTIONS[0],
               type: typeStr(ep.type),
@@ -215,10 +210,6 @@ export default function AddEndpointsModal({
     return !primarySame || !secondarySame;
   }, [open, multiplicity, primaryRows, secondaryRows]);
 
-  const effectSizeOptions = ensureInOptions(
-    EFFECT_SIZE_OPTIONS,
-    primaryRows[0]?.effectSize ?? "",
-  );
   const targetPowerOptions = ensureInOptions(
     TARGET_POWER_OPTIONS,
     primaryRows[0]?.targetPower ?? "",

@@ -14,8 +14,8 @@ export default function IconButton({
   icon,
   alt,
   size = "md",
-  variant = "rounded",
-  isActive = false,
+  variant: _variant = "rounded",
+  isActive: _isActive = false,
   className,
   ...props
 }: IconButtonProps) {

@@ -2,10 +2,8 @@
 
 import { useRouter, usePathname } from "next/navigation";
 import { useSimulationStore } from "@/store/simulationStore";
-import { useProcessedStudyData } from "@/hooks/useProcessedStudyData";
 import { AppLayout } from "@/components/layout/AppLayout";
 import ArrowIcon from "@/components/ui/arrow-icon";
-import { ComparisonBarChart } from "@/components/charts/ComparisonBarChart";
 import { SingleBarChart } from "@/components/charts/SingleBarChart";
 import React, { Fragment, useEffect, useMemo, useState } from "react";
 import Image from "next/image";
@@ -20,7 +18,6 @@ import {
 } from "./charts";
 import { toPng } from "html-to-image";
 import jsPDF from "jspdf";
-import { downloadReportFile } from "@/services/studyService";
 import { Loading } from "@/components/common/Loading";
 
 // Step 카드 컴포넌트
@@ -74,24 +71,13 @@ export default function ReportPage() {
   const {
     isApplied,
     apiData,
-    taskId,
-    sampleSizeControl,
-    disease,
-    primaryEndpoint,
-    primaryEffectSize,
-    secondaryEndpoint,
-    secondaryEffectSize,
     primaryEndpoints,
     secondaryEndpoints,
     nominalPower,
-    alpha,
     treatmentDuration,
     hypothesisType,
     treatmentArms,
     randomizationRatio,
-    setApiData,
-    setTaskId,
-    setIsApplied,
   } = useSimulationStore();
   const [isDownloadingPDF, setIsDownloadingPDF] = useState(false);
 
@@ -137,7 +123,6 @@ export default function ReportPage() {
     const smallerNToScreenIsNegative = smallerNToScreenPctRaw < 0;
 
     const lowerCostPctRaw = optivisItem.cost_reduction;
-    const lowerCostPct = Math.abs(lowerCostPctRaw).toFixed(0);
     const lowerCostIsNegative = lowerCostPctRaw < 0;
     const costReductionValue = Math.abs(
       optivisItem.cost_reduction / 1000000,
@@ -153,7 +138,6 @@ export default function ReportPage() {
     const sampleSizeIsNegative = sampleSizeReductionRaw < 0;
 
     const costReductionRaw = optivisItem.cost_reduction;
-    const costReduction = Math.abs(costReductionRaw).toFixed(0);
     const costIsNegative = costReductionRaw < 0;
 
     return {
@@ -464,37 +448,10 @@ export default function ReportPage() {
 
       triggerDownload(file, file.name);
       setIsDownloadingPDF(false);
-    } catch (error) {
+    } catch (_error) {
       // PDF 다운로드 실패
       alert("PDF 다운로드에 실패했습니다.");
       setIsDownloadingPDF(false);
-    }
-  };
-
-  // PDF 다운로드 함수 - 백엔드 API 호출 (맨 아래 버튼용)
-  const handleDownloadPDFFromBackend = async () => {
-    try {
-      // store에서 task_id 가져오기
-      if (!taskId) {
-        alert("task_id를 찾을 수 없습니다.");
-        return;
-      }
-
-      // API 서비스를 통해 파일 다운로드
-      const blob = await downloadReportFile(taskId);
-      const pdfBlob =
-        blob.type === "application/pdf"
-          ? blob
-          : new Blob([blob], { type: "application/pdf" });
-      const file = new File([pdfBlob], getReportPdfFileName(), {
-        type: "application/pdf",
-      });
-
-      // 파일 다운로드
-      triggerDownload(file, file.name);
-    } catch (error) {
-      // PDF 다운로드 실패
-      alert("PDF 다운로드에 실패했습니다.");
     }
   };
 
@@ -1029,7 +986,7 @@ export default function ReportPage() {
                         <div className="flex gap-4 mb-6">
                           {(apiData as any).graph_acc_model
                             .slice(0, 3)
-                            .map((graphItem: any, index: number) => {
+                            .map((graphItem: any) => {
                               return (
                                 <div
                                   key={graphItem.id}
@@ -1122,12 +1079,6 @@ export default function ReportPage() {
                                       (apiData as any).result_prec_model
                                         .table_head,
                                     );
-                                    const isLastRow =
-                                      rowIndex ===
-                                      (apiData as any).result_prec_model.data
-                                        .length -
-                                        1;
-
                                     return (
                                       <tr key={row.id}>
                                         {/* table_head의 키 순서대로 데이터 표시 */}

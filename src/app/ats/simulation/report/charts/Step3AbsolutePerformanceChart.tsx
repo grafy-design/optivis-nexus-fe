@@ -4,7 +4,6 @@ import ReactECharts from "@/components/charts/DynamicECharts";
 import {
   chartTitle,
   chartGraphicDivider,
-  CHART_GRID_DEFAULT,
   CHART_AXIS_LABEL,
   CHART_AXIS_NAME,
   CHART_Y_AXIS_SPLIT_LINE,

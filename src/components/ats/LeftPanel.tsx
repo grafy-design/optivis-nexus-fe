@@ -12,7 +12,6 @@ import AddEndpointsModal, {
   type AddEndpointsSaveData,
   type EndpointItemSave,
 } from "@/components/ui/add-endpoints-modal";
-import { cn } from "@/lib/cn";
 
 const ENDPOINT_OPTIONS = ["ADAS Cog 11", "MMSE", "CDR"];
 

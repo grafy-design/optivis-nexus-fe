@@ -42,8 +42,8 @@ export default function Gauge({
   gapDegrees = 20,
   backgroundColor = "#e7e5e7",
 
-  emptyBorderColor = "#111111",
-  borderThickness = 4,
+  emptyBorderColor: _emptyBorderColor = "#111111",
+  borderThickness: _borderThickness = 4,
 
   hatchColor = "#111111",
   hatchOpacity = 0.35,
@@ -52,7 +52,7 @@ export default function Gauge({
   hatchAngle = 35,
 
   emptyBaseColor = "#111111",
-  emptyBaseOpacity = 0.06,
+  emptyBaseOpacity: _emptyBaseOpacity = 0.06,
 
   text,
   showIndicator = false,

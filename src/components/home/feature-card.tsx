@@ -35,7 +35,7 @@ export default function FeatureCard({
   description,
   icon,
   selectedIcon,
-  variant = "glass",
+  variant: _variant = "glass",
   isSelected = false,
   onClick,
   sectionType = "package",
@@ -142,7 +142,6 @@ export default function FeatureCard({
 
   // 카드 padding / gap - Figma 기준
   const cardPad = 24; // 모든 방향 24px
-  const iconTextGap = isPackage ? 60 : 30; // Package: 60px gap, Service: 30px
 
   return (
     <div

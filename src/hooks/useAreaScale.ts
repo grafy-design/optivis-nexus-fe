@@ -19,9 +19,10 @@ const DESIGN_VIEWPORT_HEIGHT = 1314;
 /** Minimum scale factor — prevents content from becoming unreadably small */
 const MIN_SCALE = 0.55;
 
-type ScaleMode = "width" | "height" | "fit";
+type ScaleMode = "width" | "height" | "fit" | "none";
 
 const computeScale = (mode: ScaleMode) => {
+  if (mode === "none") return 1;
   const vw = window.innerWidth;
   const vh = window.innerHeight;
   const raw =

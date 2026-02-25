@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": [],
+  "sections": [
+    {"offset": {"line": 3, "column": 0}, "map": {"version":3,"sources":[],"names":[],"mappings":"","debugId":null}},
+    {"offset": {"line": 11, "column": 0}, "map": {"version":3,"sources":["file:///C:/Users/GRAFY_BOSS_DESKTOP/Desktop/260224_optivis%20nexus_ver0.2.5/src/app/drd/page.tsx"],"sourcesContent":["import { redirect } from \"next/navigation\";\r\n\r\nexport default function DrdPage() {\r\n  redirect(\"/drd/default-setting\");\r\n}"],"names":[],"mappings":";;;;AAAA;AAAA;;AAEe,SAAS;IACtB,IAAA,iMAAQ,EAAC;AACX","debugId":null}}]
+}

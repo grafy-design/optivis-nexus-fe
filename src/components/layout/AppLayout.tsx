@@ -5,12 +5,11 @@ import { Sidebar } from "./Sidebar";
 import { Header } from "./Header";
 import { ATSHeader } from "./ATSHeader";
 import { TSIHeader } from "./TSIHeader";
+import { DrdHeader } from "./DrdHeader";
 import { MainContainer } from "./MainContainer";
 // --- [TEMP_SCALE_START] proportional scaling import ---
 import { useAreaScale } from "@/hooks/useAreaScale";
 // --- [TEMP_SCALE_END] ---
-import SimpleBar from "simplebar-react";
-import "simplebar-react/dist/simplebar.min.css";
 
 declare global {
   interface Window {
@@ -20,13 +19,15 @@ declare global {
 
 interface AppLayoutProps {
   children: React.ReactNode;
-  headerType?: "default" | "ats" | "tsi";
-  scaleMode?: "width" | "height" | "fit";
+  headerType?: "default" | "ats" | "tsi" | "drd";
+  drdStep?: 1 | 2 | 3;
+  scaleMode?: "width" | "height" | "fit" | "none";
 }
 
 export const AppLayout: React.FC<AppLayoutProps> = ({
   children,
   headerType = "default",
+  drdStep = 1,
   scaleMode = "width",
 }) => {
   const [isLayoutReady, setIsLayoutReady] = useState(() => {
@@ -117,6 +118,8 @@ export const AppLayout: React.FC<AppLayoutProps> = ({
           <ATSHeader />
         ) : headerType === "tsi" ? (
           <TSIHeader />
+        ) : headerType === "drd" ? (
+          <DrdHeader step={drdStep as 1 | 2 | 3} />
         ) : (
           <Header />
         )}
