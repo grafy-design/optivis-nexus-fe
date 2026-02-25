@@ -680,6 +680,9 @@ function AERiskContent() {
               letterSpacing: "-0.66px",
               lineHeight: 1.2,
               margin: 0,
+              flex: 1,
+              minHeight: 0,
+              padding: "4px",
             }}
           >
             Safety Trade-off
@@ -688,7 +691,7 @@ function AERiskContent() {
             style={{
               background: "#fff",
               borderRadius: "10px",
-              flex: 1,
+              flex: 4,
               minHeight: 0,
               overflow: "hidden",
             }}
@@ -710,7 +713,7 @@ function AERiskContent() {
             minWidth: 0,
           }}
         >
-          <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+          <div style={{ flex: 1, minHeight: 0, display: "flex", alignItems: "flex-start", justifyContent: "space-between", padding: "4px" }}>
             <h3
               style={{
                 fontFamily: "Inter",
@@ -746,7 +749,7 @@ function AERiskContent() {
             style={{
               background: "#fff",
               borderRadius: "10px",
-              flex: 1,
+              flex: 4,
               minHeight: 0,
               overflow: "hidden",
             }}
@@ -765,7 +768,8 @@ function AERiskContent() {
           display: "flex",
           flexDirection: "column",
           gap: "8px",
-          flexShrink: 0,
+          flex: 1,
+          minHeight: 0,
         }}
       >
         <div>
@@ -795,7 +799,7 @@ function AERiskContent() {
             Top contributing factors ranked by impact score, where higher scores indicate stronger contribution to non-response.
           </p>
         </div>
-        <div style={{ display: "flex", gap: "clamp(10px, 1vw, 16px)", alignItems: "stretch" }}>
+        <div style={{ display: "flex", gap: "clamp(10px, 1vw, 16px)", alignItems: "stretch", flex: 1, minHeight: 0 }}>
           <NonResponderTable
             strategyName="Strategy A"
             nameColor={COLOR_STRATEGY_A}
@@ -895,7 +899,7 @@ export default function SimulationResultPage() {
         >
           {/* ?? ?쇱そ ?⑤꼸: Simulation Strategies ???????????????????????? */}
           <div
-            className="w-[380px] flex-shrink-0 rounded-[36px] gap-[12px] overflow-hidden flex flex-col"
+            className="w-[380px] flex-shrink-0 rounded-[36px] gap-[28px] overflow-hidden flex flex-col"
             style={{
               borderImage: 'url("/assets/figma/home/frame-panel-middle.png") 72 fill / 36px / 0 stretch',
               borderStyle: "solid",
@@ -914,13 +918,12 @@ export default function SimulationResultPage() {
                 borderRadius: "18px",
                 overflow: "hidden",
                 flexShrink: 0,
-                minHeight: "48px",
                 display: "flex",
                 flexDirection: "column",
                 justifyContent: "center",
                 alignItems: "flex-start",
                 position: "relative",
-                padding: "12px 4px",
+                padding: "6px 4px",
               }}
             >
               <span
@@ -1063,7 +1066,6 @@ export default function SimulationResultPage() {
               borderRightWidth: "24px",
               borderColor: "transparent",
               gap: "24px",
-              paddingBottom:"24px"
             }}
           >
             {/* Summary */}

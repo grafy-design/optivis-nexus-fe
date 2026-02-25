@@ -4269,7 +4269,10 @@ function AERiskContent() {
                                     color: "#fff",
                                     letterSpacing: "-0.66px",
                                     lineHeight: 1.2,
-                                    margin: 0
+                                    margin: 0,
+                                    flex: 1,
+                                    minHeight: 0,
+                                    padding: "4px"
                                 },
                                 children: "Safety Trade-off"
                             }, void 0, false, {
@@ -4281,18 +4284,18 @@ function AERiskContent() {
                                 style: {
                                     background: "#fff",
                                     borderRadius: "10px",
-                                    flex: 1,
+                                    flex: 4,
                                     minHeight: 0,
                                     overflow: "hidden"
                                 },
                                 children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$drd$2f$simulation$2d$result$2f$charts$2f$BubbleChart$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["BubbleChart"], {}, void 0, false, {
                                     fileName: "[project]/src/app/drd/simulation-result/page.tsx",
-                                    lineNumber: 696,
+                                    lineNumber: 699,
                                     columnNumber: 13
                                 }, this)
                             }, void 0, false, {
                                 fileName: "[project]/src/app/drd/simulation-result/page.tsx",
-                                lineNumber: 687,
+                                lineNumber: 690,
                                 columnNumber: 11
                             }, this)
                         ]
@@ -4315,9 +4318,12 @@ function AERiskContent() {
                         children: [
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                 style: {
+                                    flex: 1,
+                                    minHeight: 0,
                                     display: "flex",
-                                    alignItems: "center",
-                                    justifyContent: "space-between"
+                                    alignItems: "flex-start",
+                                    justifyContent: "space-between",
+                                    padding: "4px"
                                 },
                                 children: [
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
@@ -4333,7 +4339,7 @@ function AERiskContent() {
                                         children: "AE Risk"
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/drd/simulation-result/page.tsx",
-                                        lineNumber: 714,
+                                        lineNumber: 717,
                                         columnNumber: 13
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -4357,7 +4363,7 @@ function AERiskContent() {
                                                 children: "Stroke"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/drd/simulation-result/page.tsx",
-                                                lineNumber: 739,
+                                                lineNumber: 742,
                                                 columnNumber: 15
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("svg", {
@@ -4373,48 +4379,48 @@ function AERiskContent() {
                                                     strokeLinejoin: "round"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/drd/simulation-result/page.tsx",
-                                                    lineNumber: 741,
+                                                    lineNumber: 744,
                                                     columnNumber: 17
                                                 }, this)
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/drd/simulation-result/page.tsx",
-                                                lineNumber: 740,
+                                                lineNumber: 743,
                                                 columnNumber: 15
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/app/drd/simulation-result/page.tsx",
-                                        lineNumber: 728,
+                                        lineNumber: 731,
                                         columnNumber: 13
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/app/drd/simulation-result/page.tsx",
-                                lineNumber: 713,
+                                lineNumber: 716,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                 style: {
                                     background: "#fff",
                                     borderRadius: "10px",
-                                    flex: 1,
+                                    flex: 4,
                                     minHeight: 0,
                                     overflow: "hidden"
                                 },
                                 children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$drd$2f$simulation$2d$result$2f$charts$2f$StepLineChart$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["StepLineChart"], {}, void 0, false, {
                                     fileName: "[project]/src/app/drd/simulation-result/page.tsx",
-                                    lineNumber: 754,
+                                    lineNumber: 757,
                                     columnNumber: 13
                                 }, this)
                             }, void 0, false, {
                                 fileName: "[project]/src/app/drd/simulation-result/page.tsx",
-                                lineNumber: 745,
+                                lineNumber: 748,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/app/drd/simulation-result/page.tsx",
-                        lineNumber: 701,
+                        lineNumber: 704,
                         columnNumber: 9
                     }, this)
                 ]
@@ -4431,7 +4437,8 @@ function AERiskContent() {
                     display: "flex",
                     flexDirection: "column",
                     gap: "8px",
-                    flexShrink: 0
+                    flex: 1,
+                    minHeight: 0
                 },
                 children: [
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -4449,7 +4456,7 @@ function AERiskContent() {
                                 children: "Non responder Identification"
                             }, void 0, false, {
                                 fileName: "[project]/src/app/drd/simulation-result/page.tsx",
-                                lineNumber: 772,
+                                lineNumber: 776,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -4464,20 +4471,22 @@ function AERiskContent() {
                                 children: "Top contributing factors ranked by impact score, where higher scores indicate stronger contribution to non-response."
                             }, void 0, false, {
                                 fileName: "[project]/src/app/drd/simulation-result/page.tsx",
-                                lineNumber: 785,
+                                lineNumber: 789,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/app/drd/simulation-result/page.tsx",
-                        lineNumber: 771,
+                        lineNumber: 775,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                         style: {
                             display: "flex",
                             gap: "clamp(10px, 1vw, 16px)",
-                            alignItems: "stretch"
+                            alignItems: "stretch",
+                            flex: 1,
+                            minHeight: 0
                         },
                         children: [
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(NonResponderTable, {
@@ -4486,7 +4495,7 @@ function AERiskContent() {
                                 lineColor: COLOR_STRATEGY_A
                             }, void 0, false, {
                                 fileName: "[project]/src/app/drd/simulation-result/page.tsx",
-                                lineNumber: 799,
+                                lineNumber: 803,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(NonResponderTable, {
@@ -4495,7 +4504,7 @@ function AERiskContent() {
                                 lineColor: COLOR_STRATEGY_B
                             }, void 0, false, {
                                 fileName: "[project]/src/app/drd/simulation-result/page.tsx",
-                                lineNumber: 804,
+                                lineNumber: 808,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(NonResponderTable, {
@@ -4504,19 +4513,19 @@ function AERiskContent() {
                                 lineColor: COLOR_STRATEGY_C
                             }, void 0, false, {
                                 fileName: "[project]/src/app/drd/simulation-result/page.tsx",
-                                lineNumber: 809,
+                                lineNumber: 813,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/app/drd/simulation-result/page.tsx",
-                        lineNumber: 798,
+                        lineNumber: 802,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/app/drd/simulation-result/page.tsx",
-                lineNumber: 760,
+                lineNumber: 763,
                 columnNumber: 7
             }, this)
         ]
@@ -4613,12 +4622,12 @@ function SimulationResultPage() {
                                 children: "Drug Response Prediction Dashboard"
                             }, void 0, false, {
                                 fileName: "[project]/src/app/drd/simulation-result/page.tsx",
-                                lineNumber: 872,
+                                lineNumber: 876,
                                 columnNumber: 11
                             }, this)
                         }, void 0, false, {
                             fileName: "[project]/src/app/drd/simulation-result/page.tsx",
-                            lineNumber: 871,
+                            lineNumber: 875,
                             columnNumber: 9
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -4640,7 +4649,7 @@ function SimulationResultPage() {
                                 },
                                 children: [
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                        className: "w-[380px] flex-shrink-0 rounded-[36px] gap-[12px] overflow-hidden flex flex-col",
+                                        className: "w-[380px] flex-shrink-0 rounded-[36px] gap-[28px] overflow-hidden flex flex-col",
                                         style: {
                                             borderImage: 'url("/assets/figma/home/frame-panel-middle.png") 72 fill / 36px / 0 stretch',
                                             borderStyle: "solid",
@@ -4657,13 +4666,12 @@ function SimulationResultPage() {
                                                     borderRadius: "18px",
                                                     overflow: "hidden",
                                                     flexShrink: 0,
-                                                    minHeight: "48px",
                                                     display: "flex",
                                                     flexDirection: "column",
                                                     justifyContent: "center",
                                                     alignItems: "flex-start",
                                                     position: "relative",
-                                                    padding: "12px 4px"
+                                                    padding: "6px 4px"
                                                 },
                                                 children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
                                                     style: {
@@ -4679,12 +4687,12 @@ function SimulationResultPage() {
                                                     children: "Simulation strategies"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/drd/simulation-result/page.tsx",
-                                                    lineNumber: 926,
+                                                    lineNumber: 929,
                                                     columnNumber: 15
                                                 }, this)
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/drd/simulation-result/page.tsx",
-                                                lineNumber: 912,
+                                                lineNumber: 916,
                                                 columnNumber: 13
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -4702,7 +4710,7 @@ function SimulationResultPage() {
                                                             ...s
                                                         }, s.name, false, {
                                                             fileName: "[project]/src/app/drd/simulation-result/page.tsx",
-                                                            lineNumber: 955,
+                                                            lineNumber: 958,
                                                             columnNumber: 17
                                                         }, this)),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -4725,7 +4733,7 @@ function SimulationResultPage() {
                                                                 children: "Primary Outcome"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/drd/simulation-result/page.tsx",
-                                                                lineNumber: 968,
+                                                                lineNumber: 971,
                                                                 columnNumber: 17
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -4736,7 +4744,7 @@ function SimulationResultPage() {
                                                                 }
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/drd/simulation-result/page.tsx",
-                                                                lineNumber: 971,
+                                                                lineNumber: 974,
                                                                 columnNumber: 17
                                                             }, this),
                                                             [
@@ -4776,12 +4784,12 @@ function SimulationResultPage() {
                                                                                 }
                                                                             }, void 0, false, {
                                                                                 fileName: "[project]/src/app/drd/simulation-result/page.tsx",
-                                                                                lineNumber: 998,
+                                                                                lineNumber: 1001,
                                                                                 columnNumber: 25
                                                                             }, this)
                                                                         }, void 0, false, {
                                                                             fileName: "[project]/src/app/drd/simulation-result/page.tsx",
-                                                                            lineNumber: 987,
+                                                                            lineNumber: 990,
                                                                             columnNumber: 21
                                                                         }, this),
                                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -4794,20 +4802,20 @@ function SimulationResultPage() {
                                                                             children: label
                                                                         }, void 0, false, {
                                                                             fileName: "[project]/src/app/drd/simulation-result/page.tsx",
-                                                                            lineNumber: 1001,
+                                                                            lineNumber: 1004,
                                                                             columnNumber: 21
                                                                         }, this)
                                                                     ]
                                                                 }, label, true, {
                                                                     fileName: "[project]/src/app/drd/simulation-result/page.tsx",
-                                                                    lineNumber: 975,
+                                                                    lineNumber: 978,
                                                                     columnNumber: 19
                                                                 }, this);
                                                             })
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/src/app/drd/simulation-result/page.tsx",
-                                                        lineNumber: 959,
+                                                        lineNumber: 962,
                                                         columnNumber: 15
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -4832,18 +4840,18 @@ function SimulationResultPage() {
                                                                 children: t
                                                             }, t, false, {
                                                                 fileName: "[project]/src/app/drd/simulation-result/page.tsx",
-                                                                lineNumber: 1017,
+                                                                lineNumber: 1020,
                                                                 columnNumber: 19
                                                             }, this))
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/drd/simulation-result/page.tsx",
-                                                        lineNumber: 1008,
+                                                        lineNumber: 1011,
                                                         columnNumber: 15
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/app/drd/simulation-result/page.tsx",
-                                                lineNumber: 943,
+                                                lineNumber: 946,
                                                 columnNumber: 13
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -4883,7 +4891,7 @@ function SimulationResultPage() {
                                                             }
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/drd/simulation-result/page.tsx",
-                                                            lineNumber: 1048,
+                                                            lineNumber: 1051,
                                                             columnNumber: 17
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -4893,24 +4901,24 @@ function SimulationResultPage() {
                                                             children: "Edit Condition"
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/drd/simulation-result/page.tsx",
-                                                            lineNumber: 1049,
+                                                            lineNumber: 1052,
                                                             columnNumber: 17
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/src/app/drd/simulation-result/page.tsx",
-                                                    lineNumber: 1026,
+                                                    lineNumber: 1029,
                                                     columnNumber: 15
                                                 }, this)
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/drd/simulation-result/page.tsx",
-                                                lineNumber: 1025,
+                                                lineNumber: 1028,
                                                 columnNumber: 13
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/app/drd/simulation-result/page.tsx",
-                                        lineNumber: 897,
+                                        lineNumber: 901,
                                         columnNumber: 11
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -4923,8 +4931,7 @@ function SimulationResultPage() {
                                             borderLeftWidth: "24px",
                                             borderRightWidth: "24px",
                                             borderColor: "transparent",
-                                            gap: "24px",
-                                            paddingBottom: "24px"
+                                            gap: "24px"
                                         },
                                         children: [
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -4949,7 +4956,7 @@ function SimulationResultPage() {
                                                         children: "Summary"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/drd/simulation-result/page.tsx",
-                                                        lineNumber: 1071,
+                                                        lineNumber: 1073,
                                                         columnNumber: 15
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -4966,20 +4973,20 @@ function SimulationResultPage() {
                                                             "Based on counterfactual simulation adjusted for baseline severity, Strategy A demonstrates greater HbA1c reduction and",
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("br", {}, void 0, false, {
                                                                 fileName: "[project]/src/app/drd/simulation-result/page.tsx",
-                                                                lineNumber: 1096,
+                                                                lineNumber: 1098,
                                                                 columnNumber: 17
                                                             }, this),
                                                             "faster response, at the cost of increased hypoglycemia risk. Key drivers include longer DM duration and adherence level."
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/src/app/drd/simulation-result/page.tsx",
-                                                        lineNumber: 1084,
+                                                        lineNumber: 1086,
                                                         columnNumber: 15
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/app/drd/simulation-result/page.tsx",
-                                                lineNumber: 1070,
+                                                lineNumber: 1072,
                                                 columnNumber: 13
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -5036,7 +5043,7 @@ function SimulationResultPage() {
                                                                         }
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/src/app/drd/simulation-result/page.tsx",
-                                                                        lineNumber: 1149,
+                                                                        lineNumber: 1151,
                                                                         columnNumber: 25
                                                                     }, this),
                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -5046,57 +5053,57 @@ function SimulationResultPage() {
                                                                         children: label
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/src/app/drd/simulation-result/page.tsx",
-                                                                        lineNumber: 1158,
+                                                                        lineNumber: 1160,
                                                                         columnNumber: 23
                                                                     }, this)
                                                                 ]
                                                             }, tab, true, {
                                                                 fileName: "[project]/src/app/drd/simulation-result/page.tsx",
-                                                                lineNumber: 1127,
+                                                                lineNumber: 1129,
                                                                 columnNumber: 21
                                                             }, this);
                                                         })
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/drd/simulation-result/page.tsx",
-                                                        lineNumber: 1112,
+                                                        lineNumber: 1114,
                                                         columnNumber: 15
                                                     }, this),
                                                     activeTab === "efficacy" ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(EfficacyContent, {}, void 0, false, {
                                                         fileName: "[project]/src/app/drd/simulation-result/page.tsx",
-                                                        lineNumber: 1165,
+                                                        lineNumber: 1167,
                                                         columnNumber: 43
                                                     }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(AERiskContent, {}, void 0, false, {
                                                         fileName: "[project]/src/app/drd/simulation-result/page.tsx",
-                                                        lineNumber: 1165,
+                                                        lineNumber: 1167,
                                                         columnNumber: 65
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/app/drd/simulation-result/page.tsx",
-                                                lineNumber: 1102,
+                                                lineNumber: 1104,
                                                 columnNumber: 13
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/app/drd/simulation-result/page.tsx",
-                                        lineNumber: 1055,
+                                        lineNumber: 1058,
                                         columnNumber: 12
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/app/drd/simulation-result/page.tsx",
-                                lineNumber: 887,
+                                lineNumber: 891,
                                 columnNumber: 9
                             }, this)
                         }, void 0, false, {
                             fileName: "[project]/src/app/drd/simulation-result/page.tsx",
-                            lineNumber: 876,
+                            lineNumber: 880,
                             columnNumber: 7
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/app/drd/simulation-result/page.tsx",
-                    lineNumber: 860,
+                    lineNumber: 864,
                     columnNumber: 7
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -5137,7 +5144,7 @@ function SimulationResultPage() {
                                 }
                             }, void 0, false, {
                                 fileName: "[project]/src/app/drd/simulation-result/page.tsx",
-                                lineNumber: 1197,
+                                lineNumber: 1199,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -5147,18 +5154,18 @@ function SimulationResultPage() {
                                 children: "Save Simulation"
                             }, void 0, false, {
                                 fileName: "[project]/src/app/drd/simulation-result/page.tsx",
-                                lineNumber: 1198,
+                                lineNumber: 1200,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/app/drd/simulation-result/page.tsx",
-                        lineNumber: 1174,
+                        lineNumber: 1176,
                         columnNumber: 9
                     }, this)
                 }, void 0, false, {
                     fileName: "[project]/src/app/drd/simulation-result/page.tsx",
-                    lineNumber: 1173,
+                    lineNumber: 1175,
                     columnNumber: 7
                 }, this),
                 showSaveModal && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -5206,7 +5213,7 @@ function SimulationResultPage() {
                                         }
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/drd/simulation-result/page.tsx",
-                                        lineNumber: 1233,
+                                        lineNumber: 1235,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -5218,7 +5225,7 @@ function SimulationResultPage() {
                                         }
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/drd/simulation-result/page.tsx",
-                                        lineNumber: 1234,
+                                        lineNumber: 1236,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -5231,13 +5238,13 @@ function SimulationResultPage() {
                                         }
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/drd/simulation-result/page.tsx",
-                                        lineNumber: 1235,
+                                        lineNumber: 1237,
                                         columnNumber: 15
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/app/drd/simulation-result/page.tsx",
-                                lineNumber: 1232,
+                                lineNumber: 1234,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -5262,7 +5269,7 @@ function SimulationResultPage() {
                                         children: "Save Simulation"
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/drd/simulation-result/page.tsx",
-                                        lineNumber: 1241,
+                                        lineNumber: 1243,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -5292,7 +5299,7 @@ function SimulationResultPage() {
                                                         children: "Simulation Name *"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/drd/simulation-result/page.tsx",
-                                                        lineNumber: 1249,
+                                                        lineNumber: 1251,
                                                         columnNumber: 19
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -5317,13 +5324,13 @@ function SimulationResultPage() {
                                                         }
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/drd/simulation-result/page.tsx",
-                                                        lineNumber: 1252,
+                                                        lineNumber: 1254,
                                                         columnNumber: 19
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/app/drd/simulation-result/page.tsx",
-                                                lineNumber: 1248,
+                                                lineNumber: 1250,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -5346,7 +5353,7 @@ function SimulationResultPage() {
                                                         children: "Description"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/drd/simulation-result/page.tsx",
-                                                        lineNumber: 1276,
+                                                        lineNumber: 1278,
                                                         columnNumber: 19
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -5371,25 +5378,25 @@ function SimulationResultPage() {
                                                         }
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/drd/simulation-result/page.tsx",
-                                                        lineNumber: 1279,
+                                                        lineNumber: 1281,
                                                         columnNumber: 19
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/app/drd/simulation-result/page.tsx",
-                                                lineNumber: 1275,
+                                                lineNumber: 1277,
                                                 columnNumber: 17
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/app/drd/simulation-result/page.tsx",
-                                        lineNumber: 1246,
+                                        lineNumber: 1248,
                                         columnNumber: 15
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/app/drd/simulation-result/page.tsx",
-                                lineNumber: 1239,
+                                lineNumber: 1241,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -5422,7 +5429,7 @@ function SimulationResultPage() {
                                         children: "Close"
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/drd/simulation-result/page.tsx",
-                                        lineNumber: 1307,
+                                        lineNumber: 1309,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -5446,35 +5453,35 @@ function SimulationResultPage() {
                                         children: "Save"
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/drd/simulation-result/page.tsx",
-                                        lineNumber: 1330,
+                                        lineNumber: 1332,
                                         columnNumber: 15
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/app/drd/simulation-result/page.tsx",
-                                lineNumber: 1305,
+                                lineNumber: 1307,
                                 columnNumber: 13
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/app/drd/simulation-result/page.tsx",
-                        lineNumber: 1217,
+                        lineNumber: 1219,
                         columnNumber: 11
                     }, this)
                 }, void 0, false, {
                     fileName: "[project]/src/app/drd/simulation-result/page.tsx",
-                    lineNumber: 1204,
+                    lineNumber: 1206,
                     columnNumber: 9
                 }, this)
             ]
         }, void 0, true, {
             fileName: "[project]/src/app/drd/simulation-result/page.tsx",
-            lineNumber: 857,
+            lineNumber: 861,
             columnNumber: 9
         }, this)
     }, void 0, false, {
         fileName: "[project]/src/app/drd/simulation-result/page.tsx",
-        lineNumber: 856,
+        lineNumber: 860,
         columnNumber: 5
     }, this);
 }
